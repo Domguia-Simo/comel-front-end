@@ -8,7 +8,7 @@ const Header=()=>{
     const [hide ,setHide] = useState(false)
 
     useMemo(()=>{
-        if(location.pathname === '/login'){
+        if(location.pathname === '/login' || location.pathname === '/dashboard'){
             setHide(true)   
         }
     },[useLocation()])
