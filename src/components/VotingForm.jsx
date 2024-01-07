@@ -48,6 +48,7 @@ const VotingForm=()=>{
         }
 
         async function findLocation(){
+
             await window.navigator.geolocation.getCurrentPosition(async(point) => {
                 if(point.coords){
                     setPosition({
@@ -80,7 +81,7 @@ const VotingForm=()=>{
                     setLoading(false)
 
                     if(res.status){
-                        navigate("/email-verification")
+                        navigate("/email-verification",{state:{name:data.name ,email:data.email ,classe:data.class}})
                     }else{
                         setError(res.message)
                     }

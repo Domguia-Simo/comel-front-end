@@ -1,5 +1,5 @@
 import React,{useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation} from 'react-router-dom'
 
 import Header from './Header'
 
@@ -12,30 +12,45 @@ const EmailVerification=()=>{
     const [loading ,setLoading] = useState(false)
     const [code ,setCode] = useState(null)
     const [error ,setError] = useState('')
+    const [userInfo ,setUserInfo] = useState(useLocation().state)
+    const [success ,setSuccess] = useState('')
+    const [respond ,setRespond] = useState('')
 
 
     async function sendConfirmation(){
-        console.log(code)
+        // console.log(code)
         if(code == null){
             return
         }
         setError('')
         setLoading(true)
         try{
-            fetch('http://lcalhost' ,{
+            fetch('http://localhost:5000/api/voter/validateVotes' ,{
                 method:'post',
                 headers:{
                     'content-type':'application/json',
                     'accept':'application/json',
                     'access-control-origin':'*'
                 },
-                body:JSON.stringify({code:code})
+                body:JSON.stringify({
+                    name:userInfo.name ,
+                    email:userInfo.email,
+                    classe:userInfo.classe,
+                    code:code
+                })
             })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                if(data.status){
+                    setSuccess('Vote Registered successfully')
+                    setTimeout(()=>{
+                        navigate('/')
+                    },2500)
+                }else{
+                    setRespond(data.message)
+                }
                 setLoading(false)
-                navigate('/')
 
             })
             .catch(err => {
@@ -80,6 +95,12 @@ const EmailVerification=()=>{
                                 <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i>
                             </span>
                          :''}
+                         {
+                            respond != '' ? <span style={{color:'darkred'}}>{respond}</span>:''
+                         }
+                         {
+                            success != '' ? <span style={{color:'green'}}>{success}</span>:''
+                         }
                     </div>
 
                     <blockquote>
