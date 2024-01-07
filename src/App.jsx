@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage'
 import EmailVerification from './components/EmailVerification'
 import VotingForm from './components/VotingForm'
 import Login from './components/Login'
+import Dashboard from './components/Dashboard'
 
 import './assets/fontawesome/css/all.css'
 
@@ -17,6 +18,7 @@ const App=()=>{
                 <Route Component={VotingForm}  path={'/voting-form'}/>
                 <Route Component={EmailVerification}  path={'/email-verification'}/>
                 <Route Component={Login} path={'/login'}/>
+                <Route Component={Dashboard} path={'/dashboard'}/>
             </Routes>
 
             </Router>

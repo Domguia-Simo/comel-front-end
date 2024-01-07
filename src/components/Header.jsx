@@ -1,9 +1,17 @@
-import React from 'react'
+import React ,{useState ,useMemo} from 'react'
 import {useLocation ,useNavigate } from 'react-router-dom'
 
 const Header=()=>{
 
+    let location = useLocation()
     const navigate = useNavigate()
+    const [hide ,setHide] = useState(false)
+
+    useMemo(()=>{
+        if(location.pathname === '/login'){
+            setHide(true)   
+        }
+    },[useLocation()])
 
     return( 
         <React.Fragment>
@@ -31,11 +39,15 @@ const Header=()=>{
                     />
                     IAI COMEL
                 </span>
+                {
+                    hide ? '' :
                <span style={{ border:'solid 1px ',borderRadius:'10px', cursor:'pointer' ,padding:'5px 7px'}}
-                    onClick={()=>navigate("login")}
+                    onClick={()=>navigate("/login")}
                 >
                     Admin <i className='far fa-user'></i>
                </span>
+
+                }
             </div>
         </React.Fragment>
     )

@@ -53,7 +53,7 @@ const EmailVerification=()=>{
 
     return(
         <React.Fragment>
-              <div  className='body'>
+            <div  className='body'>
                 <Header/>
                 <form onSubmit={(e)=>e.preventDefault()}>
 
