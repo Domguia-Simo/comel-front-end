@@ -1,4 +1,4 @@
-import React,{useState ,useMemo } from 'react'
+import React,{useState ,useMemo ,useLayoutEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Header from './Header'
@@ -60,6 +60,17 @@ const Dashboard =()=>{
     const [selectedMenu ,setSelectedMenu] = useState()
 
     const [loading ,setLoading] = useState(false)
+
+useLayoutEffect(()=>{
+    async function verify(){
+        if(await localStorage.getItem('token') == null){
+            navigate('/login')
+            window.location.pathname = 'login'
+        }
+    }
+    verify()
+} ,[0])
+
 
     let currentLevel
     switch(level){

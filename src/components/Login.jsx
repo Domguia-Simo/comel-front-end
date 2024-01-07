@@ -8,17 +8,22 @@ import '../assets/styles/global.css'
 
 const Login=()=>{
     const navigate = useNavigate()
-    const [email ,setEmail] = useState()
-    const [password ,setPassword] = useState()
+    const [email ,setEmail] = useState('')
+    const [password ,setPassword] = useState('')
     const [loading ,setLoading] = useState(false)
     const [error ,setError] = useState('')
+    const [respond ,setRespond] = useState('')
 
     async function submit(){
+        if(email == '' || password == ''){
+            return
+        }
         setError('')
+        setRespond('')
         setLoading(true)
-        navigate('/dashboard')
-return
-        fetch('http://localhost',{
+        // navigate('/dashboard')
+// return
+        fetch('http://localhost:5000/api/admin/login',{
             method:'post',
             headers:{
                 'content-type':'application/json',
@@ -26,15 +31,20 @@ return
                 'access-conteol-origin':'*'
             },
             body:JSON.stringify({
-                name:email,
+                email:email,
                 password:password
             })
         })
         .then(res => res.json())
-        .then(data => {
-            console.log(data)
+        .then(async(data) => {
+            // console.log(data)
+            if(data.token){
+                await localStorage.setItem('token' ,data.token)
+                navigate('/dashboard')
+            }else{
+                setRespond(data.message)
+            }
             setLoading(false)
-            navigate('/dashboard')
         })
         .catch(e => {
             console.log(e)
@@ -75,6 +85,9 @@ return
                                 <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i>
                             </span>
                          :''}
+                         {
+                            respond != ''?<span style={{color:'darkred'}}>{respond}</span>:''
+                         }
                     </div>
 
                         <div style={{display:'flex',alignItems:'center' ,columnGap:'5px'}}>

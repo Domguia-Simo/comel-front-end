@@ -48,55 +48,74 @@ const VotingForm=()=>{
         }
 
         async function findLocation(){
-            await window.navigator.geolocation.getCurrentPosition(point => {
-                // console.log(point.coords)
+            await window.navigator.geolocation.getCurrentPosition(async(point) => {
                 if(point.coords){
                     setPosition({
                         longitude:point.coords.longitude,
                         latitude:point.coords.latitude
                     })
                 }
-            })
+
+            // comparing with the location of the school
+
+                try{
+                    setLoading(true)
+                    let respond = await fetch('http://localhost:5000/api/voter/votes' ,{
+                        method:'post',
+                        headers:{
+                            'content-type':'application/json',
+                            'accept':'application/json',
+                            'access-control-origin':'*'
+                        },
+                        body:JSON.stringify({
+                            name:data.name,
+                            email:data.email,
+                            classe:data.class,
+                            candidate:voted.name
+                        })
+                    })
+                    let res = await respond.json()
+                    console.log(res)
+    
+                    setLoading(false)
+
+                    if(res.status){
+                        navigate("/email-verification")
+                    }else{
+                        setError(res.message)
+                    }
+    
+                    return
+    
+                }
+                catch(e){
+                    console.log(e)
+                    setError('Verify your internet connection')
+                    setLoading(false)
+                }
+
+
+            }
+            ,
+            error => {
+                if(error.code == error.PERMISSION_DENIED){
+                    setError(<div>You MUST enable your location to vote <br/> settings - privacy - location</div>)
+                }
+                if(error.code == error.POSITION_UNAVAILABLE){
+                    setError('Sorry but your device does not support geolocation, use another device to vote')
+                }
+            }
+            )
         }
 
         async function sendInfo(){
             setError('')
-            let location
             if(data.name === '' || data.email === '' || data.class === '' || data.confirm === false){
                 return
             }
 
-            location = await findLocation()
-            // comparing with the location of the school
-            navigate("/email-verification")
-return
-            try{
-                setLoading(true)
-                let respond = await fetch('http://localhost:5000' ,{
-                    method:'post',
-                    headers:{
-                        'content-type':'application/json',
-                        'accept':'application/json',
-                        'access-control-origin':'*'
-                    },
-                    body:JSON.stringify({
-                        name:data.name,
-                        email:data.email,
-                        class:data.class,
-                        candidate:voted.name
-                    })
-                })
-                let res = await respond.json()
-                console.log(res)
-                navigate("email-verification")
-                setLoading(true)
+             await findLocation()
 
-            }
-            catch(e){
-                console.log(e)
-                setError('Verify your internet connection')
-                setLoading(false)
-            }
         }
 
         let currentLevel
@@ -147,12 +166,16 @@ return
 
                     <div>
                         {error ? 
-                            <span style={{color:'darkred'}}>
+                            <center style={{color:'darkred'}}>
                                 {error} &nbsp;
-                                <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i>
-                            </span>
+                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                            </center>
                          :''}
                     </div>
+
+                    <blockquote>
+                        Please you will need to <b>authorise location</b>
+                    </blockquote>
 
                     <input type="text" placeholder='Name' value={data.name} name="name" onChange={e=>handleChange(e)} required/>
                     <input type="email" placeholder='Email' value={data.email} name="email" onChange={e=>handleChange(e)} required/>

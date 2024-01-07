@@ -1,5 +1,5 @@
 import React ,{useState ,useMemo} from 'react'
-import {useLocation ,useNavigate } from 'react-router-dom'
+import {useLocation ,useNavigate ,Link } from 'react-router-dom'
 
 const Header=()=>{
 
@@ -28,6 +28,7 @@ const Header=()=>{
                 justifyContent:'space-between'
                 }}>
                <span style={{display:'flex' ,alignItems:'center'}}>
+                    <Link to="/">
                     <img
                         style={{
                             borderRadius:'10px',
@@ -37,6 +38,7 @@ const Header=()=>{
                         }} 
                         src={require('../assets/images/logo.jpeg')} alt="logo"
                     />
+                    </Link>
                     IAI COMEL
                 </span>
                 {
