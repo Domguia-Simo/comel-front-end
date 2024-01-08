@@ -1,28 +1,44 @@
 import React from 'react'
-import { Route ,Routes ,BrowserRouter as Router } from 'react-router-dom'
+import {
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider
+} from 'react-router-dom'
 
 import LandingPage from './components/LandingPage'
 import EmailVerification from './components/EmailVerification'
 import VotingForm from './components/VotingForm'
 import Login from './components/Login'
-import Dashboard from './components/Dashboard'
+import Views from './components/Dashboard/view'
 
 import './assets/fontawesome/css/all.css'
+import Header from './components/Header'
+import Create from './components/Dashboard/Create'
+import Result from './components/Dashboard/Result'
+import Dashboard from './components/Dashboard'
 
-const App=()=>{
-    return(
-            <Router>
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/" element={<Header />}>
+            <Route index element={<LandingPage />} />
+            <Route path="voting-form" element={<VotingForm />} />
+            <Route path="email-verification" element={<EmailVerification />} />
+            <Route path="login" element={<Login />} />
+            <Route path="dashboard" element={<Dashboard />} >
+                <Route path="view" element={<Views />} />
+                <Route path="create" element={<Create />} />
+                <Route path="result" element={<Result />} />
+            </Route>
 
-            <Routes>
-                <Route Component={LandingPage}  path={'/'}/>
-                <Route Component={VotingForm}  path={'/voting-form'}/>
-                <Route Component={EmailVerification}  path={'/email-verification'}/>
-                <Route Component={Login} path={'/login'}/>
-                <Route Component={Dashboard} path={'/dashboard'}/>
-            </Routes>
-
-            </Router>
+            {/* <Route path="*" element={<NotFound />} /> */}
+        </Route>
     )
+)
+const App = () => {
+    return (
+        <RouterProvider router={router} />
+    );
 }
 
 export default App

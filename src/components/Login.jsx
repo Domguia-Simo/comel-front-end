@@ -56,7 +56,7 @@ const Login=()=>{
     return(
         <React.Fragment>
             <div  className='body2'>
-                <Header/>
+                {/* <Header/> */}
                 <form onSubmit={(e)=>e.preventDefault()}>
 
                     <div

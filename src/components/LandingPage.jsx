@@ -66,7 +66,7 @@ const LandingPage=()=>{
     return(
         <React.Fragment>
             <div className='body'>
-                <Header/>
+                {/* <Header/> */}
 
                 <div className="main-container">
                     {displayCandidate}

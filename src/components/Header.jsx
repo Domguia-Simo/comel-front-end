@@ -1,5 +1,5 @@
 import React ,{useState ,useMemo} from 'react'
-import {useLocation ,useNavigate ,Link } from 'react-router-dom'
+import {useLocation ,useNavigate ,Link, Outlet } from 'react-router-dom'
 
 const Header=()=>{
 
@@ -51,6 +51,7 @@ const Header=()=>{
 
                 }
             </div>
+            <Outlet />
         </React.Fragment>
     )
 }

@@ -146,7 +146,7 @@ const VotingForm=()=>{
     return(
         <React.Fragment>
             <div  className='body'>
-                <Header/>
+                {/* <Header/> */}
                 <form onSubmit={(e)=>e.preventDefault()}>
 
                     <div
