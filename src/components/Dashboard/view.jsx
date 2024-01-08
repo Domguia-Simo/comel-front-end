@@ -82,17 +82,7 @@ export default function Views() {
             break;
     }
 
-    // useMemo(() => {
-    //     let newStudents = students.map(student => {
-    //         if (student.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) {
-    //             student.display = true
-    //         } else {
-    //             student.display = false
-    //         }
-    //         return student
-    //     })
-    //     setStudents(newStudents)
-    // }, [filter, classe])
+    
     function handleLevelChange(e) {
 
         setLevel(e.target.value)
@@ -162,9 +152,7 @@ export default function Views() {
 
                 </div>
 
-                <input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} placeholder='Enter student name'
-                    style={{ width: '200px', padding: '10px 20px', borderRadius: '5px', border: 'solid 1px rgba(0,0,0,0.2)' }}
-                />
+                
 
             </div>
             <Outlet />

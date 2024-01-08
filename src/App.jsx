@@ -17,7 +17,7 @@ import Header from './components/Header'
 import Create from './components/Dashboard/Create'
 import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
-import ViewDetail, { CareersViewsDetial, viewDetailLoader } from './components/Dashboard/ViewDetail'
+import ViewDetail, {  viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
                         path=":classes"
                         element={<ViewDetail />}
                         loader={viewDetailLoader}
-                        errorElement={<CareersViewsDetial />}
+                        errorElement={<ViewsDetialError />}
                     />
                 </Route>
                 <Route path="create" element={<Create />} />
