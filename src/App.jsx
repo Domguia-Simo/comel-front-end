@@ -6,7 +6,7 @@ import {
     RouterProvider
 } from 'react-router-dom'
 
-import LandingPage from './components/LandingPage'
+import LandingPage, { landingPageLoader } from './components/LandingPage'
 import EmailVerification from './components/EmailVerification'
 import VotingForm from './components/VotingForm'
 import Login from './components/Login'
@@ -17,12 +17,16 @@ import Header from './components/Header'
 import Create from './components/Dashboard/Create'
 import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
-import ViewDetail, {  viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
+import ViewDetail, { viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Header />}>
-            <Route index element={<LandingPage />} />
+            <Route
+                index
+                element={<LandingPage />}
+                loader={landingPageLoader}
+            />
             <Route path="voting-form" element={<VotingForm />} />
             <Route path="email-verification" element={<EmailVerification />} />
             <Route path="login" element={<Login />} />
