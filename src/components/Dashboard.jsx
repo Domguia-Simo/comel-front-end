@@ -62,7 +62,7 @@ const Dashboard = () => {
         datasets: [
             {
                 label: 'Elections of Votes',
-                data: [],
+                data: [1,1,1,1],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -226,6 +226,7 @@ const Dashboard = () => {
                             }}>Vote</span>
                         <span
                             onClick={() => {
+                                setLoadingResult(true)
                                 setSelectedMenu('result')
                             }}
                             style={{
@@ -311,6 +312,7 @@ const Dashboard = () => {
                             }}>Vote</span>
                         <span
                             onClick={() => {
+                                setLoadingResult(true)
                                 setSelectedMenu('result')
                             }
                             }
@@ -327,7 +329,7 @@ const Dashboard = () => {
         )
     }
     const getElectionResult = async () => {
-        // setLoadingResult(true)
+        
         await fetch('http://localhost:5000/api/election/result/659b1e70d7a408d0cba7d535', {
             method: 'get',
             headers: {
@@ -355,11 +357,38 @@ const Dashboard = () => {
                 console.log("voted", voted);
                 console.log("pieData", pieData);
 
-                PieData.labels = labels
                 PieData.datasets.data = pieData
-                setPieData(PieData);
+                PieData.labels = labels
+                setPieData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Elections of Votes',
+                            data: pieData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                });
                 // setStudents(data.voters)
-                setLoadingResult(false)
+                setTimeout(() => {
+                    setLoadingResult(false);                    
+                }, 1000);
                 // setLoading(false)
 
             })
@@ -370,7 +399,8 @@ const Dashboard = () => {
             })
     }
     if (selectedMenu == 'result') {
-        getElectionResult()
+        // setLoadingResult(true);
+        getElectionResult();
         return (
             <React.Fragment>
                 <div>
@@ -406,13 +436,14 @@ const Dashboard = () => {
                     <br />
                     <center>
                         <>
-                            {/* {loadingResult ? (
+                            {loadingResult ? (
                                 <img src={require('../assets/images/loader.gif')} width='200px' alt="loader" />
-                            ) : ( */}
+                            ) : (
                                 <div style={{ height: "500px" }}>
+                                    <h1>{PieData.datasets.data}</h1>
                                     <Pie data={PieData} />;
                                 </div>
-                            {/* )} */}
+                            )}
                         </>
                     </center>
                 </div>
