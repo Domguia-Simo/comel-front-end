@@ -52,84 +52,23 @@ const rawStudents = [
     }
 ]
 
-function Views() {
+export default function Views() {
     const navigate = useNavigate()
-    const [PieData, setPieData] = useState({
-        labels: [],
-        datasets: [
-            {
-                label: 'Elections of Votes',
-                data: [1, 1, 1, 1],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    })
     const [level, setLevel] = useState('One')
     const [classe, setClasse] = useState('ba1a')
     const [filter, setFilter] = useState('')
     const [students, setStudents] = useState(rawStudents)
-
-    const [selectedMenu, setSelectedMenu] = useState('view')
-
-    const [loadingResult, setLoadingResult] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    useLayoutEffect(() => {
-        async function verify() {
-            if (await localStorage.getItem('token') == null) {
-                navigate('/login')
-                window.location.pathname = 'login'
-            }
-        }
-        verify()
-    }, [0])
-
-    useEffect(() => {
-        // fetchData()
-    }, [filter, classe])
-    // async function fetchData() {
-    //     setLoading(true)
-
-    //     await fetch('http://comel-back-end.vercel.app/api/voter/getVoterByClass', {
-    //         method: 'post',
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             'accept': 'application/json',
-    //             'access-control-origin': '*'
-    //         },
-    //         body: JSON.stringify({
-    //             classes: classe
-    //         })
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             // console.log(data)
-    //             setStudents(data.voters)
-    //             setLoading(false)
-
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //             setLoading(false)
-    //         })
-    // }
-
+    // useLayoutEffect(() => {
+    //     async function verify() {
+    //         if (await localStorage.getItem('token') == null) {
+    //             navigate('/login')
+    //             window.location.pathname = 'login'
+    //         }
+    //     }
+    //     verify()
+    // }, [0])
     let currentLevel
     switch (level) {
         case "One":
@@ -143,17 +82,17 @@ function Views() {
             break;
     }
 
-    useMemo(() => {
-        let newStudents = students.map(student => {
-            if (student.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) {
-                student.display = true
-            } else {
-                student.display = false
-            }
-            return student
-        })
-        setStudents(newStudents)
-    }, [filter, classe])
+    // useMemo(() => {
+    //     let newStudents = students.map(student => {
+    //         if (student.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) {
+    //             student.display = true
+    //         } else {
+    //             student.display = false
+    //         }
+    //         return student
+    //     })
+    //     setStudents(newStudents)
+    // }, [filter, classe])
     function handleLevelChange(e) {
 
         setLevel(e.target.value)
@@ -182,20 +121,20 @@ function Views() {
         )
     })
 
-    let displayStudents = students.map((student, index) => {
-        let state
-        if (student.status == 'VOTED') {
-            state = 'true'
-        } else {
-            state = 'false'
-        }
-        return (
-            <tr key={index} style={{ display: student.display ? '' : 'none' }}>
-                <td style={{ padding: '5px' }}>{student.name}</td>
-                <td style={{ color: student.status == 'VOTED' ? 'green' : 'red', padding: '5px' }}>{state}</td>
-            </tr>
-        )
-    })
+    // let displayStudents = students.map((student, index) => {
+    //     let state
+    //     if (student.status == 'VOTED') {
+    //         state = 'true'
+    //     } else {
+    //         state = 'false'
+    //     }
+    //     return (
+    //         <tr key={index} style={{ display: student.display ? '' : 'none' }}>
+    //             <td style={{ padding: '5px' }}>{student.name}</td>
+    //             <td style={{ color: student.status == 'VOTED' ? 'green' : 'red', padding: '5px' }}>{state}</td>
+    //         </tr>
+    //     )
+    // })
 
     return (
         <div>
@@ -209,7 +148,13 @@ function Views() {
                     </div>
 
                     <div>
-                        <select value={classe} id="class" onChange={(e) => setClasse(e.target.value)} style={{ padding: '5px 10px' }}>
+                        <select value={classe} id="class"
+                            onChange={(e) => {
+                                setClasse(e.target.value)
+                                let url = '/dashboard/view/'+ e.target.value 
+                                navigate(url);
+                            }
+                            } style={{ padding: '5px 10px' }}>
                             {displayClasses}
                         </select>
                         <label htmlFor='class'> class</label>
@@ -222,30 +167,9 @@ function Views() {
                 />
 
             </div>
-            <h2 style={{ marginLeft: ' 10px' }}>Lists of students in <b style={{ color: 'blue' }}>{classe}</b></h2>
-            <center>
-                {
-                    loading ?
-                    <></>
-                        // <img src={require('../assets/images/loader.gif')} width='40px' alt="loader" />
-                        :
-                        <table border='1' style={{ borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr>
-                                    <th style={{ padding: '5px' }}>Name</th>
-                                    <th style={{ padding: '5px' }}>Voted</th>
-                                </tr>
-                            </thead>
+            <Outlet />
 
-                            <tbody>
-                                {/* {displayStudents} */}
-                            </tbody>
-                        </table>
-
-                }
-            </center>
         </div>
     )
 }
 
-export default Views

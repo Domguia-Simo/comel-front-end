@@ -15,9 +15,8 @@ const Dashboard = () => {
             <div>
                 <header>
                     <nav>
-                        {/* <h1>Jobarouter</h1> */}
-                        <NavLink to="view">View</NavLink>
-                        <NavLink to="create">Vote</NavLink>
+                        <NavLink to="view/BA1B">View</NavLink>
+                        <NavLink to="/">Vote</NavLink>
                         <NavLink to="result">Result</NavLink>
                     </nav>
                 </header>

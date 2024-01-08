@@ -15,8 +15,9 @@ import Views from './components/Dashboard/view'
 import './assets/fontawesome/css/all.css'
 import Header from './components/Header'
 import Create from './components/Dashboard/Create'
-import Result from './components/Dashboard/Result'
+import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
+import ViewDetail, { CareersViewsDetial, viewDetailLoader } from './components/Dashboard/ViewDetail'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,9 +27,19 @@ const router = createBrowserRouter(
             <Route path="email-verification" element={<EmailVerification />} />
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />} >
-                <Route path="view" element={<Views />} />
+                <Route path="view" element={<Views />} >
+                    <Route
+                        path=":classes"
+                        element={<ViewDetail />}
+                        loader={viewDetailLoader}
+                        errorElement={<CareersViewsDetial />}
+                    />
+                </Route>
                 <Route path="create" element={<Create />} />
-                <Route path="result" element={<Result />} />
+                <Route
+                    path="result"
+                    element={<Result />}
+                    loader={getElectionResult} />
             </Route>
 
             {/* <Route path="*" element={<NotFound />} /> */}
