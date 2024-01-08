@@ -21,8 +21,7 @@ const Login=()=>{
         setError('')
         setRespond('')
         setLoading(true)
-        // navigate('/dashboard')
-// return
+
         fetch('http://localhost:5000/api/admin/login',{
             method:'post',
             headers:{

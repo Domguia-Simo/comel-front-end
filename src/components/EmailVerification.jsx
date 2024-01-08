@@ -23,6 +23,7 @@ const EmailVerification=()=>{
             return
         }
         setError('')
+        setRespond('')
         setLoading(true)
         try{
             fetch('http://localhost:5000/api/voter/validateVotes' ,{

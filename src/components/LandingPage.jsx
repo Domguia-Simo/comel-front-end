@@ -16,11 +16,11 @@ const raw_candiidates = [
         name:'John',
         description:'I John, i promise that if i become the president i will respect all what i said'
     },
-    {
-        picture:require('../assets/images/mali.jpg'),
-        name:'Peter',
-        description:'I Peter, i promise that if i become the president i will respect all what i said '
-    },
+    // {
+    //     picture:require('../assets/images/mali.jpg'),
+    //     name:'Peter',
+    //     description:'I Peter, i promise that if i become the president i will respect all what i said '
+    // },
 ]
 
 const LandingPage=()=>{

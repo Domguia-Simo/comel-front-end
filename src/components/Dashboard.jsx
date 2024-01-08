@@ -1,5 +1,5 @@
-import React,{useState ,useMemo ,useLayoutEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import React,{useState ,useMemo ,useLayoutEffect ,useEffect} from 'react'
+import { useNavigate } from 'react-router-dom' 
 
 import Header from './Header'
 
@@ -57,7 +57,7 @@ const Dashboard =()=>{
     const [filter ,setFilter] = useState('')
     const [students ,setStudents] = useState(rawStudents)
 
-    const [selectedMenu ,setSelectedMenu] = useState()
+    const [selectedMenu ,setSelectedMenu] = useState('view')
 
     const [loading ,setLoading] = useState(false)
 
@@ -71,19 +71,45 @@ useLayoutEffect(()=>{
     verify()
 } ,[0])
 
+useEffect(()=>{
+    setLoading(true)
+    async function fetchData(){
+        fetch('http://localhost:5000/api/voter/getVoterByClass',{
+            method:'post',
+            headers:{
+                'content-type':'application/json',
+                'accept':'application/json',
+                'access-control-origin':'*'
+            },
+            body:JSON.stringify({
+                classes:classe 
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            setStudents(data.voters)
+            setLoading(false)
+
+        })
+        .catch(err => {
+            console.log(err)
+            setLoading(false)
+        })
+    }
+    fetchData()
+},[filter ,classe])
+
 
     let currentLevel
     switch(level){
         case "One":
-            // setClasse('ba1a')
             currentLevel = 1
         break;
         case "Two":
-            // setClasse('ba2a')
             currentLevel = 2
         break;
         case "Three":
-            // setClasse('se3')
             currentLevel = 3
         break;
     }
@@ -98,7 +124,7 @@ useLayoutEffect(()=>{
                return student
             })
             setStudents(newStudents)
-        },[filter])
+        },[filter ,classe])
 
         function handleLevelChange(e){
 
@@ -129,68 +155,169 @@ useLayoutEffect(()=>{
     })
 
     let displayStudents = students.map((student ,index) => {
-        let state = student.voted ? 'true':'false'
+        let state 
+        if(student.status == 'VOTED'){
+            state = 'true'
+        }else{
+            state ='false'
+        }
         return(
             <tr key={index} style={{display:student.display ? '':'none'}}>
                 <td style={{padding:'5px'}}>{student.name}</td>
-                <td style={{color: student.voted ? 'green':'red' ,padding:'5px'}}>{state}</td>
+                <td style={{color: student.status == 'VOTED' ? 'green':'red' ,padding:'5px'}}>{state}</td>
             </tr>
         )
     })
 
-    return(
-        <React.Fragment>
+    if(selectedMenu == 'view'){
+        return(
+            <React.Fragment>
+                <div>
+                    <Header/>
+                    <div style={{
+                        border:'solid 1px rgba(0,0,0,0.2)',
+                        display:'flex',
+                        // justifyContent:'space-around',
+                        backgroundColor:'rgba(0,0,0,0.2)'
+                    }}>
+                        <span 
+                            onClick={()=>setSelectedMenu('view')}
+                            style={{
+                                color:selectedMenu == 'view' ? 'green':'',
+                                padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}> View Students </span>
+                        <span 
+                            onClick={()=>setSelectedMenu('create')}
+                            style={{
+                                color:selectedMenu == 'create' ? 'green':'',
+                                padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Vote</span>
+                        <span 
+                            onClick={()=>setSelectedMenu('result')}
+                            style={{
+                                color:selectedMenu == 'result' ? 'green':'',
+                                padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Results</span>
+                    </div>
+                    <br/>
+    
+                        <div>
+                            <div style={{display:'flex',flexDirection:'column' ,rowGap:'10px' ,marginLeft:'10px'}}>
+                                <div style={{display:'flex' ,columnGap:'20px'}}>
+                                    <div>
+                                        <select value={level} id="level" onChange={(e)=>handleLevelChange(e)} style={{padding:'5px 10px'}}>
+                                            {displayLevel}
+                                        </select>
+                                        <label htmlFor='level'> level</label>
+                                    </div> 
+    
+                                    <div>
+                                        <select value={classe} id="class" onChange={(e)=>setClasse(e.target.value)} style={{padding:'5px 10px'}}>
+                                            {displayClasses}
+                                        </select>
+                                        <label htmlFor='class'> class</label>
+                                    </div>
+    
+                                </div>
+    
+                                <input type="text" value={filter} onChange={(e)=>setFilter(e.target.value)} placeholder='Enter student name'
+                                    style={{width:'200px' ,padding:'10px 20px' ,borderRadius:'5px' ,border:'solid 1px rgba(0,0,0,0.2)'}}
+                                />
+    
+                            </div>
+                            <h2 style={{marginLeft:' 10px'}}>Lists of students in <b style={{color:'blue'}}>{classe}</b></h2>
+                            <center>
+                                {
+                                    loading ? 
+                                    <img src={require('../assets/images/loader.gif')} width='40px' alt="loader"/>
+                                    :
+                                    <table border='1' style={{borderCollapse:'collapse'}}>
+                                        <thead>
+                                            <tr>
+                                                <th style={{padding:'5px'}}>Name</th>
+                                                <th style={{padding:'5px'}}>Voted</th>
+                                            </tr>
+                                        </thead>
+    
+                                        <tbody>
+                                            {displayStudents}
+                                        </tbody>
+                                    </table>
+    
+                                }
+                            </center>
+                        </div>
+    
+                </div>
+            </React.Fragment>
+        )
+    }
+    if(selectedMenu == 'create'){
+        return(
+            <React.Fragment>
             <div>
                 <Header/>
-                <div>
-
+                <div style={{
+                    border:'solid 1px rgba(0,0,0,0.2)',
+                    display:'flex',
+                    // justifyContent:'space-around',
+                    backgroundColor:'rgba(0,0,0,0.2)'
+                }}>
+                    <span 
+                        onClick={()=>setSelectedMenu('view')}
+                        style={{
+                            color:selectedMenu == 'view' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}> View Students </span>
+                    <span 
+                        onClick={()=>setSelectedMenu('create')}
+                        style={{
+                            color:selectedMenu == 'create' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Vote</span>
+                    <span 
+                        onClick={()=>setSelectedMenu('result')}
+                        style={{
+                            color:selectedMenu == 'result' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Results</span>
                 </div>
                 <br/>
-
-                    <div>
-                        <div style={{display:'flex',flexDirection:'column' ,rowGap:'10px' ,marginLeft:'10px'}}>
-                            <div style={{display:'flex' ,columnGap:'20px'}}>
-                                <div>
-                                    <select value={level} id="level" onChange={(e)=>handleLevelChange(e)} style={{padding:'5px 10px'}}>
-                                        {displayLevel}
-                                    </select>
-                                    <label htmlFor='level'> level</label>
-                                </div>
-
-                                <div>
-                                    <select value={classe} id="class" onChange={(e)=>setClasse(e.target.value)} style={{padding:'5px 10px'}}>
-                                        {displayClasses}
-                                    </select>
-                                    <label htmlFor='class'> class</label>
-                                </div>
-
-                            </div>
-
-                            <input type="text" value={filter} onChange={(e)=>setFilter(e.target.value)} placeholder='Enter student name'
-                                style={{width:'200px' ,padding:'10px 20px' ,borderRadius:'5px' ,border:'solid 1px rgba(0,0,0,0.2)'}}
-                            />
-
-                        </div>
-                        <h2 style={{marginLeft:' 10px'}}>Lists of students in <b style={{color:'blue'}}>{classe}</b></h2>
-                        <center>
-                            <table border='1' style={{borderCollapse:'collapse'}}>
-                                <thead>
-                                    <tr>
-                                        <th style={{padding:'5px'}}>Name</th>
-                                        <th style={{padding:'5px'}}>Voted</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {displayStudents}
-                                </tbody>
-                            </table>
-                        </center>
-                    </div>
+                Form for the admin to vote a student
 
             </div>
         </React.Fragment>
-    )
+        )
+    }
+    if(selectedMenu == 'result'){
+        return(
+            <React.Fragment>
+            <div>
+                <Header/>
+                <div style={{
+                    border:'solid 1px rgba(0,0,0,0.2)',
+                    display:'flex',
+                    // justifyContent:'space-around',
+                    backgroundColor:'rgba(0,0,0,0.2)'
+                }}>
+                    <span 
+                        onClick={()=>setSelectedMenu('view')}
+                        style={{
+                            color:selectedMenu == 'view' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}> View Students </span>
+                    <span 
+                        onClick={()=>setSelectedMenu('create')}
+                        style={{
+                            color:selectedMenu == 'create' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Vote</span>
+                    <span 
+                        onClick={()=>setSelectedMenu('result')}
+                        style={{
+                            color:selectedMenu == 'result' ? 'green':'',
+                            padding:'10px' ,fontWeight:'bold' ,border:'solid 1px grey',flex:'1',textAlign:'center'}}>Results</span>
+                </div>
+                <br/>
+
+                Display Results using getAllVoter
+
+            </div>
+        </React.Fragment>
+        )   
+    }
 }
 
 export default Dashboard
