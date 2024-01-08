@@ -40,7 +40,6 @@ const VotingForm = () => {
     const [position, setPosition] = useState({ longitude: '', latitude: '' })
     console.log("voted", voted);
     const [position1, setPosition1] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
     useEffect(() => {
         const getLocation = async () => {
             try {
@@ -50,13 +49,16 @@ const VotingForm = () => {
                 );
                 console.log(response); // Log the full response object
             } catch (error) {
+                setPosition1({
+                    "coords.latitude": '',
+                    "coords.longitude": ''
+                })
                 console.error(error);
             }
         };
 
         getLocation();
     }, []);
-    console.log("position1", position1);
     function handleChange(e) {
         // return
         if (e.target.type == 'text' || e.target.type == 'email') {
@@ -81,7 +83,7 @@ const VotingForm = () => {
                     email: data.email,
                     classe: data.class,
                     candidate: voted._id,
-                    token: token,
+                    token: '',
                     position: {
                         latitude: position1.coords.latitude,
                         longitude: position1.coords.longitude
@@ -94,7 +96,11 @@ const VotingForm = () => {
             setLoading(false)
 
             if (res.status) {
-                navigate("/email-verification", { state: { name: data.name, email: data.email, classe: data.class } })
+                navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+            } else if (res.statusAdmin) {
+                navigate("/", { replace: true })
+            } else if (res.statusLogin) {
+                navigate("/login", { replace: true })
             } else {
                 setError(res.message)
             }
