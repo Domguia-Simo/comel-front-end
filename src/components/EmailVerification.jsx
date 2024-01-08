@@ -26,7 +26,7 @@ const EmailVerification=()=>{
         setRespond('')
         setLoading(true)
         try{
-            fetch('http://localhost:5000/api/voter/validateVotes' ,{
+            fetch('http://comel-back-end.vercel.app/api/voter/validateVotes' ,{
                 method:'post',
                 headers:{
                     'content-type':'application/json',

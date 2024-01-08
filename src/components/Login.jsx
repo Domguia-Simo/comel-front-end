@@ -22,7 +22,7 @@ const Login=()=>{
         setRespond('')
         setLoading(true)
 
-        fetch('http://localhost:5000/api/admin/login',{
+        fetch('http://comel-back-end.vercel.app/api/admin/login',{
             method:'post',
             headers:{
                 'content-type':'application/json',

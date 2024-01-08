@@ -109,7 +109,7 @@ const Dashboard = () => {
     async function fetchData() {
         setLoading(true)
 
-        await fetch('http://localhost:5000/api/voter/getVoterByClass', {
+        await fetch('http://comel-back-end.vercel.app/api/voter/getVoterByClass', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
@@ -330,7 +330,7 @@ const Dashboard = () => {
     }
     const getElectionResult = async () => {
         
-        await fetch('http://localhost:5000/api/election/result/659b1e70d7a408d0cba7d535', {
+        await fetch('http://comel-back-end.vercel.app/api/election/result/659b1e70d7a408d0cba7d535', {
             method: 'get',
             headers: {
                 'content-type': 'application/json',
