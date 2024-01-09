@@ -59,6 +59,7 @@ const VotingForm = () => {
 
         getLocation();
     }, []);
+    console.log("position1",position1);
     function handleChange(e) {
         // return
         if (e.target.type == 'text' || e.target.type == 'email') {

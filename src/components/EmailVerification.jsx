@@ -1,7 +1,6 @@
 import React,{useState } from 'react'
 import { useNavigate,useLocation} from 'react-router-dom'
 
-import Header from './Header'
 
 // Styling
 import '../assets/styles/global.css'
@@ -26,7 +25,7 @@ const EmailVerification=()=>{
         setRespond('')
         setLoading(true)
         try{
-            fetch('http://comel-back-end.vercel.app/api/voter/validateVotes' ,{
+            fetch('http://localhost:5000/api/voter/validateVotes' ,{
                 method:'post',
                 headers:{
                     'content-type':'application/json',
@@ -43,10 +42,10 @@ const EmailVerification=()=>{
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if(data.status){
-                    setSuccess('Vote Registered successfully')
+                if(data.statusAdmin){
+                    setRespond(data.message)
                     setTimeout(()=>{
-                        navigate('/')
+                        navigate("/", { replace: true })
                     },2500)
                 }else{
                     setRespond(data.message)

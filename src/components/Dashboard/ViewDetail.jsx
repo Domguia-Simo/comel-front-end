@@ -7,8 +7,8 @@ export default function ViewDetail() {
     const [classe, setClasse] = useState('ba1a')
     const [students, setStudents] = useState(votersByClass.voters)
     const [filter, setFilter] = useState('')
-    console.log(votersByClass.voters)
-    let lists = students.map((item) =>
+    console.log("votersByClass.voters",votersByClass.voters)
+    let lists = votersByClass.voters.map((item) =>
         <tr key={item.id}>
             <td style={{ padding: '5px' }}>{item.name}</td>
             <td style={{ color: item.status == 'VOTED' ? 'green' : 'red', padding: '5px' }}>{item.status}</td>
@@ -51,7 +51,7 @@ export default function ViewDetail() {
 
 export const viewDetailLoader = async ({ params }) => {
     const { classes } = params
-    const res = await fetch('http://localhost:5000/api/voter/getVoterByClass/B1A')
+    const res = await fetch('http://localhost:5000/api/voter/getVoterByClass/' + classes)
 
     if (!res.ok) {
         throw Error('Could not find that getting voter.')

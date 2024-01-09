@@ -11,15 +11,16 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const classes = [
     {
         level: "One",
-        list: ["ba1a", "ba1b", "ba1c", "l1a", "l1b", 'l1c', 'l1d', 'l1e', 'l1f', 'l1g', 'l1h', 'l1i', 'l1j', 'l1k',]
+        list: ["B1A", "B1B", "B1C", "L1A", "L1B", 'L1C',
+            'L1D', 'L1E', 'L1F', 'L1G', 'L1H', 'L1I', 'L1J', 'L1K',]
     },
     {
         level: "Two",
-        list: ["B2A", "ba2b", 'l2a', 'l2b', 'l2c', 'l2d', 'l2e', 'l2f', 'l2g', 'l2h']
+        list: ["B2A", "B2B", 'L2A', 'L2B', 'L2C', 'L2D', 'L2E', 'L2F', 'L2G', 'L2H']
     },
     {
         level: "Three",
-        list: ['se3', 'sr3', 'gl1', 'gl2', 'gl3']
+        list: ['SE3', 'SR3', 'GL1', 'GL2', 'GL3']
     }
 ]
 const levels = ["One", "Two", "Three"]
