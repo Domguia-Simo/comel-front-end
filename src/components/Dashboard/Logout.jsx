@@ -6,7 +6,7 @@ function Logout() {
     const token = localStorage.getItem("token");
         localStorage.setItem("token", '')
         
-        fetch('http://comel-back-end.vercel.app/logout', {
+        fetch('https://comel-back-end.vercel.app/logout', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',

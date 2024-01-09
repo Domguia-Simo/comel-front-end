@@ -82,7 +82,7 @@ export default function LandingPage() {
 
 export const landingPageLoader = async ({ params }) => {
     // const { classes } = params
-    const res = await fetch('http://comel-back-end.vercel.app/api/candidate/getCandidates')
+    const res = await fetch('https://comel-back-end.vercel.app/api/candidate/getCandidates')
 
     if (!res.ok) {
         throw Error('Could not find that getting voter.')

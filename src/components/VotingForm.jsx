@@ -74,7 +74,7 @@ const VotingForm = () => {
         try {
             // console.log("res",position1)
             let token = localStorage.getItem('token')
-            let respond = await fetch('http://comel-back-end.vercel.app/api/voter/votes', {
+            let respond = await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
