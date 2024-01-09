@@ -22,7 +22,7 @@ const Login=()=>{
         setRespond('')
         setLoading(true)
 
-        fetch('http://comel-back-end.vercel.app/api/admin/login',{
+        fetch('http://localhost:5000/api/admin/login',{
             method:'post',
             headers:{
                 'content-type':'application/json',
@@ -39,7 +39,7 @@ const Login=()=>{
             // console.log(data)
             if(data.token){
                 await localStorage.setItem('token' ,data.token)
-                navigate('/dashboard')
+                navigate('/dashboard/view/B1A')
             }else{
                 setRespond(data.message)
             }

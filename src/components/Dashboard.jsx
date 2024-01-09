@@ -15,7 +15,7 @@ const Dashboard = () => {
             <div>
                 <header>
                     <nav>
-                        <NavLink to="view/B1B">View</NavLink>
+                        <NavLink to="view/B1A">View</NavLink>
                         <NavLink to="/">Vote</NavLink>
                         <NavLink to="result">Result</NavLink>
                     </nav>

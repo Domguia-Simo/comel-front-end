@@ -26,6 +26,7 @@ const levels = ["One", "Two", "Three"]
 const VotingForm = () => {
 
     const navigate = useNavigate()
+    const [success ,setSuccess] = useState('')
 
     const [data, setData] = useState({
         name: '',
@@ -38,7 +39,7 @@ const VotingForm = () => {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState("One")
     const [position, setPosition] = useState({ longitude: '', latitude: '' })
-    console.log("voted", voted);
+    // console.log("voted", voted);
     const [position1, setPosition1] = useState(null);
     useEffect(() => {
         const getLocation = async () => {
@@ -59,7 +60,7 @@ const VotingForm = () => {
 
         getLocation();
     }, []);
-    console.log("position1",position1);
+    // console.log("position1",position1);
     function handleChange(e) {
         // return
         if (e.target.type == 'text' || e.target.type == 'email') {
@@ -71,6 +72,7 @@ const VotingForm = () => {
     const votes = async () => {
         setLoading(true)
         try {
+            // console.log("res",position1)
             let token = localStorage.getItem('token')
             let respond = await fetch('http://localhost:5000/api/voter/votes', {
                 method: 'post',
@@ -85,23 +87,33 @@ const VotingForm = () => {
                     classe: data.class,
                     candidate: voted._id,
                     token: '',
-                    position: {
-                        latitude: position1.coords.latitude,
-                        longitude: position1.coords.longitude
-                    }
+                    // position: {
+                    //     latitude: position1.coords.latitude,
+                    //     longitude: position1.coords.longitude
+                    // }
                 })
             })
+            console.log("res", respond)
             let res = await respond.json()
-            console.log(res)
+            console.log("res", res)
 
             setLoading(false)
 
             if (res.status) {
-                navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+                setSuccess(res.message)
+                setTimeout(() => {
+                    navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+                }, 2500)
             } else if (res.statusAdmin) {
-                navigate("/", { replace: true })
+                setSuccess(res.message)
+                setTimeout(() => {
+                    navigate("/", { replace: true })
+                }, 2500)
             } else if (res.statusLogin) {
-                navigate("/login", { replace: true })
+                setError(res.message)
+                setTimeout(() => {
+                    navigate("/login", { replace: true })
+                }, 2500)
             } else {
                 setError(res.message)
             }
@@ -110,7 +122,7 @@ const VotingForm = () => {
 
         }
         catch (e) {
-            console.log(e)
+            console.log("err", e)
             setError('Verify your internet connection')
             setLoading(false)
         }
@@ -142,6 +154,7 @@ const VotingForm = () => {
 
     async function sendInfo() {
         setError('')
+        setSuccess('')
         if (data.name === '' || data.email === '' || data.class === '' || data.confirm === false) {
             setLoading(false)
             return
@@ -202,6 +215,9 @@ const VotingForm = () => {
                                 {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
                             </center>
                             : ''}
+                        {
+                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                        }
                     </div>
 
                     <blockquote>
