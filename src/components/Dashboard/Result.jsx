@@ -26,7 +26,7 @@ export default function Result() {
 
 export const getElectionResult = async () => {
 
-    let response = await fetch('http://localhost:5000/api/election/result/659b1e70d7a408d0cba7d535', {
+    let response = await fetch('http://comel-back-end.vercel.app/api/election/result/659b1e70d7a408d0cba7d535', {
         method: 'get',
         headers: {
             'content-type': 'application/json',

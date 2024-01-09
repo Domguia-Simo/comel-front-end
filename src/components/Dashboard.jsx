@@ -17,7 +17,7 @@ const Dashboard = () => {
         const token = localStorage.getItem("token");
         localStorage.setItem("token", '')
         
-        fetch('http://localhost:5000/logout', {
+        fetch('http://comel-back-end.vercel.app/logout', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',

@@ -51,7 +51,7 @@ export default function ViewDetail() {
 
 export const viewDetailLoader = async ({ params }) => {
     const { classes } = params
-    const res = await fetch('http://localhost:5000/api/voter/getVoterByClass/' + classes)
+    const res = await fetch('http://comel-back-end.vercel.app/api/voter/getVoterByClass/' + classes)
 
     if (!res.ok) {
         throw Error('Could not find that getting voter.')
