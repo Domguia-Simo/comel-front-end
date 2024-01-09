@@ -9,7 +9,7 @@ import {
 import LandingPage, { landingPageLoader } from './components/LandingPage'
 import EmailVerification from './components/EmailVerification'
 import VotingForm from './components/VotingForm'
-import Login from './components/Login'
+import Login, { loginLoader } from './components/Login'
 import Views from './components/Dashboard/view'
 
 import './assets/fontawesome/css/all.css'
@@ -29,7 +29,11 @@ const router = createBrowserRouter(
             />
             <Route path="voting-form" element={<VotingForm />} />
             <Route path="email-verification" element={<EmailVerification />} />
-            <Route path="login" element={<Login />} />
+            <Route
+                path="login"
+                element={<Login />}
+                loader={loginLoader}
+            />
             <Route path="dashboard" element={<Dashboard />} >
                 <Route path="view" element={<Views />} >
                     <Route
@@ -44,6 +48,7 @@ const router = createBrowserRouter(
                     path="result"
                     element={<Result />}
                     loader={getElectionResult} />
+                <Route path="logout" element={<h1>LogOut</h1>} />
             </Route>
 
             {/* <Route path="*" element={<NotFound />} /> */}
