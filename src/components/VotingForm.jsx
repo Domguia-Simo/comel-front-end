@@ -86,7 +86,7 @@ const VotingForm = () => {
                     email: data.email,
                     classe: data.class,
                     candidate: voted._id,
-                    token: '',
+                    token: token,
                     // position: {
                     //     latitude: position1.coords.latitude,
                     //     longitude: position1.coords.longitude

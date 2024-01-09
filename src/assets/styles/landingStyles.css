@@ -96,14 +96,13 @@
 
         flex-direction: column;
         align-items: center;
-        row-gap: 15px;
+        row-gap: 10px;
         width:100%;
         margin-top: 0;
         overflow-y: auto;
-        height:20%;
-        padding-top: 375px;
-
-        padding-bottom: 100px;
+        height:5%;
+        padding-top: 600px;
+        padding-bottom: 500px;
     }
     
     .candidate-container{
