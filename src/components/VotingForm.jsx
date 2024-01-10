@@ -26,7 +26,7 @@ const levels = ["One", "Two", "Three"]
 const VotingForm = () => {
 
     const navigate = useNavigate()
-    const [success ,setSuccess] = useState('')
+    const [success, setSuccess] = useState('')
 
     const [data, setData] = useState({
         name: '',
@@ -38,31 +38,22 @@ const VotingForm = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState("One")
-    const [position, setPosition] = useState({ longitude: '', latitude: '' })
-    // console.log("voted", voted);
-    const [position1, setPosition1] = useState(null);
+    const [position, setPosition] = useState(null)
+    // const [position1, setPosition1] = useState(null);
     useEffect(() => {
-        const getLocation = async () => {
-            try {
-                const response = await navigator.geolocation.getCurrentPosition(
-                    (position) => setPosition1(position),
-                    (error) => setError(error.message)
-                );
-                console.log(response); // Log the full response object
-            } catch (error) {
-                setPosition1({
-                    "coords.latitude": '',
-                    "coords.longitude": ''
-                })
-                console.error(error);
-            }
-        };
-
-        getLocation();
-    }, []);
-    // console.log("position1",position1);
+        const watchId = navigator.geolocation.watchPosition(
+          (position) => setPosition(position),
+          (error) => console.error('Error:', error),
+          {
+            enableHighAccuracy: true, // Adjust as needed
+            timeout: 1000, // Adjust as needed
+            maximumAge: 0, // Accept only fresh location data
+          }
+        );
+    
+        return () => navigator.geolocation.clearWatch(watchId); // Clean up on unmount
+      }, []);
     function handleChange(e) {
-        // return
         if (e.target.type == 'text' || e.target.type == 'email') {
             setData({ ...data, [e.target.name]: e.target.value })
         } else {
@@ -72,25 +63,31 @@ const VotingForm = () => {
     const votes = async () => {
         setLoading(true)
         try {
-            // console.log("res",position1)
-            let token = localStorage.getItem('token')
-            let respond = await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
+            let lat = 0.00 , long = 0.00
+            if (position) {
+                if (position.coords) {
+                    lat = position.coords.latitude
+                    long = position.coords.longitude
+                }
+            }
+            console.log(position);
+            let respond = await fetch('http://localhost:5000/api/voter/votes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
-                    'accept': 'application/json',
-                    'access-control-origin': '*'
+                    'accept': 'applicaion/json',
+                    'access-conteol-origin': '*',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
                     name: data.name,
                     email: data.email,
                     classe: data.class,
                     candidate: voted._id,
-                    token: token,
-                    // position: {
-                    //     latitude: position1.coords.latitude,
-                    //     longitude: position1.coords.longitude
-                    // }
+                    position: {
+                        latitude: lat,
+                        longitude: long
+                    }
                 })
             })
             console.log("res", respond)
@@ -127,30 +124,6 @@ const VotingForm = () => {
             setLoading(false)
         }
     }
-    // async function findLocation() {
-    //     setLoading(true)
-    //     await window.navigator.geolocation.getCurrentPosition(async (point) => {
-    //         if (point.coords) {
-    //             setPosition({
-    //                 longitude: point.coords.longitude,
-    //                 latitude: point.coords.latitude
-    //             })
-    //         }
-
-    //         // comparing with the location of 
-    //     }
-    //         ,
-    //         error => {
-    //             if (error.code == error.PERMISSION_DENIED) {
-    //                 setError(<div>You MUST enable your location to vote <br /> settings - privacy - location</div>)
-    //             }
-    //             if (error.code == error.POSITION_UNAVAILABLE) {
-    //                 setError('Sorry but your device does not support geolocation, use another device to vote')
-    //             }
-    //         }
-    //     )
-    //     setLoading(false)
-    // }
 
     async function sendInfo() {
         setError('')
