@@ -50,7 +50,7 @@ const VotingForm = () => {
     //         maximumAge: 0, // Accept only fresh location data
     //       }
     //     );
-    
+
     //     return () => navigator.geolocation.clearWatch(watchId); // Clean up on unmount
     //   }, []);
     function handleChange(e) {
@@ -71,13 +71,13 @@ const VotingForm = () => {
             //     }
             // }
             // console.log(position);
-            let respond = await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
+            await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
                     'accept': 'applicaion/json',
                     'access-conteol-origin': '*',
-                    'Authorization': `Bearer ${localStorage.getItem('token')||''}`
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
                 },
                 body: JSON.stringify({
                     name: data.name,
@@ -90,33 +90,34 @@ const VotingForm = () => {
                     // }
                 })
             })
-            console.log("res", respond)
-            let res = await respond.json()
-            console.log("res", res)
+                .then(res => res.json())
+                .then(async (res) => {
+                    console.log("res", res);
+                    if (res.status) {
+                        setSuccess(res.message)
+                        setTimeout(() => {
+                            navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+                        }, 2500)
+                    } else if (res.statusAdmin) {
+                        setSuccess(res.message)
+                        setTimeout(() => {
+                            navigate("/", { replace: true })
+                        }, 2500)
+                    } else if (res.statusLogin) {
+                        setError(res.message)
+                        setTimeout(() => {
+                            navigate("/login", { replace: true })
+                        }, 2500)
+                    } else {
+                        setError(res.message)
+                    }
+                })
+                .catch(e => {
+                    console.log(e)
+                    setError("Verify your internet connection")
+                    setLoading(false)
 
-            setLoading(false)
-
-            if (res.status) {
-                setSuccess(res.message)
-                setTimeout(() => {
-                    navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
-                }, 2500)
-            } else if (res.statusAdmin) {
-                setSuccess(res.message)
-                setTimeout(() => {
-                    navigate("/", { replace: true })
-                }, 2500)
-            } else if (res.statusLogin) {
-                setError(res.message)
-                setTimeout(() => {
-                    navigate("/login", { replace: true })
-                }, 2500)
-            } else {
-                setError(res.message)
-            }
-
-            return
-
+                })
         }
         catch (e) {
             console.log("err", e)

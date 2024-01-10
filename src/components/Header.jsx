@@ -69,10 +69,11 @@ const Header = () => {
                 <>
                     {User.isLogin ? (
                         <>
-                            <span style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                            <span 
+                            // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
                             >
                                 <span
-                                    // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                                    style={{ cursor: 'pointer', padding: '5px 7px' }}
                                     onClick={() => navigate("/dashboard/view/B1A")}
                                 >
                                     {User.name}
@@ -81,9 +82,10 @@ const Header = () => {
                                     {/* <i className='far fa-user'></i> */}
                                 </span>
                                 <span
-                                    // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                                    style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
                                     onClick={() => { Logout() }}
                                 >
+                                    logout
                                     <i className='fas fa-door-open'></i>
                                 </span>
                             </span>

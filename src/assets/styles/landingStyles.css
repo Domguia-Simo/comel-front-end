@@ -46,6 +46,7 @@
     flex-direction: column;
     row-gap: 5px;
     align-items: center;
+    margin-bottom: 5px;
 }
 .candidate-name{
     font-weight: bold;
