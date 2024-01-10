@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBRow } from 'mdb-react-ui-kit'
 import { useNavigate, useLoaderData } from 'react-router-dom';
 export default function Elections() {
     const navigate = useNavigate()
     const election = useLoaderData()
-    const [modal, setModal] = useState(true)
     const [loading, setLoading] = useState(false)
     const [enterTitle, setEnterTitle] = useState(false)
     const [title, setTitle] = useState('')

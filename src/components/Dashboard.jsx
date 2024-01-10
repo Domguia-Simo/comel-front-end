@@ -44,7 +44,7 @@ const Dashboard = () => {
                         <NavLink to="view/B1A">View</NavLink>
                         <NavLink to="/">Vote</NavLink>
                         <NavLink to="elections">Election</NavLink>
-                        {/* <NavLink to="result">Result</NavLink> */}
+                        <NavLink to="candidates">Candidate</NavLink>
                         <NavLink to ='logout' onClick={logOut}>LogOut</NavLink>
                     </nav>
                 </header>

@@ -19,6 +19,7 @@ import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
 import ViewDetail, { viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
 import Elections from './components/Dashboard/Create'
+import Candidates, { candidatesLoader } from './components/Dashboard/Candidate'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -48,6 +49,12 @@ const router = createBrowserRouter(
                     path="elections"
                     element={<Elections />}
                     loader={electionsLoader}
+                    errorElement={<ViewsDetialError />}
+                />
+                <Route
+                    path="candidates"
+                    element={<Candidates />}
+                    loader={candidatesLoader}
                     errorElement={<ViewsDetialError />}
                 />
                 <Route
