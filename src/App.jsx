@@ -14,10 +14,11 @@ import Views from './components/Dashboard/view'
 
 import './assets/fontawesome/css/all.css'
 import Header from './components/Header'
-import Create from './components/Dashboard/Create'
+import Create, { electionsLoader } from './components/Dashboard/Create'
 import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
 import ViewDetail, { viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
+import Elections from './components/Dashboard/Create'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -43,9 +44,14 @@ const router = createBrowserRouter(
                         errorElement={<ViewsDetialError />}
                     />
                 </Route>
-                <Route path="create" element={<Create />} />
                 <Route
-                    path="result"
+                    path="elections"
+                    element={<Elections />}
+                    loader={electionsLoader}
+                    errorElement={<ViewsDetialError />}
+                />
+                <Route
+                    path="result/:id"
                     element={<Result />}
                     loader={getElectionResult} />
                 <Route path="logout" element={<h1>LogOut</h1>} />
