@@ -66,7 +66,7 @@ export default function ViewDetail() {
 export const viewDetailLoader = async ({ params }) => {
     const { classes } = params
     console.log(`Bearer ${localStorage.getItem('token')}`)
-    const res = await fetch('http://localhost:5000/api/voter/getVoterByClass/' + classes, {
+    const res = await fetch('https://comel-back-end.vercel.app/api/voter/getVoterByClass/' + classes, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

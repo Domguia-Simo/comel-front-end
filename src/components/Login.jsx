@@ -22,7 +22,7 @@ export default function Login() {
         setRespond('')
         setLoading(true)
 
-        await fetch('http://localhost:5000/api/admin/login', {
+        await fetch('https://comel-back-end.vercel.app/api/admin/login', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
@@ -125,7 +125,7 @@ export default function Login() {
 
 export const loginLoader = async ({ params }) => {
     let token = localStorage.getItem('token')
-    const res = await fetch('http://localhost:5000/api/isLogin', {
+    const res = await fetch('https://comel-back-end.vercel.app/api/isLogin', {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

@@ -100,9 +100,9 @@
         width:100%;
         margin-top: 0;
         overflow-y: auto;
-        height:5%;
-        padding-top: 600px;
-        padding-bottom: 500px;
+        height:1%;
+        padding-top: 400px;
+        padding-bottom: 300px;
     }
     
     .candidate-container{

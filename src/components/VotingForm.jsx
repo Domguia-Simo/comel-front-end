@@ -71,7 +71,7 @@ const VotingForm = () => {
                 }
             }
             console.log(position);
-            let respond = await fetch('http://localhost:5000/api/voter/votes', {
+            let respond = await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',

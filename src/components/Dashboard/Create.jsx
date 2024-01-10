@@ -14,7 +14,7 @@ export default function Elections() {
         setError('')
         setSuccess('')
         if (title) {
-            fetch('http://localhost:5000/api/election/createElection/', {
+            fetch('https://comel-back-end.vercel.app/api/election/createElection/', {
                 method:"post",
                 headers: {
                     'content-type': 'application/json',
@@ -52,7 +52,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/election/deleteElection/' + id, {
+        fetch('https://comel-back-end.vercel.app/api/election/deleteElection/' + id, {
             method:"delete",
             headers: {
                 'content-type': 'application/json',
@@ -81,7 +81,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/election/startElection/' + id, {
+        fetch('https://comel-back-end.vercel.app/api/election/startElection/' + id, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -109,7 +109,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/election/closeElection/' + id, {
+        fetch('https://comel-back-end.vercel.app/api/election/closeElection/' + id, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -257,7 +257,7 @@ export default function Elections() {
 
 export const electionsLoader = async () => {
 
-    const res = await fetch('http://localhost:5000/api/election/getElections', {
+    const res = await fetch('https://comel-back-end.vercel.app/api/election/getElections', {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

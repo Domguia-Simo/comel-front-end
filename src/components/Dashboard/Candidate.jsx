@@ -28,7 +28,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/candidate/addCandidate', {
+        fetch('https://comel-back-end.vercel.app/api/candidate/addCandidate', {
             method: "post",
             headers: {
                 'content-type': 'application/json',
@@ -68,7 +68,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/candidate/deleteCandidate/' + id, {
+        fetch('https://comel-back-end.vercel.app/api/candidate/deleteCandidate/' + id, {
             method: "delete",
             headers: {
                 'content-type': 'application/json',
@@ -97,7 +97,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/candidate/editCandidate/' + data._id, {
+        fetch('https://comel-back-end.vercel.app/api/candidate/editCandidate/' + data._id, {
             method: "put",
             headers: {
                 'content-type': 'application/json',
@@ -137,7 +137,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('http://localhost:5000/api/candidate/closeElection/' + id, {
+        fetch('https://comel-back-end.vercel.app/api/candidate/closeElection/' + id, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -374,7 +374,7 @@ export default function Candidates() {
 }
 
 export const candidatesLoader = async () => {
-    const res = await fetch('http://localhost:5000/api/candidate/getCandidates', {
+    const res = await fetch('https://comel-back-end.vercel.app/api/candidate/getCandidates', {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
@@ -382,7 +382,7 @@ export const candidatesLoader = async () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    const res1 = await fetch('http://localhost:5000/api/election/getElections', {
+    const res1 = await fetch('https://comel-back-end.vercel.app/api/election/getElections', {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
