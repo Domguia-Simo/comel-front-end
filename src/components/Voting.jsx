@@ -74,7 +74,7 @@ export default function Voting() {
                 // }
 
                 let id = voted._id
-                await fetch('http://comel-back-end.vercel.app/api/voter/votes', {
+                await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',
