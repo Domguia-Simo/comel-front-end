@@ -40,19 +40,19 @@ const VotingForm = () => {
     const [level, setLevel] = useState("One")
     const [position, setPosition] = useState(null)
     // const [position1, setPosition1] = useState(null);
-    useEffect(() => {
-        const watchId = navigator.geolocation.watchPosition(
-          (position) => setPosition(position),
-          (error) => console.error('Error:', error),
-          {
-            enableHighAccuracy: true, // Adjust as needed
-            timeout: 1000, // Adjust as needed
-            maximumAge: 0, // Accept only fresh location data
-          }
-        );
+    // useEffect(() => {
+    //     const watchId = navigator.geolocation.watchPosition(
+    //       (position) => setPosition(position),
+    //       (error) => console.error('Error:', error),
+    //       {
+    //         enableHighAccuracy: true, // Adjust as needed
+    //         timeout: 1000, // Adjust as needed
+    //         maximumAge: 0, // Accept only fresh location data
+    //       }
+    //     );
     
-        return () => navigator.geolocation.clearWatch(watchId); // Clean up on unmount
-      }, []);
+    //     return () => navigator.geolocation.clearWatch(watchId); // Clean up on unmount
+    //   }, []);
     function handleChange(e) {
         if (e.target.type == 'text' || e.target.type == 'email') {
             setData({ ...data, [e.target.name]: e.target.value })
@@ -77,7 +77,7 @@ const VotingForm = () => {
                     'content-type': 'application/json',
                     'accept': 'applicaion/json',
                     'access-conteol-origin': '*',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('token')||''}`
                 },
                 body: JSON.stringify({
                     name: data.name,
@@ -193,9 +193,9 @@ const VotingForm = () => {
                         }
                     </div>
 
-                    <blockquote>
+                    {/* <blockquote>
                         Please you will need to <b>authorise location</b>
-                    </blockquote>
+                    </blockquote> */}
 
                     <input type="text" placeholder='Name' value={data.name} name="name" onChange={e => handleChange(e)} required />
                     <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required />

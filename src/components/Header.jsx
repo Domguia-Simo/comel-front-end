@@ -18,27 +18,25 @@ const Header = () => {
             setHide(true)
         }
     }, [useLocation()])
-    const Logout = () => {
-        const token = localStorage.getItem("token");
-        localStorage.setItem("token", '')
-
-        fetch('https://localhost:5000/logout', {
-            method: 'post',
+    const Logout = async () => {
+        await fetch('http://localhost:5000/api/logout', {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*'
-            },
-            body: JSON.stringify({
-                token: token
-            })
+                'access-conteol-origin': '*',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
+                localStorage.setItem("token", '')
+                localStorage.clear()
+                window.location.pathname = "/"
+                // navigate("/");
+
             })
             .catch(err => {
             })
-        navigate("/");
     }
     return (
         <React.Fragment>
@@ -78,15 +76,15 @@ const Header = () => {
                                     onClick={() => navigate("/dashboard/view/B1A")}
                                 >
                                     {User.name}
-                                    <i className='far fa-user'></i>
-                                    &nbsp;&nbsp;&nbsp;
+                                    {/* <i className='far fa-user'></i> */}
+                                    &nbsp;&nbsp;
                                     {/* <i className='far fa-user'></i> */}
                                 </span>
                                 <span
                                     // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
                                     onClick={() => { Logout() }}
                                 >
-                                    <i className='far fa-user'></i>
+                                    <i className='fas fa-door-open'></i>
                                 </span>
                             </span>
                         </>

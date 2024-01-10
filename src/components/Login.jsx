@@ -22,7 +22,7 @@ export default function Login() {
         setRespond('')
         setLoading(true)
 
-        fetch('http://localhost:5000/api/admin/login', {
+        await fetch('http://localhost:5000/api/admin/login', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
@@ -39,7 +39,9 @@ export default function Login() {
                 // console.log(data)
                 if (data.token) {
                     await localStorage.setItem('token', data.token)
-                    navigate("/dashboard/view/B1A", { replace: true, state: { name: data.name } })
+                    // window.location.reload();
+                    window.location.pathname = "/dashboard/view/B1A"
+                    // navigate("/dashboard/view/B1A", { replace: true, state: { name: data.name } })
                 } else {
                     setRespond(data.message)
                 }
