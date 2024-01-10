@@ -27,7 +27,7 @@ export default function Login() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*'
+                'access-control-origin': '*'
             },
             body: JSON.stringify({
                 email: email,

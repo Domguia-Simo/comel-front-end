@@ -20,6 +20,7 @@ import Dashboard from './components/Dashboard'
 import ViewDetail, { viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
 import Elections from './components/Dashboard/Create'
 import Candidates, { candidatesLoader } from './components/Dashboard/Candidate'
+import Voting from './components/Voting'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -32,7 +33,10 @@ const router = createBrowserRouter(
                 element={<LandingPage />}
                 loader={landingPageLoader}
             />
-            <Route path="voting-form" element={<VotingForm />} />
+            <Route
+                path="voting-form"
+                element={<Voting />}
+            />
             <Route path="email-verification" element={<EmailVerification />} />
             <Route
                 path="login"

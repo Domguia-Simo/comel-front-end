@@ -23,11 +23,9 @@ const classes = [
 ]
 const levels = ["One", "Two", "Three"]
 
-const VotingForm = () => {
-
+export default function Voting() {
     const navigate = useNavigate()
     const [success, setSuccess] = useState('')
-
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -39,20 +37,18 @@ const VotingForm = () => {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState("One")
     const [position, setPosition] = useState(null)
-    // const [position1, setPosition1] = useState(null);
     // useEffect(() => {
     //     const watchId = navigator.geolocation.watchPosition(
-    //       (position) => setPosition(position),
-    //       (error) => console.error('Error:', error),
-    //       {
-    //         enableHighAccuracy: true, // Adjust as needed
-    //         timeout: 1000, // Adjust as needed
-    //         maximumAge: 0, // Accept only fresh location data
-    //       }
+    //         (position) => setPosition(position),
+    //         (error) => console.error('Error:', error),
+    //         {
+    //             enableHighAccuracy: true, // Adjust as needed
+    //             timeout: 1000, // Adjust as needed
+    //             maximumAge: 0, // Accept only fresh location data
+    //         }
     //     );
-
     //     return () => navigator.geolocation.clearWatch(watchId); // Clean up on unmount
-    //   }, []);
+    // }, []);
     function handleChange(e) {
         if (e.target.type == 'text' || e.target.type == 'email') {
             setData({ ...data, [e.target.name]: e.target.value })
@@ -69,7 +65,7 @@ const VotingForm = () => {
             return
         } else {
             try {
-                // let lat = 0.00 , long = 0.00
+                // let lat = 0.00, long = 0.00
                 // if (position) {
                 //     if (position.coords) {
                 //         lat = position.coords.latitude
@@ -78,7 +74,8 @@ const VotingForm = () => {
                 // }
                 console.log(data);
                 console.log(voted);
-                await fetch('http://localhost:5000/api/voter/votes/', {
+                let id = voted._id
+                await fetch('http://localhost:5000/api/voter/votes', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',
@@ -90,33 +87,36 @@ const VotingForm = () => {
                         name: data.name,
                         email: data.email,
                         classe: data.class,
-                        candidate: voted._id
+                        candidate: id,
+                        election: voted.election,
+                        // position: {
+                        //     latitude: lat,
+                        //     longitude: long
+                        // }
                     })
                 })
                     .then(res => res.json())
                     .then(respond => {
                         console.log(respond)
-                        setSuccess('on votes')
-                        setError('on voteing' + respond.message)
-                        // if (data.status) {
-                        //     setSuccess(data.message)
-                        //     setTimeout(() => {
-                        //         navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
-                        //     }, 2500)
-                        // } else if (data.statusAdmin) {
-                        //     setSuccess(data.message)
-                        //     setTimeout(() => {
-                        //         navigate("/", { replace: true })
-                        //     }, 2500)
-                        // } else if (data.statusLogin) {
-                        //     setError(data.message)
-                        //     setTimeout(() => {
-                        //         navigate("/login", { replace: true })
-                        //     }, 2500)
-                        // } else {
-                        //     setLoading(false)
-                        //     setError(data.message)
-                        // }
+                        if (respond.status) {
+                            setSuccess(respond.message)
+                            setTimeout(() => {
+                                navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+                            }, 2500)
+                        } else if (respond.statusAdmin) {
+                            setSuccess(respond.message)
+                            setTimeout(() => {
+                                navigate("/", { replace: true })
+                            }, 2500)
+                        } else if (respond.statusLogin) {
+                            setError(respond.message)
+                            setTimeout(() => {
+                                navigate("/login", { replace: true })
+                            }, 2500)
+                        } else {
+                            setLoading(false)
+                            setError(respond.message)
+                        }
                     })
                     .catch(err => {
                         console.log(err)
@@ -249,5 +249,3 @@ const VotingForm = () => {
         </React.Fragment>
     )
 }
-
-export default VotingForm
