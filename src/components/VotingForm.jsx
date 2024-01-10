@@ -63,14 +63,14 @@ const VotingForm = () => {
     const votes = async () => {
         setLoading(true)
         try {
-            let lat = 0.00 , long = 0.00
-            if (position) {
-                if (position.coords) {
-                    lat = position.coords.latitude
-                    long = position.coords.longitude
-                }
-            }
-            console.log(position);
+            // let lat = 0.00 , long = 0.00
+            // if (position) {
+            //     if (position.coords) {
+            //         lat = position.coords.latitude
+            //         long = position.coords.longitude
+            //     }
+            // }
+            // console.log(position);
             let respond = await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
                 method: 'post',
                 headers: {
@@ -84,10 +84,10 @@ const VotingForm = () => {
                     email: data.email,
                     classe: data.class,
                     candidate: voted._id,
-                    position: {
-                        latitude: lat,
-                        longitude: long
-                    }
+                    // position: {
+                    //     latitude: lat,
+                    //     longitude: long
+                    // }
                 })
             })
             console.log("res", respond)
