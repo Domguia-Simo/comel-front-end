@@ -72,10 +72,9 @@ export default function Voting() {
                 //         long = position.coords.longitude
                 //     }
                 // }
-                console.log(data);
-                console.log(voted);
+
                 let id = voted._id
-                await fetch('http://localhost:5000/api/voter/votes', {
+                await fetch('http://comel-back-end.vercel.app/api/voter/votes', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',
@@ -208,7 +207,16 @@ export default function Voting() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>
                         <div>
-                            <select id="level" value={level} onChange={(e) => setLevel(e.target.value)}>
+                            <select id="level" value={level} onChange={(e) => {
+                                setLevel(e.target.value)
+                                let classe  
+                                classes.map((item) => {
+                                    if (item.level === e.target.value) {
+                                        classe = item.list
+                                    }
+                                })
+                                setData({ ...data, class: classe[0] })
+                            }}>
                                 {displayLevel}
                             </select>
                             <label htmlFor='level'> level </label>

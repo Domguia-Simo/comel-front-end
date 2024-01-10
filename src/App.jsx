@@ -27,11 +27,14 @@ const router = createBrowserRouter(
         <Route path="/"
             element={<Header />}
             loader={loginLoader}
+            errorElement={<ViewsDetialError />}
+
         >
             <Route
                 index
                 element={<LandingPage />}
                 loader={landingPageLoader}
+                errorElement={<ViewsDetialError />}
             />
             <Route
                 path="voting-form"
