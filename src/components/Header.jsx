@@ -1,55 +1,107 @@
-import React ,{useState ,useMemo} from 'react'
-import {useLocation ,useNavigate ,Link, Outlet } from 'react-router-dom'
+import React, { useState, useMemo } from 'react'
+import { useLocation, useLoaderData, useNavigate, Link, Outlet } from 'react-router-dom'
 
-const Header=()=>{
+const Header = () => {
 
     let location = useLocation()
     const navigate = useNavigate()
-    const [hide ,setHide] = useState(false)
+    const User = useLoaderData()
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useMemo(()=>{
-        if(location.pathname === '/login' || location.pathname === '/dashboard'){
-            setHide(true)   
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+    const [hide, setHide] = useState(false)
+    console.log("Userheader", User);
+    useMemo(() => {
+        if (location.pathname === '/login' || location.pathname === '/dashboard') {
+            setHide(true)
         }
-    },[useLocation()])
+    }, [useLocation()])
+    const Logout = () => {
+        const token = localStorage.getItem("token");
+        localStorage.setItem("token", '')
 
-    return( 
+        fetch('https://localhost:5000/logout', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'applicaion/json',
+                'access-conteol-origin': '*'
+            },
+            body: JSON.stringify({
+                token: token
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+            })
+            .catch(err => {
+            })
+        navigate("/");
+    }
+    return (
         <React.Fragment>
             <div style={{
-                padding:'5px 30px' ,
+                padding: '5px 30px',
                 // backgroundColor:'rgb(180, 205, 107 ,1)' ,
-                backgroundColor:'rgb(50, 50, 50 ,0.7)' ,
-                height:'50px',
-                color:'whitesmoke' ,
-                fontWeight:'bold' ,
-                letterSpacing:'1px',
-                display:'flex',
-                alignItems:'center',
-                justifyContent:'space-between'
-                }}>
-               <span style={{display:'flex' ,alignItems:'center'}}>
+                backgroundColor: 'rgb(50, 50, 50 ,0.7)',
+                height: '50px',
+                color: 'whitesmoke',
+                fontWeight: 'bold',
+                letterSpacing: '1px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}>
+                <span style={{ display: 'flex', alignItems: 'center' }}>
                     <Link to="/">
-                    <img
-                        style={{
-                            borderRadius:'10px',
-                            width:'50px',
-                            height:'40px',
-                            marginRight:'5px'
-                        }} 
-                        src={require('../assets/images/logo.jpeg')} alt="logo"
-                    />
+                        <img
+                            style={{
+                                borderRadius: '10px',
+                                width: '50px',
+                                height: '40px',
+                                marginRight: '5px'
+                            }}
+                            src={require('../assets/images/logo.jpeg')} alt="logo"
+                        />
                     </Link>
                     IAI COMEL
                 </span>
-                {
-                    hide ? '' :
-               <span style={{ border:'solid 1px ',borderRadius:'10px', cursor:'pointer' ,padding:'5px 7px'}}
-                    onClick={()=>navigate("/login")}
-                >
-                    Admin <i className='far fa-user'></i>
-               </span>
-
-                }
+                <>
+                    {User.isLogin ? (
+                        <>
+                            <span style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                            >
+                                <span
+                                    // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                                    onClick={() => navigate("/dashboard/view/B1A")}
+                                >
+                                    {User.name}
+                                    <i className='far fa-user'></i>
+                                    &nbsp;&nbsp;&nbsp;
+                                    {/* <i className='far fa-user'></i> */}
+                                </span>
+                                <span
+                                    // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                                    onClick={() => { Logout() }}
+                                >
+                                    <i className='far fa-user'></i>
+                                </span>
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            {hide ? '' :
+                                <span style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
+                                    onClick={() => navigate("/login")}
+                                >
+                                    Admin <i className='far fa-user'></i>
+                                </span>
+                            }
+                        </>
+                    )}
+                </>
             </div>
             <Outlet />
         </React.Fragment>

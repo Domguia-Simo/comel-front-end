@@ -23,7 +23,10 @@ import Candidates, { candidatesLoader } from './components/Dashboard/Candidate'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Header />}>
+        <Route path="/"
+            element={<Header />}
+            loader={loginLoader}
+        >
             <Route
                 index
                 element={<LandingPage />}

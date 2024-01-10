@@ -40,12 +40,11 @@ const Dashboard = () => {
             <div>
                 <header>
                     <nav>
-                        <h1>{userInfo ? userInfo.name : ''}</h1>
+                        {/* <h1>{userInfo ? userInfo.name : ''}</h1> */}
                         <NavLink to="view/B1A">View</NavLink>
                         <NavLink to="/">Vote</NavLink>
                         <NavLink to="elections">Election</NavLink>
                         <NavLink to="candidates">Candidate</NavLink>
-                        <NavLink to ='logout' onClick={logOut}>LogOut</NavLink>
                     </nav>
                 </header>
                 <br />

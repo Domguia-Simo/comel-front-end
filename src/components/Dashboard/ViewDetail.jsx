@@ -15,7 +15,7 @@ export default function ViewDetail() {
         }, 1000)
     }
 
-    let lists = students.map((item) =>
+    let lists = votersByClass.voters.map((item) =>
         <tr key={item.id}>
             <td style={{ padding: '5px' }}>{item.name}</td>
             <td style={{ color: item.status == 'VOTED' ? 'green' : 'red', padding: '5px' }}>{item.status}</td>
