@@ -32,7 +32,7 @@ const EmailVerification = () => {
 
         setLoading(true)
         try {
-            fetch('https://172.20.10.2:5000/api/voter/validateVotes', {
+            fetch('https://comel-back-end.vercel.app/api/voter/validateVotes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',

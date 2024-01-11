@@ -22,7 +22,7 @@ export default function Login() {
         setRespond('')
         setLoading(true)
 
-        await fetch('http://172.20.10.2:5000/api/admin/login', {
+        await fetch('http://comel-back-end.vercel.app/api/admin/login', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
