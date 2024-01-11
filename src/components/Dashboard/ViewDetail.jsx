@@ -70,7 +70,7 @@ export const viewDetailLoader = async ({ params }) => {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
-            'access-conteol-origin': '*',
+            'access-control-origin': '*',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })

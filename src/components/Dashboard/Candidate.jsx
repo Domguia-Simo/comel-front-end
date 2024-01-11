@@ -33,7 +33,7 @@ export default function Candidates() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
@@ -73,7 +73,7 @@ export default function Candidates() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
@@ -102,7 +102,7 @@ export default function Candidates() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
@@ -132,34 +132,6 @@ export default function Candidates() {
             })
 
 
-    }
-    const endElection = (id) => {
-        setLoading(true)
-        setError('')
-        setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/candidate/closeElection/' + id, {
-            headers: {
-                'content-type': 'application/json',
-                'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then(res => res.json())
-            .then(async (data) => {
-                console.log(data)
-                if (data.status) {
-                    setSuccess(data.message)
-                    navigate("/dashboard/elections", { replace: true })
-                } else
-                    setError(data.message)
-                setLoading(false)
-            })
-            .catch(e => {
-                console.log(e)
-                setError('check you connection')
-                setLoading(false)
-            })
     }
 
     let lists = candidate.candidates.map((item) =>
@@ -378,7 +350,7 @@ export const candidatesLoader = async () => {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
-            'access-conteol-origin': '*',
+            'access-control-origin': '*',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
@@ -386,7 +358,7 @@ export const candidatesLoader = async () => {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
-            'access-conteol-origin': '*',
+            'access-control-origin': '*',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })

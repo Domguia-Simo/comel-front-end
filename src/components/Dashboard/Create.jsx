@@ -19,7 +19,7 @@ export default function Elections() {
                 headers: {
                     'content-type': 'application/json',
                     'accept': 'applicaion/json',
-                    'access-conteol-origin': '*',
+                    'access-control-origin': '*',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
@@ -57,7 +57,7 @@ export default function Elections() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
@@ -85,7 +85,7 @@ export default function Elections() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
@@ -113,7 +113,7 @@ export default function Elections() {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
-                'access-conteol-origin': '*',
+                'access-control-origin': '*',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
@@ -261,7 +261,7 @@ export const electionsLoader = async () => {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
-            'access-conteol-origin': '*',
+            'access-control-origin': '*',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
