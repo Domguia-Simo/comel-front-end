@@ -14,12 +14,14 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [respond, setRespond] = useState('')
+    const [success, setSuccess] = useState('')
     async function submit() {
         if (email == '' || password == '') {
             return
         }
         setError('')
         setRespond('')
+        setSuccess('')
         setLoading(true)
 
         await fetch('https://comel-back-end.vercel.app/api/admin/login', {
@@ -36,8 +38,9 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log("data",data)
+                console.log("data", data)
                 if (data.token) {
+                    setSuccess(data.message)
                     await localStorage.setItem('token', data.token)
                     // window.location.reload();
                     window.location.pathname = "/dashboard/view/B1A"
@@ -92,6 +95,9 @@ export default function Login() {
                                 : ''}
                             {
                                 respond != '' ? <span style={{ color: 'darkred' }}>{respond}</span> : ''
+                            }
+                            {
+                                success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
                             }
                         </div>
 

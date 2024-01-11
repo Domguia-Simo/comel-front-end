@@ -10,7 +10,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function Result() {
     const { PieData, message } = useLoaderData();
     if (message === 'Election not yet end') {
-        return(
+        return (
             <h1>{message}</h1>
         )
     } else {
@@ -31,7 +31,7 @@ export default function Result() {
 
 export const getElectionResult = async ({ params }) => {
     const { id } = params
-    let response = await fetch('https://comel-back-end.vercel.app/api/election/result/'+id, {
+    let response = await fetch('https://comel-back-end.vercel.app/api/election/result/' + id, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
@@ -44,16 +44,35 @@ export const getElectionResult = async ({ params }) => {
             console.log(data)
             let labels = []
             let pieData = []
-            let voted = 0
+            let voted = {}
+            let notVoted = 0
             let i = 0
+
+            // pieData[index] = data.voters.filter(opt => opt.votes.candidate === item._id).length
+            // voted += pieData[index]
+            // i++
+            data.voters.map((item) => {
+                if (item.status === "NOT VOTED") {
+                    notVoted++;
+                } else {
+                    if (item.votes.candidate) {
+                        if (voted[item.votes.candidate]) {
+                            voted[item.votes.candidate]++
+                        } else {
+                            voted[item.votes.candidate] = 1
+                        }
+                    }
+                }
+            })
             data.candidates.map((item, index) => {
                 labels.push(item.name)
-                pieData[index] = data.voters.filter(opt => opt.votes.candidate === item._id).length
-                voted += pieData[index]
+                if (voted[item._id]) {
+                    pieData[index] = voted[item._id];
+                }
                 i++
             })
             labels.push("not voted")
-            pieData[i] = data.voters.length - voted
+            pieData[i] = notVoted
             // console.log("labels", labels);
             // console.log("voted", voted);
             // console.log("pieData", pieData);
@@ -90,6 +109,37 @@ export const getElectionResult = async ({ params }) => {
         })
         .catch(err => {
             console.log(err)
+            let labels = []
+            let pieData = []
+            return {
+                PieData: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Elections of Votes',
+                            data: pieData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                message: 'Election not yet end'
+            }
 
         })
     return response

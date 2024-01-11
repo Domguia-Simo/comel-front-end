@@ -86,7 +86,7 @@ export default function Voting() {
                         name: data.name,
                         email: data.email,
                         classe: data.class,
-                        candidate: id,
+                        candidate: voted._id,
                         election: voted.election,
                         // position: {
                         //     latitude: lat,
