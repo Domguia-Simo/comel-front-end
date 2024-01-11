@@ -202,7 +202,7 @@ export default function Voting() {
                         Please you will need to <b>authorise location</b>
                     </blockquote> */}
 
-                    <input type="text" placeholder='Name' value={data.name} name="name" onChange={e => handleChange(e)} required />
+                    <input type="text" placeholder='Matricule' value={data.name} name="name" onChange={e => handleChange(e)} required />
                     <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>

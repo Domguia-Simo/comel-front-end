@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-
+import CountDown from 'react-countdown';
 
 // Styling
 import '../assets/styles/global.css'
@@ -14,7 +14,26 @@ const EmailVerification = () => {
     const [userInfo, setUserInfo] = useState(useLocation().state)
     const [success, setSuccess] = useState('')
     const [respond, setRespond] = useState('')
+    const [countdownTime, setCountdownTime] = useState(600); // 10 minutes in seconds
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCountdownTime((prevTime) => Math.max(prevTime - 1, 0));
+        }, 1000); // Update timer every second
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleOnComplete = () => {
+        // Your callback function when the timer reaches zero
+        setRespond('you code has expired')
+        setTimeout(() => {
+            window.location.pathname = "/"
+        }, 2500)
+    };
+
+    const minutes = Math.floor(countdownTime / 60);
+    const seconds = countdownTime % 60;
 
     async function sendConfirmation() {
         console.log(code)
@@ -54,7 +73,13 @@ const EmailVerification = () => {
                         setTimeout(() => {
                             setLoading(false)
                             navigate("/", { replace: true })
-                        }, 2000)
+                        }, 2500)
+                    } else if (data.statusError) {
+                        setRespond(data.message)
+                        setTimeout(() => {
+                            setLoading(false)
+                            navigate("/", { replace: true })
+                        }, 2500)
                     } else {
                         setRespond(data.message)
                         setLoading(false)
@@ -114,14 +139,19 @@ const EmailVerification = () => {
                     <blockquote>
                         - A code has been send to your email .<br />-<b> Enter the code to register your vote </b>
                     </blockquote>
+                    <span style={{ color: 'darkred' }}>
+                        <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
+                            <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
+                        </CountDown>
+                    </span>
                     <input type="text" placeholder=' Verification code' value={code} name="code" onChange={e => setCode(e.target.value)} required />
                     {loading ? (
-                        <button onClick={() => sendConfirmation()} className='submit'>
+                        <button onClick={() => { }} className='submit'>
                             Confirm
                             < img src={require('../assets/images/loader.gif')} width={'30px'} alt="loader" />
                         </button>
                     ) : (
-                        <button readOnly onClick={() => { }} className='submit'>
+                        <button readOnly onClick={() => { sendConfirmation() }} className='submit'>
                             Confirm
                         </button>
                     )}
