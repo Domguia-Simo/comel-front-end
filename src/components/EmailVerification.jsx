@@ -17,10 +17,11 @@ const EmailVerification = () => {
 
 
     async function sendConfirmation() {
-        // console.log(code)
+        console.log(code)
         setError('')
         setRespond('')
         setSuccess('')
+        console.log(userInfo);
         if (code == null) {
             return
         }
@@ -31,7 +32,7 @@ const EmailVerification = () => {
 
         setLoading(true)
         try {
-            fetch('https://comel-back-end.vercel.app/api/voter/validateVotes', {
+            fetch('https://172.20.10.2:5000/api/voter/validateVotes', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',
@@ -56,6 +57,7 @@ const EmailVerification = () => {
                         }, 2000)
                     } else {
                         setRespond(data.message)
+                        setLoading(false)
                     }
 
                 })
@@ -113,14 +115,16 @@ const EmailVerification = () => {
                         - A code has been send to your email .<br />-<b> Enter the code to register your vote </b>
                     </blockquote>
                     <input type="text" placeholder=' Verification code' value={code} name="code" onChange={e => setCode(e.target.value)} required />
-
-                    <button onClick={() => sendConfirmation()} className='submit'>
-                        Confirm
-                        {
-                            loading ? <img src={require('../assets/images/loader.gif')} width={'30px'} alt="loader" /> : ''
-                        }
-                    </button>
-
+                    {loading ? (
+                        <button onClick={() => sendConfirmation()} className='submit'>
+                            Confirm
+                            < img src={require('../assets/images/loader.gif')} width={'30px'} alt="loader" />
+                        </button>
+                    ) : (
+                        <button readOnly onClick={() => { }} className='submit'>
+                            Confirm
+                        </button>
+                    )}
                 </form>
 
             </div>
