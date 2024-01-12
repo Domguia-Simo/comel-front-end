@@ -15,7 +15,7 @@ export default function Elections() {
         setSuccess('')
         if (title) {
             fetch('https://comel-back-end.vercel.app/api/election/createElection/', {
-                method:"post",
+                method: "post",
                 headers: {
                     'content-type': 'application/json',
                     'accept': 'applicaion/json',
@@ -53,7 +53,7 @@ export default function Elections() {
         setError('')
         setSuccess('')
         fetch('https://comel-back-end.vercel.app/api/election/deleteElection/' + id, {
-            method:"delete",
+            method: "delete",
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -135,62 +135,76 @@ export default function Elections() {
     }
 
     let lists = election.election.map((item) =>
-        <tr key={item._id}>
-            <td style={{ padding: '5px' }}>{item.title}</td>
-            <td style={{ color: item.status == 'END' ? 'red' : 'green', padding: '5px' }}>{item.status}</td>
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <a style={{ background: "green" }}>
-                        .....
-                    </a>
-                ) : (
-                    <a
-                        style={{ background: "green" }}
-                        onClick={() => { startElection(item._id) }}>
-                        START
-                    </a>
-                )}
-            </td>
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <a style={{ background: "red" }}>
-                        .....
-                    </a>
-                ) : (
-                    <a
-                        style={{ background: "red" }}
-                        onClick={() => { endElection(item._id) }}>
-                        END
-                    </a>
-                )}
-            </td>
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <a style={{ background: "red" }}>
-                        .....
-                    </a>
-                ) : (
-                    <a
-                        style={{ background: "red" }}
-                        onClick={() => { deleteElection(item._id) }}>
-                        DELETE
-                    </a>
-                )}
-            </td>
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <a style={{ background: "gre" }}>
-                        .....
-                    </a>
-                ) : (
-                    <a
-                        style={{ background: "green" }}
-                        onClick={() => { navigate(`/dashboard/result/${item._id}`) }}>
-                        RESULT
-                    </a>
-                )}
-            </td>
-        </tr>
+        <>
+            <tr key={item._id}>
+                <td style={{ padding: '5px' }}>{item.title}</td>
+                <td style={{ color: item.status == 'END' ? 'red' : 'green', padding: '5px' }}>{item.status}</td>
+            </tr>
+            <tr>
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button
+                            className='submit2' style={{ background: "green" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "green" }}
+                            onClick={() => { startElection(item._id) }}>
+                            START
+                        </button>
+                    )}
+                </td>
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button
+                            className='submit2' style={{ background: "red" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "red" }}
+                            onClick={() => { endElection(item._id) }}>
+                            END
+                        </button>
+                    )}
+                </td>
+            </tr>
+            <tr>
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button
+                            className='submit2' style={{ background: "red" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "red" }}
+                            onClick={() => { deleteElection(item._id) }}>
+                            DELETE
+                        </button>
+                    )}
+                </td>
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button
+                            className='submit2' style={{ background: "green" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "green" }}
+                            onClick={() => { navigate(`/dashboard/result/${item._id}`) }}>
+                            RESULT
+                        </button>
+                    )}
+                </td>
+            </tr>
+        </>
     );
     return (
         <>
@@ -198,9 +212,10 @@ export default function Elections() {
 
                 <center>
                     {loading ? (
-                        <a style={{ cursor: "pointer", background: "green" }}>
+                        <button
+                            className='submit2' style={{ cursor: "pointer", background: "green" }}>
                             .....
-                        </a>
+                        </button>
                     ) : (
                         <>
                             {enterTitle ? (
@@ -210,18 +225,20 @@ export default function Elections() {
                                         type="text"
                                         onChange={(e) => { setTitle(e.target.value) }}
                                     />
-                                    <a
+                                    <button
+                                        className='submit2'
                                         style={{ cursor: "pointer", background: "green" }}
                                         onClick={createElection}>
                                         CREATE
-                                    </a>
+                                    </button>
                                 </>
                             ) : (
-                                <a
+                                <button
+                                    className='submit2'
                                     style={{ cursor: "pointer", background: "green" }}
                                     onClick={() => setEnterTitle(true)}>
                                     CREATE
-                                </a>
+                                </button>
                             )}
                         </>
                     )}
@@ -240,9 +257,7 @@ export default function Elections() {
                         <thead>
                             <tr>
                                 <th style={{ padding: '5px' }}>Name</th>
-                                <th style={{ padding: '5px' }}>Voted</th>
-                                <th style={{ padding: '5px' }}></th>
-                                <th style={{ padding: '5px' }}></th>
+                                <th style={{ padding: '5px' }}>status</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -244,9 +244,18 @@ export default function LandingPage() {
                 </div>
             )
         } else {
-            return (<>
-                NOT yet ended
-            </>
+            return (
+                <React.Fragment>
+                    <div className='body'>
+                        {/* <Header/> */}
+    
+                        <div className="main-container">
+                            {displayCandidate}
+                        </div>
+                        <br />
+                    </div>
+    
+                </React.Fragment>
             )
         }
     } else {

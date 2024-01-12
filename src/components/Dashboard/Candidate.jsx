@@ -140,11 +140,12 @@ export default function Candidates() {
             <td style={{ padding: '5px' }}>{item.class}</td>
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
-                    <a style={{ background: "green" }}>
+                    <button className='submit2' style={{ background: "green" }}>
                         .....
-                    </a>
+                    </button>
                 ) : (
-                    <a
+                    <button
+                        className='submit2'
                         style={{ background: "green" }}
                         onClick={() => {
                             setData(item)
@@ -152,33 +153,36 @@ export default function Candidates() {
                             setEnterTitle(true)
                         }}>
                         EDIT
-                    </a>
+                    </button>
                 )}
             </td>
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
-                    <a style={{ background: "green" }}>
+                    <button className='submit2' style={{ background: "green" }}>
                         .....
-                    </a>
+                    </button>
                 ) : (
-                    <a
+                    <button
+                        className='submit2'
                         style={{ background: "green" }}
                         onClick={() => { }}>
                         ADD PHOTO
-                    </a>
+                    </button>
                 )}
             </td>
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
-                    <a style={{ background: "red" }}>
+                    <button
+                    className='submit2' style={{ background: "red" }}>
                         .....
-                    </a>
+                    </button>
                 ) : (
-                    <a
+                    <button
+                        className='submit2'
                         style={{ background: "red" }}
                         onClick={() => { deleteCandidate(item._id) }}>
                         DELETE
-                    </a>
+                    </button>
                 )}
             </td>
         </tr>
@@ -202,9 +206,10 @@ export default function Candidates() {
             <div>
                 <center>
                     {loading ? (
-                        <a style={{ cursor: "pointer", background: "green" }}>
+                        <button
+                        className='submit2' style={{ cursor: "pointer", background: "green" }}>
                             .....
-                        </a>
+                        </button>
                     ) : (
                         <>
                             {enterTitle ? (
@@ -295,7 +300,8 @@ export default function Candidates() {
                                     </div>
                                 </>
                             ) : (
-                                <a
+                                <button
+                                className='submit2'
                                     style={{ cursor: "pointer", background: "green" }}
                                     onClick={() => {
                                         setData({
@@ -311,7 +317,7 @@ export default function Candidates() {
                                     }}
                                 >
                                     CREATE
-                                </a>
+                                </button>
                             )}
                         </>
                     )}
@@ -330,7 +336,8 @@ export default function Candidates() {
                         <thead>
                             <tr>
                                 <th style={{ padding: '5px' }}>Name</th>
-                                <th style={{ padding: '5px' }}>Voted</th>
+                                <th style={{ padding: '5px' }}>Class</th>
+                                <th style={{ padding: '5px' }}></th>
                                 <th style={{ padding: '5px' }}></th>
                                 <th style={{ padding: '5px' }}></th>
                             </tr>

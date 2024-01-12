@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useLocation, useLoaderData, useNavigate, Link, Outlet } from 'react-router-dom'
 
 const Header = () => {
@@ -6,8 +6,17 @@ const Header = () => {
     let location = useLocation()
     const navigate = useNavigate()
     const User = useLoaderData()
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const handleChange = () => {
+        setScreenWidth(window.innerWidth)
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleChange);
+        return () => {
+            window.removeEventListener('resize', handleChange);
+        };
+    }, [])
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -69,14 +78,27 @@ const Header = () => {
                 <>
                     {User.isLogin ? (
                         <>
-                            <span 
+                            <span
                             // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
                             >
                                 <span
                                     style={{ cursor: 'pointer', padding: '5px 7px' }}
                                     onClick={() => navigate("/dashboard/view/B1A")}
                                 >
-                                    {User.name}
+                                     {screenWidth > 500 ? (
+                                        <>
+                                            {User.name}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {User.name.length>8?(
+                                                <>{`${User.name.split(0, 1)}..`}</>
+                                            ):(
+                                                <>{User.name}</>
+                                            )}
+                                        </>
+                                    )}
+
                                     {/* <i className='far fa-user'></i> */}
                                     &nbsp;&nbsp;
                                     {/* <i className='far fa-user'></i> */}
@@ -85,8 +107,18 @@ const Header = () => {
                                     style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
                                     onClick={() => { Logout() }}
                                 >
-                                    logout
-                                    <i className='fas fa-door-open'></i>
+                                    {screenWidth > 500 ? (
+                                        <>
+                                            logout
+                                            <i className='fas fa-door-open'></i>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {/* logout */}
+                                            <i className='fas fa-door-open'></i>
+                                        </>
+                                    )}
+
                                 </span>
                             </span>
                         </>
