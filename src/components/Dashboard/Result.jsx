@@ -41,7 +41,7 @@ export const getElectionResult = async ({ params }) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             let labels = []
             let pieData = []
             let voted = {}
@@ -108,7 +108,7 @@ export const getElectionResult = async ({ params }) => {
             }
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             let labels = []
             let pieData = []
             return {

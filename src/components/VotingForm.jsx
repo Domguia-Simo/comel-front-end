@@ -76,8 +76,8 @@ const VotingForm = () => {
                 //         long = position.coords.longitude
                 //     }
                 // }
-                console.log(data);
-                console.log(voted);
+                // console.log(data);
+                // console.log(voted);
                 await fetch('http://localhost:5000/api/voter/votes/', {
                     method: 'post',
                     headers: {
@@ -95,7 +95,7 @@ const VotingForm = () => {
                 })
                     .then(res => res.json())
                     .then(respond => {
-                        console.log(respond)
+                        // console.log(respond)
                         setSuccess('on votes')
                         setError('on voteing' + respond.message)
                         // if (data.status) {
@@ -119,12 +119,12 @@ const VotingForm = () => {
                         // }
                     })
                     .catch(err => {
-                        console.log(err)
+                        // console.log(err)
                         setLoading(false)
                         setError('internet problem' + err)
                     })
             } catch (e) {
-                console.log("err", e)
+                // console.log("err", e)
                 setError('Verify your internet connection')
                 setLoading(false)
             }

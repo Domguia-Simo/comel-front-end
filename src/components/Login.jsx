@@ -38,7 +38,7 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log("data", data)
+                // console.log("data", data)
                 if (data.token) {
                     setSuccess(data.message)
                     await localStorage.setItem('token', data.token)
@@ -51,7 +51,7 @@ export default function Login() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError("Verify your internet connection")
                 setLoading(false)
             })

@@ -8,7 +8,7 @@ export default function ViewDetail() {
     const [classe, setClasse] = useState('ba1a')
     const [students, setStudents] = useState(votersByClass.voters || [])
     const [filter, setFilter] = useState('')
-    console.log("votersByClass.voters", votersByClass)
+    // console.log("votersByClass.voters", votersByClass)
     const toDashboard = () => {
         setTimeout(() => {
             navigate("/dashboard", { replace: true })
@@ -65,7 +65,7 @@ export default function ViewDetail() {
 
 export const viewDetailLoader = async ({ params }) => {
     const { classes } = params
-    console.log(`Bearer ${localStorage.getItem('token')}`)
+    // console.log(`Bearer ${localStorage.getItem('token')}`)
     const res = await fetch('https://comel-back-end.vercel.app/api/voter/getVoterByClass/' + classes, {
         headers: {
             'content-type': 'application/json',
@@ -74,7 +74,7 @@ export const viewDetailLoader = async ({ params }) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    console.log(res);
+    // console.log(res);
     if (!res.ok) {
         throw Error('Access Diened')
     }

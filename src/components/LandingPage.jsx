@@ -26,12 +26,15 @@ const raw_candiidates = [
     //     description:'I Peter, i promise that if i become the president i will respect all what i said '
     // },
 ]
-let pic = [require('../assets/images/damso.png'), require('../assets/images/jac.jfif'), require('../assets/images/mali.jpg')]
+let pic = [require('../assets/images/test1.jpg'),
+require('../assets/images/test2.jpg'),
+require('../assets/images/mali.jpg')
+]
 
 export default function LandingPage() {
     const navigate = useNavigate()
     const candidatesData = useLoaderData()
-    console.log("candidatesData", candidatesData.candidates);
+    // console.log("candidatesData", candidatesData.candidates);
     const [candidates, setCandidates] = useState(candidatesData.candidates)
     const [elections, setElections] = useState(candidatesData.elections)
     const [loading, setLoading] = useState(false)
@@ -82,7 +85,7 @@ export default function LandingPage() {
                 <img src={pic[index]} alt={candidate.name} title={candidate.name} className='candidate-picture' />
 
                 <div className='candidate-content'>
-                    <span className='candidate-name'>Mr. {candidate.name}</span>
+                    <span className='candidate-name'> {candidate.name}</span>
 
                     <span className='candidate-description'>
                         {description}
@@ -115,7 +118,7 @@ export default function LandingPage() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 let labels = []
                 let pieData = []
                 let voted = {}
@@ -182,7 +185,7 @@ export default function LandingPage() {
                 }
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
                 let labels = []
                 let pieData = []
                 return {
@@ -232,7 +235,7 @@ export default function LandingPage() {
                             ) : (
                                 <React.Fragment>
                                     <div className='body'>
-                                        <div style={{ height: "500px" ,marginTop:"50px"}}>
+                                        <div style={{ height: "500px", marginTop: "50px" }}>
                                             <Pie data={data.PieData} />
                                         </div>
                                     </div>
@@ -248,13 +251,13 @@ export default function LandingPage() {
                 <React.Fragment>
                     <div className='body'>
                         {/* <Header/> */}
-    
+
                         <div className="main-container">
                             {displayCandidate}
                         </div>
                         <br />
                     </div>
-    
+
                 </React.Fragment>
             )
         }

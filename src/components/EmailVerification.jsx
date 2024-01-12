@@ -36,11 +36,11 @@ const EmailVerification = () => {
     const seconds = countdownTime % 60;
 
     async function sendConfirmation() {
-        console.log(code)
+        // console.log(code)
         setError('')
         setRespond('')
         setSuccess('')
-        console.log(userInfo);
+        // console.log(userInfo);
         if (code == null) {
             return
         }
@@ -67,7 +67,7 @@ const EmailVerification = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.statusAdmin) {
                         setSuccess(data.message)
                         setTimeout(() => {
@@ -87,13 +87,13 @@ const EmailVerification = () => {
 
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                     setError('Verify your internet connection')
                     setLoading(false)
                 })
         }
         catch (e) {
-            console.log(e)
+            // console.log(e)
             setError('Verify your internet connection')
             setLoading(false)
         }

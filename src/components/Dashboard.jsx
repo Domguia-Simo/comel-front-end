@@ -5,7 +5,7 @@ import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 const Dashboard = () => {
     const navigate = useNavigate()
     const [userInfo, setUserInfo] = useState(useLocation().state)
-    console.log("userInfo", userInfo);
+    // console.log("userInfo", userInfo);
     return (
         <React.Fragment>
             <div>

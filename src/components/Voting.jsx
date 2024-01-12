@@ -96,7 +96,7 @@ export default function Voting() {
                 })
                     .then(res => res.json())
                     .then(respond => {
-                        console.log(respond)
+                        // console.log(respond)
                         if (respond.status) {
                             setSuccess(respond.message)
                             setTimeout(() => {
@@ -118,12 +118,12 @@ export default function Voting() {
                         }
                     })
                     .catch(err => {
-                        console.log(err)
+                        // console.log(err)
                         setLoading(false)
                         setError('internet problem' + err)
                     })
             } catch (e) {
-                console.log("err", e)
+                // console.log("err", e)
                 setError('Verify your internet connection')
                 setLoading(false)
             }

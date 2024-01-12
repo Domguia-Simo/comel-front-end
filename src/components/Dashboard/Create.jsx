@@ -8,7 +8,7 @@ export default function Elections() {
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    console.log(election);
+    // console.log(election);
     const createElection = () => {
         setLoading(true)
         setError('')
@@ -28,7 +28,7 @@ export default function Elections() {
             })
                 .then(res => res.json())
                 .then(async (data) => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.status) {
                         setSuccess(data.message)
                         setEnterTitle(false)
@@ -38,7 +38,7 @@ export default function Elections() {
                     setLoading(false)
                 })
                 .catch(e => {
-                    console.log(e)
+                    // console.log(e)
                     setError('check you connection')
                     setLoading(false)
                 })
@@ -63,7 +63,7 @@ export default function Elections() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     navigate("/dashboard/elections", { replace: true })
@@ -72,7 +72,7 @@ export default function Elections() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -91,7 +91,7 @@ export default function Elections() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     navigate("/dashboard/elections", { replace: true })
@@ -100,7 +100,7 @@ export default function Elections() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -119,7 +119,7 @@ export default function Elections() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     navigate("/dashboard/elections", { replace: true })
@@ -128,7 +128,7 @@ export default function Elections() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -280,7 +280,7 @@ export const electionsLoader = async () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    console.log(res);
+    // console.log(res);
     if (!res.ok) {
         throw Error('Access Diened')
     }

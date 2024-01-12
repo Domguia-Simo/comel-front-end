@@ -21,7 +21,7 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
     const [hide, setHide] = useState(false)
-    console.log("Userheader", User);
+    // console.log("Userheader", User);
     useMemo(() => {
         if (location.pathname === '/login' || location.pathname === '/dashboard') {
             setHide(true)

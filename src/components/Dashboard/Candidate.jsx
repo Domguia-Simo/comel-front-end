@@ -137,7 +137,7 @@ export default function Candidates() {
     let lists = candidate.candidates.map((item) =>
         <tr key={item._id}>
             <td style={{ padding: '5px' }}>{item.name}</td>
-            <td style={{ padding: '5px' }}>{item.class}</td>
+            {/* <td style={{ padding: '5px' }}>{item.class}</td> */}
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
                     <button className='submit2' style={{ background: "green" }}>
@@ -156,7 +156,7 @@ export default function Candidates() {
                     </button>
                 )}
             </td>
-            <td style={{ padding: '5px', cursor: "pointer" }}>
+            {/* <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
                     <button className='submit2' style={{ background: "green" }}>
                         .....
@@ -169,7 +169,7 @@ export default function Candidates() {
                         ADD PHOTO
                     </button>
                 )}
-            </td>
+            </td> */}
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
                     <button
@@ -336,10 +336,10 @@ export default function Candidates() {
                         <thead>
                             <tr>
                                 <th style={{ padding: '5px' }}>Name</th>
-                                <th style={{ padding: '5px' }}>Class</th>
+                                {/* <th style={{ padding: '5px' }}>Class</th> */}
                                 <th style={{ padding: '5px' }}></th>
                                 <th style={{ padding: '5px' }}></th>
-                                <th style={{ padding: '5px' }}></th>
+                                {/* <th style={{ padding: '5px' }}></th> */}
                             </tr>
                         </thead>
                         <tbody>
