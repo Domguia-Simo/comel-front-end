@@ -235,7 +235,7 @@ export default function Voting() {
                         <input type="checkbox" value={data.confirm} id="confirm" name='confirm' onChange={e => handleChange(e)} required />
                         <label htmlFor='confirm' style={{ textAlign: 'center' }}>
                             <span>I Agree and confirm my vote for</span> <br />
-                            <center><b> Mr. {voted.name} </b></center>
+                            <center><b> {voted.name} </b></center>
                         </label>
                     </div>
                     {
