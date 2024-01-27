@@ -52,6 +52,7 @@ const Header = () => {
         <React.Fragment>
             <>
                 <div style={{
+                    minHeight:"600px",
                     background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
                 }}>
                     <div

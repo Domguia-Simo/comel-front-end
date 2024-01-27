@@ -24,8 +24,10 @@ import Elections from './components/Dashboard/Create'
 import Candidates, { candidatesLoader } from './components/Dashboard/Candidate'
 import Voting from './components/Voting'
 import Register from './components/Register'
-import ViewCandidates from './components/DashbordHome/ViewCandidates'
-import Result from './components/DashbordHome/Result'
+import ViewCandidates, { viewCandidatesLoader } from './components/DashbordHome/ViewCandidates'
+import Result, { getElectionResult } from './components/DashbordHome/Result'
+import CandidateCategory from './components/DashbordHome/CandidateCategory'
+import ResultCategory from './components/DashbordHome/ResultCategory'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,42 +35,38 @@ const router = createBrowserRouter(
             element={<Header />}
             loader={loginLoader}
             errorElement={<ViewsDetialError />}
-
         >
             <Route
                 index
-                // path="login"
                 element={<Login />}
-                loader={loginLoader}
+            // loader={loginLoader}
             />
             <Route
                 path="register"
                 element={<Register />}
-                loader={loginLoader}
+            // loader={loginLoader}
             />
             <Route path="dashboard" element={<Dashboard />} >
                 <Route
-                    index
-                    element={<ViewCandidates />}
-                // loader={landingPageLoader}
-                // errorElement={<ViewsDetialError />}
-                />
-                <Route
-                    path="result"
-                    element={<Result />}
-                />
-                {/* <Route
-                    path="voting-form"
-                    element={<Voting />}
-                />
-                <Route path="email-verification" element={<EmailVerification />} />
-
-                <Route path="view" element={<Views />} >
+                    path='home'
+                    element={<CandidateCategory />}
+                    loader={electionsLoader}
+                >
                     <Route
-                        path=":classes"
-                        element={<ViewDetail />}
-                        loader={viewDetailLoader}
-                        errorElement={<ViewsDetialError />}
+                        path=":id"
+                        element={<ViewCandidates />}
+                        loader={viewCandidatesLoader}
+                    />
+                </Route>
+                <Route
+                    path='result'
+                    element={<ResultCategory />}
+                    loader={electionsLoader}
+                >
+                    <Route
+                        path=":id"
+                        element={<Result />}
+                        loader={getElectionResult}
                     />
                 </Route>
                 <Route
@@ -83,11 +81,6 @@ const router = createBrowserRouter(
                     loader={candidatesLoader}
                     errorElement={<ViewsDetialError />}
                 />
-                <Route
-                    path="result/:id"
-                    element={<Result />}
-                    loader={getElectionResult} />
-                <Route path="logout" element={<h1>LogOut</h1>} /> */}
             </Route>
 
             <Route element={<h1>Not Found</h1>} />

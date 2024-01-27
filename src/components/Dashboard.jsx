@@ -1,10 +1,11 @@
 import { MDBRipple } from 'mdb-react-ui-kit'
 import React, { useState, useMemo, useLayoutEffect, useEffect } from 'react'
-import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { Outlet, NavLink, useNavigate, useLocation, Link } from 'react-router-dom'
 
 
 const Dashboard = () => {
     const navigate = useNavigate()
+    const [hideMenu, setHideMenu] = useState(false)
     const [userInfo, setUserInfo] = useState(useLocation().state)
     // console.log("userInfo", userInfo);
     return (
@@ -53,9 +54,9 @@ const Dashboard = () => {
                         <>
                             <>
                                 <span>
-                                    <NavLink to="/" >HOME</NavLink>
+                                    <NavLink to="/dashboard/home" >HOME</NavLink>
                                     &nbsp;&nbsp;
-                                    <NavLink to="design">DESIGNS</NavLink>
+                                    <NavLink to="/dashboard/result">RESULT</NavLink>
                                     &nbsp;&nbsp;
                                 </span>
                                 <span>
@@ -65,22 +66,32 @@ const Dashboard = () => {
                         </>
                     </div>
                     <div>
-                        <div>
-                            <select id="design"
-                                // onChange={(e) => {
-                                //     if (e.target.value.toLocaleLowerCase() === 'all') {
-                                //         setDesign(item)
-                                //     } else {
-                                //         let val = item.filter(opt => opt.catagory.toLocaleLowerCase() === e.target.value.toLocaleLowerCase())
-                                //         setDesign(val)
-                                //     }
-                                // }}
+                        <div
+                            onMouseEnter={() => { setHideMenu(true) }}
+                            onMouseLeave={() => { setHideMenu(false) }}
+                            className="fixed-action-btn"
+                            data-mdb-button-init data-mdb-ripple-init
+                        >
+                            <a
+                                className="btn btn-floating text-white btn-lg-4"
+                                data-mdb-ripple-init
+
+                                style={{ backgroundColor: "#f44336" }}
                             >
-                                <option key="all">ALL</option>
-                                <option key="women">Women</option>
-                                <option key="men">Men</option>
-                            </select>
-                            <label htmlFor='design'> category </label>
+                                <i className="fas fa-pencil-alt"></i>
+                            </a>
+                            {hideMenu ? (
+                                <>
+                                    <Link to="/dashboard/elections" className="btn text-white btn-floating btn-lg" style={{ margin: "30px 0", backgroundColor: "#f44336" }}>
+                                        <i className="fas fa-star"></i>
+                                    </Link>
+                                    <Link to="/dashboard/candidates" className="btn text-white btn-floating btn-lg" data-mdb-ripple-init style={{ margin: "10px 0", backgroundColor: "#fdd835" }}>
+                                        <i className="fas fa-user"></i>
+                                    </Link>
+                                </>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         {/* <Outlet /> */}
                     </div>
