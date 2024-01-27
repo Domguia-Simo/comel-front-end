@@ -74,7 +74,7 @@ export default function Voting() {
                 // }
 
                 let id = voted._id
-                await fetch('https://comel-back-end.vercel.app/api/voter/votes', {
+                await fetch(`${process.env.REACT_APP_API_URL}/voter/votes`, {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',

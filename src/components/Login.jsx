@@ -24,7 +24,7 @@ export default function Login() {
         setSuccess('')
         setLoading(true)
 
-        await fetch('https://comel-back-end.vercel.app/api/admin/login', {
+        await fetch(`${process.env.REACT_APP_API_URL}/admin/login`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
@@ -131,7 +131,7 @@ export default function Login() {
 
 export const loginLoader = async ({ params }) => {
     let token = localStorage.getItem('token')
-    const res = await fetch('https://comel-back-end.vercel.app/api/isLogin', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/isLogin`, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

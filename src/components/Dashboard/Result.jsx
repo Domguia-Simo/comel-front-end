@@ -31,7 +31,7 @@ export default function Result() {
 
 export const getElectionResult = async ({ params }) => {
     const { id } = params
-    let response = await fetch('https://comel-back-end.vercel.app/api/election/result/' + id, {
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/election/result/` + id, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

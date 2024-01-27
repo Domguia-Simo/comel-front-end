@@ -78,7 +78,7 @@ const VotingForm = () => {
                 // }
                 // console.log(data);
                 // console.log(voted);
-                await fetch('http://localhost:5000/api/voter/votes/', {
+                await fetch(`${process.env.REACT_APP_API_URL}/voter/votes/`, {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',

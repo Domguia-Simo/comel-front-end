@@ -28,7 +28,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/candidate/addCandidate', {
+        fetch(`${process.env.REACT_APP_API_URL}/candidate/addCandidate`, {
             method: "post",
             headers: {
                 'content-type': 'application/json',
@@ -68,7 +68,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/candidate/deleteCandidate/' + id, {
+        fetch(`${process.env.REACT_APP_API_URL}/candidate/deleteCandidate/` + id, {
             method: "delete",
             headers: {
                 'content-type': 'application/json',
@@ -97,7 +97,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/candidate/editCandidate/' + data._id, {
+        fetch(`${process.env.REACT_APP_API_URL}/candidate/editCandidate/` + data._id, {
             method: "put",
             headers: {
                 'content-type': 'application/json',
@@ -353,7 +353,7 @@ export default function Candidates() {
 }
 
 export const candidatesLoader = async () => {
-    const res = await fetch('https://comel-back-end.vercel.app/api/candidate/getCandidates', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/candidate/getCandidates`, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',
@@ -361,7 +361,7 @@ export const candidatesLoader = async () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    const res1 = await fetch('https://comel-back-end.vercel.app/api/election/getElections', {
+    const res1 = await fetch(`${process.env.REACT_APP_API_URL}/election/getElections`, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

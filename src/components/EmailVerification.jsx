@@ -51,7 +51,7 @@ const EmailVerification = () => {
 
         setLoading(true)
         try {
-            fetch('https://comel-back-end.vercel.app/api/voter/validateVotes', {
+            fetch(`${process.env.REACT_APP_API_URL}/voter/validateVotes`, {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json',

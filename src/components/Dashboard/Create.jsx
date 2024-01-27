@@ -14,7 +14,7 @@ export default function Elections() {
         setError('')
         setSuccess('')
         if (title) {
-            fetch('https://comel-back-end.vercel.app/api/election/createElection/', {
+            fetch(`${process.env.REACT_APP_API_URL}/election/createElection/`, {
                 method: "post",
                 headers: {
                     'content-type': 'application/json',
@@ -52,7 +52,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/election/deleteElection/' + id, {
+        fetch(`${process.env.REACT_APP_API_URL}/election/deleteElection/` + id, {
             method: "delete",
             headers: {
                 'content-type': 'application/json',
@@ -81,7 +81,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/election/startElection/' + id, {
+        fetch(`${process.env.REACT_APP_API_URL}/election/startElection/` + id, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -109,7 +109,7 @@ export default function Elections() {
         setLoading(true)
         setError('')
         setSuccess('')
-        fetch('https://comel-back-end.vercel.app/api/election/closeElection/' + id, {
+        fetch(`${process.env.REACT_APP_API_URL}/election/closeElection/` + id, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
@@ -272,7 +272,7 @@ export default function Elections() {
 
 export const electionsLoader = async () => {
 
-    const res = await fetch('https://comel-back-end.vercel.app/api/election/getElections', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/election/getElections`, {
         headers: {
             'content-type': 'application/json',
             'accept': 'applicaion/json',

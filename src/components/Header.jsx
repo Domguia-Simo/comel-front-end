@@ -28,7 +28,7 @@ const Header = () => {
         }
     }, [useLocation()])
     const Logout = async () => {
-        await fetch('https://comel-back-end.vercel.app/api/logout', {
+        await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',

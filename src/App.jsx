@@ -32,21 +32,24 @@ const router = createBrowserRouter(
         >
             <Route
                 index
-                element={<LandingPage />}
-                loader={landingPageLoader}
-                errorElement={<ViewsDetialError />}
-            />
-            <Route
-                path="voting-form"
-                element={<Voting />}
-            />
-            <Route path="email-verification" element={<EmailVerification />} />
-            <Route
-                path="login"
+                // path="login"
                 element={<Login />}
                 loader={loginLoader}
             />
+
             <Route path="dashboard" element={<Dashboard />} >
+                <Route
+                    index
+                    element={<LandingPage />}
+                    loader={landingPageLoader}
+                    errorElement={<ViewsDetialError />}
+                />
+                <Route
+                    path="voting-form"
+                    element={<Voting />}
+                />
+                <Route path="email-verification" element={<EmailVerification />} />
+
                 <Route path="view" element={<Views />} >
                     <Route
                         path=":classes"
