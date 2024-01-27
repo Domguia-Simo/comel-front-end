@@ -5,8 +5,8 @@ import { useLocation, useLoaderData, useNavigate, Link, Outlet, NavLink } from '
 const Header = () => {
 
     let location = useLocation()
-    const navigate = useNavigate()
-    const User = useLoaderData()
+    // const navigate = useNavigate()
+    // const User = useLoaderData()
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleChange = () => {

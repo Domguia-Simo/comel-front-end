@@ -33,7 +33,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/"
             element={<Header />}
-            loader={loginLoader}
+            // loader={loginLoader}
             errorElement={<ViewsDetialError />}
         >
             <Route

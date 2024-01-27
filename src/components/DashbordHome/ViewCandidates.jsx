@@ -85,10 +85,84 @@ const item = [
 
 export default function ViewCandidates() {
     const candidatesData = useLoaderData()
-    console.log("candidatesData",candidatesData);
+    console.log("candidatesData", candidatesData);
     function Design({ design, ind }) {
         const [basicModal, setBasicModal] = React.useState(false)
+        const [data, setData] = React.useState({
+            payment: "MTN",
+            candidate: design._id,
+            election: design.election,
+            phone: '',
+            confirm: false,
+        })
         const toggleOpen = () => setBasicModal(!basicModal);
+        function handleChange(e) {
+            if (e.target.type == 'text' || e.target.type == 'email') {
+                setData({ ...data, [e.target.name]: e.target.value })
+            } else {
+                setData({ ...data, [e.target.name]: !data.confirm })
+            }
+        }
+        const votes = async () => {
+            // setError('')
+            // setSuccess('')
+            // setLoading(true)
+            if (data.payment === '' || data.candidate === '' || data.election === '' || data.phone === '' || data.confirm === false) {
+                // setLoading(false)
+                return
+            } else {
+                try {
+                    await fetch(`${process.env.REACT_APP_API_URL}/voter/votes`, {
+                        method: 'post',
+                        headers: {
+                            'content-type': 'application/json',
+                            'accept': 'application/json',
+                            'access-control-origin': '*',
+                            'Authorisation': `Bearer ${localStorage.getItem('token') || ''}`
+                        },
+                        body: JSON.stringify({
+                            payment:data.payment,
+                            candidate:data.candidate,
+                            election:data.election,
+                            phone:data.phone,
+                            confirm:data.confirm,
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(respond => {
+                            console.log(respond)
+                            // if (respond.status) {
+                            //     setSuccess(respond.message)
+                            //     setTimeout(() => {
+                            //         navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
+                            //     }, 2500)
+                            // } else if (respond.statusAdmin) {
+                            //     setSuccess(respond.message)
+                            //     setTimeout(() => {
+                            //         navigate("/", { replace: true })
+                            //     }, 2500)
+                            // } else if (respond.statusLogin) {
+                            //     setError(respond.message)
+                            //     setTimeout(() => {
+                            //         navigate("/login", { replace: true })
+                            //     }, 2500)
+                            // } else {
+                            //     // setLoading(false)
+                            //     // setError(respond.message)
+                            // }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            // setLoading(false)
+                            // setError('internet problem' + err)
+                        })
+                } catch (e) {
+                    console.log("err", e)
+                    // setError('Verify your internet connection')
+                    // setLoading(false)
+                }
+            }
+        }
         let shortText
         if (design.desc.length > 100) {
             shortText = design.desc.slice(0, 100) + '...'
@@ -101,28 +175,50 @@ export default function ViewCandidates() {
                     <MDBModalDialog>
                         <MDBModalContent>
                             <MDBModalHeader>
-                                <MDBModalTitle>Book form</MDBModalTitle>
+                                <MDBModalTitle>Voting form</MDBModalTitle>
                                 <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                             </MDBModalHeader>
                             <MDBModalBody>
                                 <MDBRow>
-                                    {design.title}
-                                    <MDBCol>
-                                        <input type="email" placeholder='Email' name="email" required />
-                                    </MDBCol>
-                                    <MDBCol>
-                                        <input type="text" placeholder='Name' name="name" required />
-                                    </MDBCol>
-                                    <MDBCol>
-                                        <input type="text" placeholder='Phone' name="phone" required />
-                                    </MDBCol>
+                                    <MDBRow>
+                                        <select
+                                            id="design"
+                                            name="payment"
+                                            onChange={e => handleChange(e)}
+                                            style={{
+                                                height: "40px",
+                                                width: "fit-content",
+                                                maxWidth: "200px"
+                                            }}
+                                        >
+                                            <option value='MTN'>MTN Momo</option>
+                                            <option value='ORANGE'>Orange Money</option>
+                                        </select>
+                                    </MDBRow>
+                                    <MDBRow>
+                                        <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
+                                    </MDBRow>
+                                    <MDBRow>
+                                        <div>
+                                            <input type="checkbox" value={data.confirm} id="confirm" name='confirm' onChange={e => handleChange(e)} required />
+                                            <label htmlFor='confirm' style={{ textAlign: 'center' }}>
+                                                <span>I Agree and confirm my vote for</span> <br />
+                                                <center><b> {design.name} </b></center>
+                                            </label>
+                                        </div>
+                                    </MDBRow>
                                 </MDBRow>
                             </MDBModalBody>
                             <MDBModalFooter>
                                 <MDBBtn color='secondary' onClick={toggleOpen}>
                                     Close
                                 </MDBBtn>
-                                <MDBBtn style={{ backgroundColor: 'goldenrod' }}>SUBMIT</MDBBtn>
+                                <MDBBtn style={{ backgroundColor: 'goldenrod' }}
+                                    onClick={() => {
+                                        votes();
+                                        // console.log(data);
+                                    }}
+                                >SUBMIT</MDBBtn>
                             </MDBModalFooter>
                         </MDBModalContent>
                     </MDBModalDialog>
@@ -154,6 +250,8 @@ export default function ViewCandidates() {
                             >
                                 <MDBBtn color="warning"
                                     onClick={() => {
+                                        // setData({ ...data, ["candidate"]: design._id })
+                                        // setData({ ...data, ["election"]: design.election })
                                         setBasicModal(true)
                                     }}
                                 >VOTE</MDBBtn>
@@ -170,7 +268,9 @@ export default function ViewCandidates() {
                                 onClick={() => {
                                     setBasicModal(true)
                                 }}
-                            >VOTE</MDBBtn>
+                            >
+                                VOTE
+                            </MDBBtn>
                         </MDBCardFooter>
                     </center>
                 </MDBCard>
@@ -178,7 +278,7 @@ export default function ViewCandidates() {
         )
     }
     return (
-        <div style={{marginTop:"20px"}}>
+        <div style={{ marginTop: "20px" }}>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
                 {candidatesData.candidates.map((items, i) => (
                     <MDBCol>

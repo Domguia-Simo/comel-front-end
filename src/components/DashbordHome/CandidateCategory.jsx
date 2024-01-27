@@ -23,7 +23,7 @@ export default function CandidateCategory() {
                             maxWidth: "150px"
                         }}
                     >
-                        <option>Choice an option</option>
+                        <option value=''>Choice an option</option>
                         {electionList}
                     </select>
                 </div>
