@@ -15,8 +15,14 @@ export default function Login() {
     const [error, setError] = useState('')
     const [respond, setRespond] = useState('')
     const [success, setSuccess] = useState('')
+    const [data, setData] = useState({
+        email:'',
+        password:''
+    })
     async function submit() {
-        if (email == '' || password == '') {
+        console.log(data)
+        if (data.email == '' || data.password == '') {
+            setError("Enter all value")
             return
         }
         setError('')
@@ -32,8 +38,8 @@ export default function Login() {
                 'access-control-origin': '*'
             },
             body: JSON.stringify({
-                email: email,
-                password: password
+                email: data.email,
+                password: data.password
             })
         })
             .then(res => res.json())
@@ -42,7 +48,7 @@ export default function Login() {
                 if (data.token) {
                     setSuccess(data.message)
                     await localStorage.setItem('token', data.token)
-                    window.location.pathname = "/dashboard/"
+                    window.location.pathname = "/dashboard/home"
                 } else {
                     setRespond(data.message)
                 }
@@ -53,6 +59,14 @@ export default function Login() {
                 setError("Verify your internet connection")
                 setLoading(false)
             })
+    
+        }
+    function handleChange(e) {
+        if (e.target.type == 'text' ||e.target.type == 'password' || e.target.type == 'email') {
+            setData({ ...data, [e.target.name]: e.target.value })
+        } else {
+            setData({ ...data, [e.target.name]: !data.confirm })
+        }
     }
     // const toDashboard = () => {
     //     setTimeout(() => {
@@ -78,21 +92,46 @@ export default function Login() {
                             <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5">
 
                                 <form style={{ width: "23rem", backgroundColor: "" }}>
-
+                                <div>
+                        {error ?
+                            <center style={{ color: 'darkred' }}>
+                                {error} &nbsp;
+                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                            </center>
+                            : ''}
+                        {
+                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                        }
+                    </div>
                                     <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Log in</h3>
 
                                     <div className="form-outline mb-4">
-                                        <input type="email" id="form2Example18" className="form-control form-control-lg" />
+                                        <input type="email"
+                                            id="form2Example18"
+                                            className="form-control form-control-lg"
+                                            name="email" onChange={e => handleChange(e)} required
+                                        />
                                         <label className="form-label" for="form2Example18">Email address</label>
                                     </div>
 
                                     <div className="form-outline mb-4">
-                                        <input type="password" id="form2Example28" className="form-control form-control-lg" />
+                                        <input 
+                                        type="password" 
+                                        id="form2Example28" 
+                                        className="form-control form-control-lg" 
+                                        name="password" onChange={e => handleChange(e)} required
+                                        />
                                         <label className="form-label" for="form2Example28">Password</label>
                                     </div>
 
                                     <div className="pt-1 mb-4">
-                                        <button className="btn btn-info btn-lg btn-block" type="button">Login</button>
+                                        <button 
+                                        className="btn btn-info btn-lg btn-block" 
+                                        type="button"
+                                        onClick={()=>{
+                                            submit();
+                                        }}
+                                        >Login</button>
                                     </div>
 
                                     <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p>

@@ -121,11 +121,11 @@ export default function ViewCandidates() {
                             'Authorisation': `Bearer ${localStorage.getItem('token') || ''}`
                         },
                         body: JSON.stringify({
-                            payment:data.payment,
-                            candidate:data.candidate,
-                            election:data.election,
-                            phone:data.phone,
-                            confirm:data.confirm,
+                            payment: data.payment,
+                            candidate: data.candidate,
+                            election: data.election,
+                            phone: data.phone,
+                            confirm: data.confirm,
                         })
                     })
                         .then(res => res.json())
@@ -180,24 +180,29 @@ export default function ViewCandidates() {
                             </MDBModalHeader>
                             <MDBModalBody>
                                 <MDBRow>
-                                    <MDBRow>
+                                    <MDBCol>
+                                        <i className="fas fa-credit-card">Select a payment method</i>
                                         <select
                                             id="design"
                                             name="payment"
                                             onChange={e => handleChange(e)}
                                             style={{
-                                                height: "40px",
-                                                width: "fit-content",
-                                                maxWidth: "200px"
+                                                border: "solid 1px rgba(0, 0, 0, 0.3)",
+                                                color: "black",
+                                                margin: "5px",
+                                                width: "212px",
+                                                padding: "10px 10px",
+                                                borderRadius: "10px"
                                             }}
                                         >
                                             <option value='MTN'>MTN Momo</option>
                                             <option value='ORANGE'>Orange Money</option>
                                         </select>
-                                    </MDBRow>
-                                    <MDBRow>
-                                        <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
-                                    </MDBRow>
+                                    </MDBCol>
+                                    <MDBCol>
+                                        <i className="fas fa-volume-control-phone">Phone Number</i>
+                                        <input  type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
+                                    </MDBCol>
                                     <MDBRow>
                                         <div>
                                             <input type="checkbox" value={data.confirm} id="confirm" name='confirm' onChange={e => handleChange(e)} required />
@@ -281,7 +286,7 @@ export default function ViewCandidates() {
         <div style={{ marginTop: "20px" }}>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
                 {candidatesData.candidates.map((items, i) => (
-                    <MDBCol>
+                    <MDBCol key={i}>
                         <Design design={items} ind={i} />
                     </MDBCol>
                 ))}
