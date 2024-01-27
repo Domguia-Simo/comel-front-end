@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 // Styling 
 import '../assets/styles/global.css'
 
-export default function Login() {
+export default function Register() {
     const navigate = useNavigate()
     // const User = useLoaderData()
     const [email, setEmail] = useState('')
@@ -42,7 +42,9 @@ export default function Login() {
                 if (data.token) {
                     setSuccess(data.message)
                     await localStorage.setItem('token', data.token)
-                    window.location.pathname = "/dashboard/"
+                    // window.location.reload();
+                    window.location.pathname = "/dashboard/view/B1A"
+                    // navigate("/dashboard/view/B1A", { replace: true, state: { name: data.name } })
                 } else {
                     setRespond(data.message)
                 }
@@ -54,17 +56,18 @@ export default function Login() {
                 setLoading(false)
             })
     }
-    // const toDashboard = () => {
-    //     setTimeout(() => {
-    //         navigate("/dashboard", { replace: true, state: { name: User.name } })
-    //     }, 200)
-    // }
-    // if (!User.isLogin) {
     return (
         <div >
-            <div
+            <div className='header'
                 style={{
+                    // padding: '5px 30px',
                     height: '50px',
+                    // color: 'black',
+                    // fontWeight: 'bold',
+                    // letterSpacing: '1px',
+                    // display: 'flex',
+                    // alignItems: 'center',
+                    // justifyContent: 'space-between',
                 }}>
             </div>
             <section className="vh-100">
@@ -79,24 +82,47 @@ export default function Login() {
 
                                 <form style={{ width: "23rem", backgroundColor: "" }}>
 
-                                    <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Log in</h3>
+                                    <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Sign up</h3>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="email" id="form2Example18" className="form-control form-control-lg" />
-                                        <label className="form-label" for="form2Example18">Email address</label>
+                                    <div className="row mb-4">
+                                        <div className="col">
+                                            <div className="form-outline" data-mdb-input-init >
+                                                <input type="text" id="form3Example1" className="form-control" />
+                                                <label className="form-label" for="form3Example1">First name</label>
+                                            </div>
+                                        </div>
+                                        <div className="col">
+                                            <div className="form-outline" data-mdb-input-init >
+                                                <input type="text" id="form3Example2" className="form-control" />
+                                                <label className="form-label" for="form3Example2">Last name</label>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="password" id="form2Example28" className="form-control form-control-lg" />
-                                        <label className="form-label" for="form2Example28">Password</label>
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="form3Example3" class="form-control" />
+                                        <label class="form-label" for="form3Example3">Email address</label>
                                     </div>
 
-                                    <div className="pt-1 mb-4">
-                                        <button className="btn btn-info btn-lg btn-block" type="button">Login</button>
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="form3Example4" class="form-control" />
+                                        <label class="form-label" for="form3Example4">Password</label>
                                     </div>
 
-                                    <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p>
-                                    <p>Don't have an account? <Link to="register" className="link-info">Register here</Link></p>
+                                    <div class="form-check d-flex justify-content-center mb-4">
+                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                                        <label class="form-check-label" for="form2Example33">
+                                            Subscribe to our newsletter
+                                        </label>
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                        Sign up
+                                    </button>
+
+                                    <p className="small mb-3 pb-lg-2"><Link className="text-muted" to="/">Forgot password?</Link></p>
+                                    <p>Don't have an account? <Link to="/" className="link-info">Log in</Link></p>
                                 </form>
                             </div>
 
@@ -114,11 +140,9 @@ export default function Login() {
                     </div>
                 </div>
             </section>
-        </div >
+        </div>
     )
-    // } else {
-    //     toDashboard();
-    // }
+
 
 }
 

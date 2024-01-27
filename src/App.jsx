@@ -13,14 +13,19 @@ import Login, { loginLoader } from './components/Login'
 import Views from './components/Dashboard/view'
 
 import './assets/fontawesome/css/all.css'
+import 'mdb-react-ui-kit/dist/css/mdb.min.css'
+
 import Header from './components/Header'
 import Create, { electionsLoader } from './components/Dashboard/Create'
-import Result, { getElectionResult } from './components/Dashboard/Result'
+// import Result, { getElectionResult } from './components/Dashboard/Result'
 import Dashboard from './components/Dashboard'
 import ViewDetail, { viewDetailLoader, ViewsDetialError } from './components/Dashboard/ViewDetail'
 import Elections from './components/Dashboard/Create'
 import Candidates, { candidatesLoader } from './components/Dashboard/Candidate'
 import Voting from './components/Voting'
+import Register from './components/Register'
+import ViewCandidates from './components/DashbordHome/ViewCandidates'
+import Result from './components/DashbordHome/Result'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -36,15 +41,23 @@ const router = createBrowserRouter(
                 element={<Login />}
                 loader={loginLoader}
             />
-
+            <Route
+                path="register"
+                element={<Register />}
+                loader={loginLoader}
+            />
             <Route path="dashboard" element={<Dashboard />} >
                 <Route
                     index
-                    element={<LandingPage />}
-                    loader={landingPageLoader}
-                    errorElement={<ViewsDetialError />}
+                    element={<ViewCandidates />}
+                // loader={landingPageLoader}
+                // errorElement={<ViewsDetialError />}
                 />
                 <Route
+                    path="result"
+                    element={<Result />}
+                />
+                {/* <Route
                     path="voting-form"
                     element={<Voting />}
                 />
@@ -74,10 +87,15 @@ const router = createBrowserRouter(
                     path="result/:id"
                     element={<Result />}
                     loader={getElectionResult} />
-                <Route path="logout" element={<h1>LogOut</h1>} />
+                <Route path="logout" element={<h1>LogOut</h1>} /> */}
             </Route>
 
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route element={<h1>Not Found</h1>} />
+            {/* <Route
+                path="*"
+                element={<Login />}
+                loader={loginLoader}
+            /> */}
         </Route>
     )
 )

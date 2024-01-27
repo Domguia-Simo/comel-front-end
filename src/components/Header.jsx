@@ -1,5 +1,6 @@
+import { MDBRipple } from 'mdb-react-ui-kit'
 import React, { useState, useMemo, useEffect } from 'react'
-import { useLocation, useLoaderData, useNavigate, Link, Outlet } from 'react-router-dom'
+import { useLocation, useLoaderData, useNavigate, Link, Outlet, NavLink } from 'react-router-dom'
 
 const Header = () => {
 
@@ -49,93 +50,22 @@ const Header = () => {
     }
     return (
         <React.Fragment>
-            <div style={{
-                padding: '5px 30px',
-                // backgroundColor:'rgb(180, 205, 107 ,1)' ,
-                backgroundColor: 'rgb(50, 50, 50 ,0.7)',
-                height: '50px',
-                color: 'whitesmoke',
-                fontWeight: 'bold',
-                letterSpacing: '1px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-            }}>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <Link to="/">
-                        <img
-                            style={{
-                                borderRadius: '10px',
-                                width: '50px',
-                                height: '40px',
-                                marginRight: '5px'
-                            }}
-                            src={require('../assets/images/logo.jpeg')} alt="logo"
-                        />
-                    </Link>
-                    IAI COMEL
-                </span>
-                <>
-                    {User.isLogin ? (
-                        <>
-                            <span
-                            // style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
-                            >
-                                <span
-                                    style={{ cursor: 'pointer', padding: '5px 7px' }}
-                                    onClick={() => navigate("/dashboard/view/B1A")}
-                                >
-                                     {screenWidth > 500 ? (
-                                        <>
-                                            {User.name}
-                                        </>
-                                    ) : (
-                                        <>
-                                            {User.name.length>8?(
-                                                <>{`${User.name.split(0, 1)}..`}</>
-                                            ):(
-                                                <>{User.name}</>
-                                            )}
-                                        </>
-                                    )}
+            <>
+                <div style={{
+                    background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
+                }}>
+                    <div
+                        style={{
+                            width: "95%",
+                            margin: "0 auto",
 
-                                    {/* <i className='far fa-user'></i> */}
-                                    &nbsp;&nbsp;
-                                    {/* <i className='far fa-user'></i> */}
-                                </span>
-                                <span
-                                    style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
-                                    onClick={() => { Logout() }}
-                                >
-                                    {screenWidth > 500 ? (
-                                        <>
-                                            logout
-                                            <i className='fas fa-door-open'></i>
-                                        </>
-                                    ) : (
-                                        <>
-                                            {/* logout */}
-                                            <i className='fas fa-door-open'></i>
-                                        </>
-                                    )}
-
-                                </span>
-                            </span>
-                        </>
-                    ) : (
-                        <>
-                            {hide ? '' :
-                                <span style={{ border: 'solid 1px ', borderRadius: '10px', cursor: 'pointer', padding: '5px 7px' }}
-                                    onClick={() => navigate("/login")}
-                                >
-                                    Admin <i className='far fa-user'></i>
-                                </span>
-                            }
-                        </>
-                    )}
-                </>
-            </div>
-            <Outlet />
+                        }}>
+                        <div>
+                            <Outlet />
+                        </div>
+                    </div>
+                </div>
+            </>
         </React.Fragment>
     )
 }
