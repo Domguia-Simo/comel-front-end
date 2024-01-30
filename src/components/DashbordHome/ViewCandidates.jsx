@@ -16,7 +16,7 @@ import img6 from "../../assets/image/6.jpg"
 import img7 from "../../assets/image/7.jpg"
 import img8 from "../../assets/image/8.jpg"
 import img9 from "../../assets/image/9.jpg"
-import { Link, useLoaderData } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
 const item = [
     {
         title: "Install Wigs",
@@ -84,6 +84,7 @@ const item = [
 ]
 
 export default function ViewCandidates() {
+    const navigate = useNavigate()
     const candidatesData = useLoaderData()
     console.log("candidatesData", candidatesData);
     function Design({ design, ind }) {
@@ -201,7 +202,7 @@ export default function ViewCandidates() {
                                     </MDBCol>
                                     <MDBCol>
                                         <i className="fas fa-volume-control-phone">Phone Number</i>
-                                        <input  type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
+                                        <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
                                     </MDBCol>
                                     <MDBRow>
                                         <div>
@@ -283,8 +284,22 @@ export default function ViewCandidates() {
         )
     }
     return (
-        <div style={{ marginTop: "20px" }}>
+        <div id="detailasjkadjgasdhas"
+            style={{ marginTop: "20px" }}>
+            <div style={{
+                display: "flex",
+                justifyContent: "flex-end"
+            }}>
+                <MDBBtn color="warning"
+                    onClick={() => {
+                        navigate("/dashboard/home/")
+                    }}
+                >
+                    Less..<i className='fas fa-long-arrow-up'></i>
+                </MDBBtn>
+            </div>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
+
                 {candidatesData.candidates.map((items, i) => (
                     <MDBCol key={i}>
                         <Design design={items} ind={i} />

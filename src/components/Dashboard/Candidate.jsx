@@ -6,7 +6,7 @@ const levels = ["One", "Two", "Three"]
 
 export default function Candidates() {
     const navigate = useNavigate()
-    const { candidate, election } = useLoaderData()
+    const { candidate, election ,isAdmin } = useLoaderData()
     const [loading, setLoading] = useState(false)
     const [editing, setEditing] = useState(false)
     const [enterTitle, setEnterTitle] = useState(false)
@@ -173,7 +173,7 @@ export default function Candidates() {
             <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
                     <button
-                    className='submit2' style={{ background: "red" }}>
+                        className='submit2' style={{ background: "red" }}>
                         .....
                     </button>
                 ) : (
@@ -201,155 +201,159 @@ export default function Candidates() {
             <option key={ele._id} value={ele._id}>{ele.title}</option>
         )
     })
-    return (
-        <>
-            <div>
-                <center>
-                    {loading ? (
-                        <button
-                        className='submit2' style={{ cursor: "pointer", background: "green" }}>
-                            .....
-                        </button>
-                    ) : (
-                        <>
-                            {enterTitle ? (
-                                <>
-                                    <div>
-                                        <form onSubmit={(e) => e.preventDefault()}>
+    if (isAdmin) {
+        return (
+            <>
+                <div>
+                    <center>
+                        {loading ? (
+                            <button
+                                className='submit2' style={{ cursor: "pointer", background: "green" }}>
+                                .....
+                            </button>
+                        ) : (
+                            <>
+                                {enterTitle ? (
+                                    <>
+                                        <div>
+                                            <form onSubmit={(e) => e.preventDefault()}>
 
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center',
-                                                    rowGap: '5px',
-                                                    fontWeight: 'bold',
-                                                    letterSpacing: 1
-                                                }}
-                                            >
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center',
+                                                        rowGap: '5px',
+                                                        fontWeight: 'bold',
+                                                        letterSpacing: 1
+                                                    }}
+                                                >
 
-                                                Create a candidate
-                                            </div>
-
-                                            <div>
-                                                {error ?
-                                                    <center style={{ color: 'darkred' }}>
-                                                        {error} &nbsp;
-                                                        {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                                                    </center>
-                                                    : ''}
-                                                {
-                                                    success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                                                }
-                                            </div>
-
-
-                                            <input type="text" placeholder='Name' value={data.name} name="name" onChange={e => handleChange(e)} required />
-                                            <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required />
-                                            <input type="text" placeholder='Phone' value={data.phone} name="phone" onChange={e => handleChange(e)} required />
-                                            <input type="text" placeholder='Class' value={data.class} name="class" onChange={e => handleChange(e)} required />
-                                            <input type="text" placeholder='Description' value={data.desc} name="desc" onChange={e => handleChange(e)} required />
-
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>
-                                                <div>
-                                                    <select id="level" value={data.election} onChange={(e) => setData({ ...data, election: e.target.value })}>
-                                                        {displayElection}
-                                                    </select>
-                                                    <label htmlFor='level'> Election </label>
+                                                    Create a candidate
                                                 </div>
-                                            </div>
-                                            {
-                                                loading ? (
-                                                    <>
-                                                        {editing ? (
-                                                            <button readOnly className='submit'>
-                                                                EDIT
-                                                                <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" />
-                                                            </button>
-                                                        ) : (
-                                                            <button readOnly className='submit'>
-                                                                CREATE
-                                                                <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" />
-                                                            </button>
-                                                        )}
 
-                                                        <button style={{ background: "red" }} readOnly className='submit'>
-                                                            CANCEL
-                                                            {/* <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" /> */}
-                                                        </button>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        {editing ? (
-                                                            <button onClick={() => { editCandidate() }} className='submit'>
-                                                                EDIT
-                                                            </button>
-                                                        ) : (
-                                                            <button onClick={() => { createCandidate() }} className='submit'>
-                                                                CREATE
-                                                            </button>
-                                                        )}
-                                                        <button style={{ background: "red" }} onClick={() => { setEnterTitle(false) }} className='submit'>
-                                                            CANCEL
-                                                        </button>
-                                                    </>
-                                                )
-                                            }
+                                                <div>
+                                                    {error ?
+                                                        <center style={{ color: 'darkred' }}>
+                                                            {error} &nbsp;
+                                                            {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                                                        </center>
+                                                        : ''}
+                                                    {
+                                                        success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                                                    }
+                                                </div>
 
-                                        </form>
-                                    </div>
-                                </>
-                            ) : (
-                                <button
-                                className='submit2'
-                                    style={{ cursor: "pointer", background: "green" }}
-                                    onClick={() => {
-                                        setData({
-                                            "name": "",
-                                            "email": "",
-                                            "desc": "",
-                                            "phone": "",
-                                            "class": "",
-                                            "election": "",
-                                        })
-                                        setEnterTitle(true);
-                                        setEditing(false)
-                                    }}
-                                >
-                                    CREATE
-                                </button>
-                            )}
-                        </>
-                    )}
-                    <br />
-                    <br />
-                    {error ?
-                        <center style={{ color: 'darkred' }}>
-                            {error} &nbsp;
-                            {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                        </center>
-                        : ''}
-                    {
-                        success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                    }
-                    <table border='1' style={{ borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr>
-                                <th style={{ padding: '5px' }}>Name</th>
-                                {/* <th style={{ padding: '5px' }}>Class</th> */}
-                                <th style={{ padding: '5px' }}></th>
-                                <th style={{ padding: '5px' }}></th>
-                                {/* <th style={{ padding: '5px' }}></th> */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {lists}
-                        </tbody>
-                    </table>
-                </center>
-            </div>
-        </>
-    )
+
+                                                <input type="text" placeholder='Name' value={data.name} name="name" onChange={e => handleChange(e)} required />
+                                                <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required />
+                                                <input type="text" placeholder='Phone' value={data.phone} name="phone" onChange={e => handleChange(e)} required />
+                                                <input type="text" placeholder='Class' value={data.class} name="class" onChange={e => handleChange(e)} required />
+                                                <input type="text" placeholder='Description' value={data.desc} name="desc" onChange={e => handleChange(e)} required />
+
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>
+                                                    <div>
+                                                        <select id="level" value={data.election} onChange={(e) => setData({ ...data, election: e.target.value })}>
+                                                            {displayElection}
+                                                        </select>
+                                                        <label htmlFor='level'> Election </label>
+                                                    </div>
+                                                </div>
+                                                {
+                                                    loading ? (
+                                                        <>
+                                                            {editing ? (
+                                                                <button readOnly className='submit'>
+                                                                    EDIT
+                                                                    <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" />
+                                                                </button>
+                                                            ) : (
+                                                                <button readOnly className='submit'>
+                                                                    CREATE
+                                                                    <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" />
+                                                                </button>
+                                                            )}
+
+                                                            <button style={{ background: "red" }} readOnly className='submit'>
+                                                                CANCEL
+                                                                {/* <img src={require('../../assets/images/loader.gif')} width={'30px'} alt="loader" /> */}
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            {editing ? (
+                                                                <button onClick={() => { editCandidate() }} className='submit'>
+                                                                    EDIT
+                                                                </button>
+                                                            ) : (
+                                                                <button onClick={() => { createCandidate() }} className='submit'>
+                                                                    CREATE
+                                                                </button>
+                                                            )}
+                                                            <button style={{ background: "red" }} onClick={() => { setEnterTitle(false) }} className='submit'>
+                                                                CANCEL
+                                                            </button>
+                                                        </>
+                                                    )
+                                                }
+
+                                            </form>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <button
+                                        className='submit2'
+                                        style={{ cursor: "pointer", background: "green" }}
+                                        onClick={() => {
+                                            setData({
+                                                "name": "",
+                                                "email": "",
+                                                "desc": "",
+                                                "phone": "",
+                                                "class": "",
+                                                "election": "",
+                                            })
+                                            setEnterTitle(true);
+                                            setEditing(false)
+                                        }}
+                                    >
+                                        CREATE
+                                    </button>
+                                )}
+                            </>
+                        )}
+                        <br />
+                        <br />
+                        {error ?
+                            <center style={{ color: 'darkred' }}>
+                                {error} &nbsp;
+                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                            </center>
+                            : ''}
+                        {
+                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                        }
+                        <table border='1' style={{ borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr>
+                                    <th style={{ padding: '5px' }}>Name</th>
+                                    {/* <th style={{ padding: '5px' }}>Class</th> */}
+                                    <th style={{ padding: '5px' }}></th>
+                                    <th style={{ padding: '5px' }}></th>
+                                    {/* <th style={{ padding: '5px' }}></th> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {lists}
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </>
+        )
+    } else {
+        window.location.pathname = '/dashboard/home';
+    }
 }
 
 export const candidatesLoader = async () => {
@@ -369,28 +373,41 @@ export const candidatesLoader = async () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    if (!res1.ok) {
+    const res2 = await fetch(`${process.env.REACT_APP_API_URL}/isAdmin`, {
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'applicaion/json',
+            'access-conteol-origin': '*',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    if (!res2.ok) {
         throw Error('Access Diened')
     }
+    if (!res1.ok) {
+        throw Error('Could not find that getting elections.')
+    }
     if (!res.ok) {
-        throw Error('Access Diened')
+        throw Error('Could not find that getting candidates.')
     }
     let candidate1
     let election1
+    let response2 = await res2.json();
     let candidate = await res.json().then(data => {
         candidate1 = data
-        console.log(data);
+        // console.log(data);
         return data;
     })
     let election = await res1.json().then(data => {
         election1 = data
-        console.log(data);
+        // console.log(data);
         return data;
     })
     console.log(candidate1);
     return {
         candidate: candidate1,
-        election: election1.election
+        election: election1.election,
+        isAdmin: response2.isAdmin,
     }
 }
 

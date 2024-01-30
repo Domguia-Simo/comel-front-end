@@ -15,8 +15,13 @@ export default function Register() {
     const [error, setError] = useState('')
     const [respond, setRespond] = useState('')
     const [success, setSuccess] = useState('')
+    const [data, setData] = useState({
+        email: '',
+        password: ''
+    })
     async function submit() {
-        if (email == '' || password == '') {
+        console.log(data);
+        if (data.email == '' || data.name === '' || data.confirmPassword === "" || data.password == '') {
             return
         }
         setError('')
@@ -24,29 +29,23 @@ export default function Register() {
         setSuccess('')
         setLoading(true)
 
-        await fetch(`${process.env.REACT_APP_API_URL}/admin/login`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/admin/register`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
                 'accept': 'applicaion/json',
                 'access-control-origin': '*'
             },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(async (data) => {
-                // console.log("data", data)
-                if (data.token) {
+                console.log("data", data)
+                if (data.message.toLowerCase() === "voter created successfully") {
                     setSuccess(data.message)
-                    await localStorage.setItem('token', data.token)
-                    // window.location.reload();
-                    window.location.pathname = "/dashboard/view/B1A"
-                    // navigate("/dashboard/view/B1A", { replace: true, state: { name: data.name } })
+                    window.location.pathname = "/"
                 } else {
-                    setRespond(data.message)
+                    setError(data.message)
                 }
                 setLoading(false)
             })
@@ -55,6 +54,13 @@ export default function Register() {
                 setError("Verify your internet connection")
                 setLoading(false)
             })
+    }
+    function handleChange(e) {
+        if (e.target.type == 'text' || e.target.type == 'password' || e.target.type == 'email') {
+            setData({ ...data, [e.target.name]: e.target.value })
+        } else {
+            setData({ ...data, [e.target.name]: !data.confirm })
+        }
     }
     return (
         <div >
@@ -81,43 +87,70 @@ export default function Register() {
                             <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5">
 
                                 <form style={{ width: "23rem", backgroundColor: "" }}>
-
+                                    <div>
+                                        {error ?
+                                            <center style={{ color: 'darkred' }}>
+                                                {error} &nbsp;
+                                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                                            </center>
+                                            : ''}
+                                        {
+                                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                                        }
+                                    </div>
                                     <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Sign up</h3>
 
                                     <div className="row mb-4">
-                                        <div className="col">
-                                            <div className="form-outline" data-mdb-input-init >
-                                                <input type="text" id="form3Example1" className="form-control" />
-                                                <label className="form-label" for="form3Example1">First name</label>
-                                            </div>
-                                        </div>
-                                        <div className="col">
-                                            <div className="form-outline" data-mdb-input-init >
-                                                <input type="text" id="form3Example2" className="form-control" />
-                                                <label className="form-label" for="form3Example2">Last name</label>
-                                            </div>
+                                        <div className="form-outline" data-mdb-input-init >
+                                            <input type="text"
+                                                id="form3Example1"
+                                                className="form-control"
+                                                name="name" onChange={e => handleChange(e)} required
+                                            />
+                                            <label className="form-label" for="form3Example1">Name</label>
                                         </div>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3" class="form-control" />
+                                        <input type="email" id="form3Example3"
+                                            className="form-control"
+                                            name="email" onChange={e => handleChange(e)} required
+                                        />
                                         <label class="form-label" for="form3Example3">Email address</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control" />
+                                        <input type="password"
+                                            id="form3Example4"
+                                            className="form-control"
+                                            name="password" onChange={e => handleChange(e)} required
+                                        />
                                         <label class="form-label" for="form3Example4">Password</label>
                                     </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="password"
+                                            id="form3Example4"
+                                            class="form-control"
+                                            name="confirmPassword" onChange={e => handleChange(e)} required
+                                        />
+                                        <label class="form-label" for="form3Example4">Comfrim Password</label>
+                                    </div>
 
-                                    <div class="form-check d-flex justify-content-center mb-4">
+                                    {/* <div class="form-check d-flex justify-content-center mb-4">
                                         <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
                                         <label class="form-check-label" for="form2Example33">
                                             Subscribe to our newsletter
                                         </label>
-                                    </div>
+                                    </div> */}
 
 
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary btn-block mb-4"
+                                        onClick={() => {
+                                            submit();
+                                        }}
+                                    >
                                         Sign up
                                     </button>
 

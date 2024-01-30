@@ -8,7 +8,7 @@ export default function Elections() {
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    // console.log(election);
+    console.log(election);
     const createElection = () => {
         setLoading(true)
         setError('')
@@ -206,68 +206,72 @@ export default function Elections() {
             </tr>
         </>
     );
-    return (
-        <>
-            <div>
-
-                <center>
-                    {loading ? (
-                        <button
-                            className='submit2' style={{ cursor: "pointer", background: "green" }}>
-                            .....
-                        </button>
-                    ) : (
-                        <>
-                            {enterTitle ? (
-                                <>
-                                    <label>Enter an Election Title: </label>
-                                    <input
-                                        type="text"
-                                        onChange={(e) => { setTitle(e.target.value) }}
-                                    />
+    if (election.isAdmin) {
+        return (
+            <>
+                <div>
+                    <center>
+                        {loading ? (
+                            <button
+                                className='submit2' style={{ cursor: "pointer", background: "green" }}>
+                                .....
+                            </button>
+                        ) : (
+                            <>
+                                {enterTitle ? (
+                                    <>
+                                        <label>Enter an Election Title: </label>
+                                        <input
+                                            type="text"
+                                            onChange={(e) => { setTitle(e.target.value) }}
+                                        />
+                                        <button
+                                            className='submit2'
+                                            style={{ cursor: "pointer", background: "green" }}
+                                            onClick={createElection}>
+                                            CREATE
+                                        </button>
+                                    </>
+                                ) : (
                                     <button
                                         className='submit2'
                                         style={{ cursor: "pointer", background: "green" }}
-                                        onClick={createElection}>
+                                        onClick={() => setEnterTitle(true)}>
                                         CREATE
                                     </button>
-                                </>
-                            ) : (
-                                <button
-                                    className='submit2'
-                                    style={{ cursor: "pointer", background: "green" }}
-                                    onClick={() => setEnterTitle(true)}>
-                                    CREATE
-                                </button>
-                            )}
-                        </>
-                    )}
-                    <br />
-                    <br />
-                    {error ?
-                        <center style={{ color: 'darkred' }}>
-                            {error} &nbsp;
-                            {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                        </center>
-                        : ''}
-                    {
-                        success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                    }
-                    <table border='1' style={{ borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr>
-                                <th style={{ padding: '5px' }}>Name</th>
-                                <th style={{ padding: '5px' }}>status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {lists}
-                        </tbody>
-                    </table>
-                </center>
-            </div>
-        </>
-    )
+                                )}
+                            </>
+                        )}
+                        <br />
+                        <br />
+                        {error ?
+                            <center style={{ color: 'darkred' }}>
+                                {error} &nbsp;
+                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                            </center>
+                            : ''}
+                        {
+                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                        }
+                        <table border='1' style={{ borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr>
+                                    <th style={{ padding: '5px' }}>Name</th>
+                                    <th style={{ padding: '5px' }}>status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {lists}
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </>
+        )
+    } else {
+        window.location.pathname = '/dashboard/home';
+    }
+
 }
 
 export const electionsLoader = async () => {
@@ -280,11 +284,28 @@ export const electionsLoader = async () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-    // console.log(res);
-    if (!res.ok) {
+    const res2 = await fetch(`${process.env.REACT_APP_API_URL}/isAdmin`, {
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'applicaion/json',
+            'access-conteol-origin': '*',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+
+    if (!res2.ok) {
         throw Error('Access Diened')
     }
+    // console.log(res);
+    if (!res.ok) {
+        throw Error('Could not find that getting Election.')
+    }
     // console.log("res.json()",res.json());
-    return res.json()
+    let response = await res.json();
+    let response2 = await res2.json();
+    return {
+        election: response.election,
+        isAdmin: response2.isAdmin,
+    }
 }
 

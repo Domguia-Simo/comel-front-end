@@ -26,7 +26,7 @@ import Voting from './components/Voting'
 import Register from './components/Register'
 import ViewCandidates, { viewCandidatesLoader } from './components/DashbordHome/ViewCandidates'
 import Result, { getElectionResult } from './components/DashbordHome/Result'
-import CandidateCategory from './components/DashbordHome/CandidateCategory'
+import CandidateCategory, { homeLoader } from './components/DashbordHome/CandidateCategory'
 import ResultCategory from './components/DashbordHome/ResultCategory'
 
 const router = createBrowserRouter(
@@ -46,11 +46,15 @@ const router = createBrowserRouter(
                 element={<Register />}
             // loader={loginLoader}
             />
-            <Route path="dashboard" element={<Dashboard />} >
+            <Route
+                path="dashboard"
+                element={<Dashboard />}
+                loader={loginLoader}
+            >
                 <Route
                     path='home'
                     element={<CandidateCategory />}
-                    loader={electionsLoader}
+                    loader={homeLoader}
                 >
                     <Route
                         path=":id"
@@ -61,7 +65,7 @@ const router = createBrowserRouter(
                 <Route
                     path='result'
                     element={<ResultCategory />}
-                    loader={electionsLoader}
+                    loader={homeLoader}
                 >
                     <Route
                         path=":id"

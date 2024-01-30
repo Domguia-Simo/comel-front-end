@@ -1,15 +1,31 @@
 import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { Link, useLoaderData } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
+import { MDBBtn } from 'mdb-react-ui-kit';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Result() {
+    const navigate = useNavigate()
     const data = useLoaderData();
     console.log(data)
     return (
-        <div>
+        <div
+            id="detailasjkadjgasdhas"
+            style={{ marginTop: "20px" }}>
+            <div style={{
+                display: "flex",
+                justifyContent: "flex-end"
+            }}>
+                <MDBBtn color="warning"
+                    onClick={() => {
+                        navigate("/dashboard/result/")
+                    }}
+                >
+                    Less..<i className='fas fa-long-arrow-up'></i>
+                </MDBBtn>
+            </div>
             <center>
                 <div style={{ height: "500px", marginTop: "50px" }}>
                     <Pie data={data.PieData} />
@@ -18,8 +34,8 @@ export default function Result() {
         </div>
     )
 }
-export const getElectionResult = async ({params}) => {
-    let {id }=params 
+export const getElectionResult = async ({ params }) => {
+    let { id } = params
     let response = await fetch(`${process.env.REACT_APP_API_URL}/election/result/${id}`, {
         headers: {
             'content-type': 'application/json',
@@ -37,15 +53,11 @@ export const getElectionResult = async ({params}) => {
             let notVoted = 0
             let i = 0
             data.voters.map((item) => {
-                if (item.status === "NOT VOTED") {
-                    notVoted++;
-                } else {
-                    if (item.votes.candidate) {
-                        if (voted[item.votes.candidate]) {
-                            voted[item.votes.candidate]++
-                        } else {
-                            voted[item.votes.candidate] = 1
-                        }
+                if (item.candidate) {
+                    if (voted[item.candidate]) {
+                        voted[item.candidate]++
+                    } else {
+                        voted[item.candidate] = 1
                     }
                 }
             })
@@ -56,8 +68,8 @@ export const getElectionResult = async ({params}) => {
                 }
                 i++
             })
-            labels.push("not voted")
-            pieData[i] = notVoted
+            // labels.push("not voted")
+            // pieData[i] = notVoted
             // console.log("labels", labels);
             // console.log("voted", voted);
             // console.log("pieData", pieData);

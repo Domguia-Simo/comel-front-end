@@ -16,8 +16,8 @@ export default function Login() {
     const [respond, setRespond] = useState('')
     const [success, setSuccess] = useState('')
     const [data, setData] = useState({
-        email:'',
-        password:''
+        email: '',
+        password: ''
     })
     async function submit() {
         console.log(data)
@@ -59,10 +59,10 @@ export default function Login() {
                 setError("Verify your internet connection")
                 setLoading(false)
             })
-    
-        }
+
+    }
     function handleChange(e) {
-        if (e.target.type == 'text' ||e.target.type == 'password' || e.target.type == 'email') {
+        if (e.target.type == 'text' || e.target.type == 'password' || e.target.type == 'email') {
             setData({ ...data, [e.target.name]: e.target.value })
         } else {
             setData({ ...data, [e.target.name]: !data.confirm })
@@ -92,17 +92,17 @@ export default function Login() {
                             <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5">
 
                                 <form style={{ width: "23rem", backgroundColor: "" }}>
-                                <div>
-                        {error ?
-                            <center style={{ color: 'darkred' }}>
-                                {error} &nbsp;
-                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                            </center>
-                            : ''}
-                        {
-                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                        }
-                    </div>
+                                    <div>
+                                        {error ?
+                                            <center style={{ color: 'darkred' }}>
+                                                {error} &nbsp;
+                                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
+                                            </center>
+                                            : ''}
+                                        {
+                                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                                        }
+                                    </div>
                                     <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Log in</h3>
 
                                     <div className="form-outline mb-4">
@@ -115,22 +115,22 @@ export default function Login() {
                                     </div>
 
                                     <div className="form-outline mb-4">
-                                        <input 
-                                        type="password" 
-                                        id="form2Example28" 
-                                        className="form-control form-control-lg" 
-                                        name="password" onChange={e => handleChange(e)} required
+                                        <input
+                                            type="password"
+                                            id="form2Example28"
+                                            className="form-control form-control-lg"
+                                            name="password" onChange={e => handleChange(e)} required
                                         />
                                         <label className="form-label" for="form2Example28">Password</label>
                                     </div>
 
                                     <div className="pt-1 mb-4">
-                                        <button 
-                                        className="btn btn-info btn-lg btn-block" 
-                                        type="button"
-                                        onClick={()=>{
-                                            submit();
-                                        }}
+                                        <button
+                                            className="btn btn-info btn-lg btn-block"
+                                            type="button"
+                                            onClick={() => {
+                                                submit();
+                                            }}
                                         >Login</button>
                                     </div>
 
@@ -171,12 +171,28 @@ export const loginLoader = async ({ params }) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-
+    const res2 = await fetch(`${process.env.REACT_APP_API_URL}/isAdmin`, {
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'applicaion/json',
+            'access-conteol-origin': '*',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
     if (!res.ok) {
         throw Error('Could not find that getting voter.')
     }
+    if (!res2.ok) {
+        throw Error('Could not find that getting voter.')
+    }
     // console.log("res.json()",res.json());
-    let response = res.json()
-    return response
+    let response = await res.json()
+    let response2 = await res2.json()
+    let data = {
+        isLogin: response.isLogin,
+        name: response.name,
+        isAdmin: response2.isAdmin,
+    }
+    return data
 
 }
