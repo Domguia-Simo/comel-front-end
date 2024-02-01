@@ -52,11 +52,12 @@ const Header = () => {
         <React.Fragment>
             <>
                 <div style={{
-                    minHeight:"600px",
+                    minHeight: "600px",
                     background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
                 }}>
                     <div
                         style={{
+                            minHeight: "650px",
                             width: "95%",
                             margin: "0 auto",
 
@@ -64,6 +65,17 @@ const Header = () => {
                         <div>
                             <Outlet />
                         </div>
+                    </div>
+                    <div
+                        style={{
+                            background: "rgba(152, 145, 99,0.3)",
+                            width: "95%",
+                            margin: "0 auto",
+                        }}>
+                        <center>
+                            <h2>Created by</h2>
+                            <h2>Kamsong Anderson</h2>
+                        </center>
                     </div>
                 </div>
             </>

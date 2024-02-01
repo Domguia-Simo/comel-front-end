@@ -96,6 +96,11 @@ export default function ViewCandidates() {
             phone: '',
             confirm: false,
         })
+        const [success, setSuccess] = React.useState('')
+        const [respond, setRespond] = React.useState('')
+        const [error, setError] = React.useState('')
+        const [loading, setLoading] = React.useState(false)
+
         const toggleOpen = () => setBasicModal(!basicModal);
         function handleChange(e) {
             if (e.target.type == 'text' || e.target.type == 'email') {
@@ -105,11 +110,13 @@ export default function ViewCandidates() {
             }
         }
         const votes = async () => {
-            // setError('')
-            // setSuccess('')
-            // setLoading(true)
+            setError('')
+            setSuccess('')
+            setRespond('')
+            setLoading(true)
             if (data.payment === '' || data.candidate === '' || data.election === '' || data.phone === '' || data.confirm === false) {
-                // setLoading(false)
+                setRespond("fill all the form")
+                setLoading(false)
                 return
             } else {
                 try {
@@ -119,7 +126,7 @@ export default function ViewCandidates() {
                             'content-type': 'application/json',
                             'accept': 'application/json',
                             'access-control-origin': '*',
-                            'Authorisation': `Bearer ${localStorage.getItem('token') || ''}`
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
                         },
                         body: JSON.stringify({
                             payment: data.payment,
@@ -132,34 +139,32 @@ export default function ViewCandidates() {
                         .then(res => res.json())
                         .then(respond => {
                             console.log(respond)
-                            // if (respond.status) {
-                            //     setSuccess(respond.message)
-                            //     setTimeout(() => {
-                            //         navigate("/email-verification", { replace: true, state: { name: data.name, email: data.email, classe: data.class } })
-                            //     }, 2500)
-                            // } else if (respond.statusAdmin) {
-                            //     setSuccess(respond.message)
-                            //     setTimeout(() => {
-                            //         navigate("/", { replace: true })
-                            //     }, 2500)
-                            // } else if (respond.statusLogin) {
-                            //     setError(respond.message)
-                            //     setTimeout(() => {
-                            //         navigate("/login", { replace: true })
-                            //     }, 2500)
-                            // } else {
-                            //     // setLoading(false)
-                            //     // setError(respond.message)
-                            // }
+                            if (respond.status) {
+                                setSuccess(respond.message)
+                                setLoading(false)
+                                setBasicModal(false)
+                            } else if (respond.statusError) {
+                                setRespond(respond.message)
+                                setLoading(false)
+                            } else if (respond.statusCon) {
+                                setError(respond.message)
+                                setLoading(false)
+                            } else if (respond.login) {
+                                setRespond(respond.message)
+                                setTimeout(() => {
+                                    navigate('/', { replace: true })
+                                }, 1500);
+                            }
+
                         })
                         .catch(err => {
                             console.log(err)
-                            // setLoading(false)
-                            // setError('internet problem' + err)
+                            setLoading(false)
+                            setError('internet problem')
                         })
                 } catch (e) {
                     console.log("err", e)
-                    // setError('Verify your internet connection')
+                    setError('Verify your internet connection')
                     // setLoading(false)
                 }
             }
@@ -172,7 +177,12 @@ export default function ViewCandidates() {
         }
         return (
             <MDBCol key={ind}>
-                <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex='-1'>
+                <MDBModal
+                    open={basicModal}
+                    setOpen={setBasicModal}
+                    tabIndex='-1'
+                    staticBackdrop
+                >
                     <MDBModalDialog>
                         <MDBModalContent>
                             <MDBModalHeader>
@@ -180,6 +190,20 @@ export default function ViewCandidates() {
                                 <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                             </MDBModalHeader>
                             <MDBModalBody>
+                                <MDBRow>
+                                    {error ?
+                                        <center style={{ color: 'darkred' }}>
+                                            {error} &nbsp;
+                                            <i className='fas fa-wifi' style={{ textDecoration: 'line-through', color: 'darkred' }}></i>
+                                        </center>
+                                        : ''}
+                                    {
+                                        respond != '' ? <span style={{ color: 'darkred' }}>{respond}</span> : ''
+                                    }
+                                    {
+                                        success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                                    }
+                                </MDBRow>
                                 <MDBRow>
                                     <MDBCol>
                                         <i className="fas fa-credit-card">Select a payment method</i>
@@ -216,15 +240,28 @@ export default function ViewCandidates() {
                                 </MDBRow>
                             </MDBModalBody>
                             <MDBModalFooter>
-                                <MDBBtn color='secondary' onClick={toggleOpen}>
-                                    Close
-                                </MDBBtn>
-                                <MDBBtn style={{ backgroundColor: 'goldenrod' }}
-                                    onClick={() => {
-                                        votes();
-                                        // console.log(data);
-                                    }}
-                                >SUBMIT</MDBBtn>
+                                {loading ? (
+                                    <>
+                                        <MDBBtn color='secondary'>
+                                            Close
+                                        </MDBBtn>
+                                        <MDBBtn aria-readonly
+                                         style={{ backgroundColor: 'goldenrod' }}
+                                        >SUBMIT</MDBBtn>
+                                    </>
+                                ) : (
+                                <>
+                                    <MDBBtn color='secondary' onClick={toggleOpen}>
+                                        Close
+                                    </MDBBtn>
+                                    <MDBBtn style={{ backgroundColor: 'goldenrod' }}
+                                        onClick={() => {
+                                            votes();
+                                            // console.log(data);
+                                        }}
+                                    >SUBMIT</MDBBtn>
+                                </>
+                                )}
                             </MDBModalFooter>
                         </MDBModalContent>
                     </MDBModalDialog>
@@ -256,8 +293,6 @@ export default function ViewCandidates() {
                             >
                                 <MDBBtn color="warning"
                                     onClick={() => {
-                                        // setData({ ...data, ["candidate"]: design._id })
-                                        // setData({ ...data, ["election"]: design.election })
                                         setBasicModal(true)
                                     }}
                                 >VOTE</MDBBtn>

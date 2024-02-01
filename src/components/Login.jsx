@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLoaderData, Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode';
-
+import logo from '../assets/images/logo.jpeg'
 
 // Styling 
 import '../assets/styles/global.css'
@@ -9,8 +9,8 @@ import '../assets/styles/global.css'
 export default function Login() {
     const navigate = useNavigate()
     // const User = useLoaderData()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [respond, setRespond] = useState('')
@@ -86,7 +86,15 @@ export default function Login() {
                     <div className="row">
                         <div className="col-sm-6 text-black">
                             <div className="px-5 ms-xl-3">
-                                <i className="fas fa-crow" style={{ fontSize: "50px" }}></i>
+                                {/* <i className="fas fa-crow" style={{ fontSize: "50px" }}></i> */}
+                                <img
+                                    src={logo}
+                                    width={"100px"}
+                                    height={"100px"}
+                                    style={{
+                                        // borderRadius: "50%",
+                                    }}
+                                />
                             </div>
 
                             <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5">

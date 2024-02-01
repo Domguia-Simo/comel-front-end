@@ -1,7 +1,7 @@
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBRipple, MDBRow } from 'mdb-react-ui-kit'
 import React, { useState, useMemo, useLayoutEffect, useEffect } from 'react'
 import { Outlet, NavLink, useNavigate, useLocation, Link, useLoaderData } from 'react-router-dom'
-
+import logo from '../assets/images/logo.jpeg';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -58,16 +58,16 @@ const Dashboard = () => {
 
                             <MDBRipple rippleTag='div' className='bg-image hover-overlay hover-zoom hover-shadow'>
                                 <img
-                                    // src={logo}
-                                    width={"50px"}
-                                    height={"50px"}
+                                    src={logo}
+                                    width={"60px"}
+                                    height={"60px"}
                                     style={{
                                         // borderRadius: "50%",
                                     }}
                                 />
-                                <a href='#!' onClick={() => {
-                                    navigate('/')
-                                }} >
+                                {/* <a href='' onClick={() => {
+                                    navigate('/dashboard/home')
+                                }} > */}
                                     <div className='mask'
                                         style={{
                                             backgroundColor: 'rgba(32, 29, 1, 0.495)'
@@ -75,7 +75,7 @@ const Dashboard = () => {
                                         }}
                                     >
                                     </div>
-                                </a>
+                                {/* </a> */}
                             </MDBRipple>
                             <>
                                 <>

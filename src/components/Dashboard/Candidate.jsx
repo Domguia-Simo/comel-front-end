@@ -6,7 +6,7 @@ const levels = ["One", "Two", "Three"]
 
 export default function Candidates() {
     const navigate = useNavigate()
-    const { candidate, election ,isAdmin } = useLoaderData()
+    const { candidate, election, isAdmin } = useLoaderData()
     const [loading, setLoading] = useState(false)
     const [editing, setEditing] = useState(false)
     const [enterTitle, setEnterTitle] = useState(false)
@@ -14,7 +14,7 @@ export default function Candidates() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const [level, setLevel] = useState("One")
-
+    let lists
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -133,30 +133,30 @@ export default function Candidates() {
 
 
     }
-
-    let lists = candidate.candidates.map((item) =>
-        <tr key={item._id}>
-            <td style={{ padding: '5px' }}>{item.name}</td>
-            {/* <td style={{ padding: '5px' }}>{item.class}</td> */}
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <button className='submit2' style={{ background: "green" }}>
-                        .....
-                    </button>
-                ) : (
-                    <button
-                        className='submit2'
-                        style={{ background: "green" }}
-                        onClick={() => {
-                            setData(item)
-                            setEditing(true)
-                            setEnterTitle(true)
-                        }}>
-                        EDIT
-                    </button>
-                )}
-            </td>
-            {/* <td style={{ padding: '5px', cursor: "pointer" }}>
+    if (candidate.candidates) {
+        lists = candidate.candidates.map((item) =>
+            <tr key={item._id}>
+                <td style={{ padding: '5px' }}>{item.name}</td>
+                {/* <td style={{ padding: '5px' }}>{item.class}</td> */}
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button className='submit2' style={{ background: "green" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "green" }}
+                            onClick={() => {
+                                setData(item)
+                                setEditing(true)
+                                setEnterTitle(true)
+                            }}>
+                            EDIT
+                        </button>
+                    )}
+                </td>
+                {/* <td style={{ padding: '5px', cursor: "pointer" }}>
                 {loading ? (
                     <button className='submit2' style={{ background: "green" }}>
                         .....
@@ -170,23 +170,24 @@ export default function Candidates() {
                     </button>
                 )}
             </td> */}
-            <td style={{ padding: '5px', cursor: "pointer" }}>
-                {loading ? (
-                    <button
-                        className='submit2' style={{ background: "red" }}>
-                        .....
-                    </button>
-                ) : (
-                    <button
-                        className='submit2'
-                        style={{ background: "red" }}
-                        onClick={() => { deleteCandidate(item._id) }}>
-                        DELETE
-                    </button>
-                )}
-            </td>
-        </tr>
-    );
+                <td style={{ padding: '5px', cursor: "pointer" }}>
+                    {loading ? (
+                        <button
+                            className='submit2' style={{ background: "red" }}>
+                            .....
+                        </button>
+                    ) : (
+                        <button
+                            className='submit2'
+                            style={{ background: "red" }}
+                            onClick={() => { deleteCandidate(item._id) }}>
+                            DELETE
+                        </button>
+                    )}
+                </td>
+            </tr>
+        );
+    }
     function handleChange(e) {
         // return
         if (e.target.type == 'text' || e.target.type == 'email') {
@@ -254,6 +255,7 @@ export default function Candidates() {
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>
                                                     <div>
                                                         <select id="level" value={data.election} onChange={(e) => setData({ ...data, election: e.target.value })}>
+                                                            <option>Select an Election</option>
                                                             {displayElection}
                                                         </select>
                                                         <label htmlFor='level'> Election </label>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLoaderData, Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode';
-
+import logo from '../assets/images/logo.jpeg';
 
 // Styling 
 import '../assets/styles/global.css'
@@ -81,7 +81,15 @@ export default function Register() {
                     <div className="row">
                         <div className="col-sm-6 text-black">
                             <div className="px-5 ms-xl-3">
-                                <i className="fas fa-crow" style={{ fontSize: "50px" }}></i>
+                                {/* <i className="fas fa-crow" style={{ fontSize: "50px" }}></i> */}
+                                <img
+                                    src={logo}
+                                    width={"100px"}
+                                    height={"100px"}
+                                    style={{
+                                        // borderRadius: "50%",
+                                    }}
+                                />
                             </div>
 
                             <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5">
@@ -136,14 +144,6 @@ export default function Register() {
                                         <label class="form-label" for="form3Example4">Comfrim Password</label>
                                     </div>
 
-                                    {/* <div class="form-check d-flex justify-content-center mb-4">
-                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                                        <label class="form-check-label" for="form2Example33">
-                                            Subscribe to our newsletter
-                                        </label>
-                                    </div> */}
-
-
                                     <button
                                         type="button"
                                         className="btn btn-primary btn-block mb-4"
@@ -154,7 +154,6 @@ export default function Register() {
                                         Sign up
                                     </button>
 
-                                    <p className="small mb-3 pb-lg-2"><Link className="text-muted" to="/">Forgot password?</Link></p>
                                     <p>Don't have an account? <Link to="/" className="link-info">Log in</Link></p>
                                 </form>
                             </div>
