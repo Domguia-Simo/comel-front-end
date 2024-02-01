@@ -53,7 +53,8 @@ const Header = () => {
             <>
                 <div style={{
                     minHeight: "600px",
-                    background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
+                    // background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
+                    background : 'linear-gradient( 270deg, rgba(0,0,0,0.5)   ,rgba(255,160,0,0.5) )'
                 }}>
                     <div
                         style={{
