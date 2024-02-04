@@ -33,7 +33,7 @@ export default function CandidateCategory() {
                     // window.location.pathname = "/dashboard/home/" + item._id
                 }}
             >
-                <h3>{item.title}</h3>
+                <h6>{item.title}</h6>
                 <MDBBtn color="warning"
 
                 >

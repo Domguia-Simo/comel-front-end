@@ -206,7 +206,9 @@ export default function ViewCandidates() {
                                 </MDBRow>
                                 <MDBRow>
                                     <MDBCol>
-                                        <i className="fas fa-credit-card">Select a payment method</i>
+                                        <span>
+                                        <i className="fas fa-credit-card"></i>Select a payment method
+                                        </span>
                                         <select
                                             id="design"
                                             name="payment"
@@ -225,7 +227,9 @@ export default function ViewCandidates() {
                                         </select>
                                     </MDBCol>
                                     <MDBCol>
-                                        <i className="fas fa-volume-control-phone">Phone Number</i>
+                                        <span>
+                                        <i className="fas fa-volume-control-phone"></i>Phone Number
+                                        </span>
                                         <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
                                     </MDBCol>
                                     <MDBRow>
@@ -266,7 +270,7 @@ export default function ViewCandidates() {
                         </MDBModalContent>
                     </MDBModalDialog>
                 </MDBModal>
-                <MDBCard className='h-100'>
+                <MDBCard className='h-100' >
                     <center>
                         <div className='bg-image hover-overlay'
                             style={{
@@ -298,7 +302,7 @@ export default function ViewCandidates() {
                                 >VOTE</MDBBtn>
                             </div>
                         </div>
-                        <MDBCardBody style={{ height: "200px" }}>
+                        <MDBCardBody style={{ height: "fit-content",  border:'solid 0px green'}}>
                             <MDBCardTitle>{design.name}</MDBCardTitle>
                             <MDBCardText >
                                 {shortText}
@@ -336,7 +340,7 @@ export default function ViewCandidates() {
             <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
 
                 {candidatesData.candidates.map((items, i) => (
-                    <MDBCol key={i}>
+                    <MDBCol key={i} >
                         <Design design={items} ind={i} />
                     </MDBCol>
                 ))}

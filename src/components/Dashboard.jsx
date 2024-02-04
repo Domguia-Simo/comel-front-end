@@ -5,11 +5,32 @@ import logo from '../assets/images/logo.jpeg';
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const location = useLocation()
     const user = useLoaderData();
     const [hideMenu, setHideMenu] = useState(false)
     const [userInfo, setUserInfo] = useState(useLocation().state)
     const [basicModal, setBasicModal] = React.useState(false)
     const toggleOpen = () => setBasicModal(!basicModal);
+    const [smallScreen ,setSmallScreen] = useState(false)
+
+    useMemo(()=>{
+        if(window.innerWidth < 1200){
+            setSmallScreen(true)
+        }else{
+            setSmallScreen(false)
+        }
+    },[0])
+    useMemo(()=>{
+        window.addEventListener('resize' ,()=>{
+            if(window.innerWidth < 1440){
+                setSmallScreen(true)
+            }else{
+                setSmallScreen(false)
+            }
+        })
+    },[])
+
+console.log(location.pathname.split('/')[2])
 
     console.log("userInfo", user);
     const Logout = async () => {
@@ -33,6 +54,7 @@ const Dashboard = () => {
             .catch(err => {
             })
     }
+
     if (user.isLogin) {
         return (
             <React.Fragment>
@@ -55,8 +77,8 @@ const Dashboard = () => {
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
                             }}>
-
-                            <MDBRipple rippleTag='div' className='bg-image hover-overlay hover-zoom hover-shadow'>
+                                <span></span>
+                            <MDBRipple rippleTag='div' className='bg-image hover-overlay hover-zoom hover-shadow' style={{display:'none'}}>
                                 <img
                                     src={logo}
                                     width={"60px"}
@@ -78,47 +100,46 @@ const Dashboard = () => {
                                 {/* </a> */}
                             </MDBRipple>
                             <>
-                                <>
-                                    <span>
-                                        <NavLink to="/dashboard/home" >HOME</NavLink>
-                                        &nbsp;&nbsp;
-                                        <NavLink to="/dashboard/result">RESULT</NavLink>
-                                        &nbsp;&nbsp;
-                                        <a
-                                            className='fas fa-sign-out'
-                                            onClick={() => {
-                                                setBasicModal(true)
-                                            }}
-                                        ></a>
-                                        <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex='-1'>
-                                            <MDBModalDialog>
-                                                <MDBModalContent>
-                                                    <MDBModalBody>
+                                <div style={{display:'flex' ,columnGap:'25px' ,alignItems:'center'}}>
+                                    <NavLink to="/dashboard/home" style={{color: location.pathname.split('/')[2] == 'home' ? 'blue':'black',border:'solid 1px grey' ,padding:'5px 10px' ,borderRadius:'10px' ,backgroundColor:'rgba(0,0,0,0.2)'}}>HOME</NavLink>
+                                    <NavLink to="/dashboard/result" style={{color: location.pathname.split('/')[2] == 'result' ? 'blue':'black' ,border:'solid 1px grey' ,padding:'5px 10px' ,borderRadius:'10px' ,backgroundColor:'rgba(0,0,0,0.2)'}}>RESULT</NavLink>
+                                
+                                    <a
+                                        style={{border:'solid 1px grey' ,padding:'5px 10px' ,borderRadius:'10px' ,backgroundColor:'rgba(0,0,0,0.2)'}}
+                                        onClick={() => {
+                                            setBasicModal(true)
+                                        }}
+                                    ><i className='fas fa-sign-out'></i></a>
+                                    <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex='-1'>
+                                        <MDBModalDialog>
+                                            <MDBModalContent>
+                                                <MDBModalBody>
+                                                    <MDBRow>
                                                         <MDBRow>
-                                                            <MDBRow>
-                                                                <h3>Do you want to logout?</h3>
-                                                            </MDBRow>
+                                                            <h3>Do you want to logout?</h3>
                                                         </MDBRow>
-                                                    </MDBModalBody>
-                                                    <MDBModalFooter>
-                                                        <MDBBtn color='secondary' onClick={toggleOpen}>
-                                                            No
-                                                        </MDBBtn>
-                                                        <MDBBtn
-                                                            color='warning'
-                                                            onClick={() => {
-                                                                Logout()
-                                                            }}>Yes</MDBBtn>
-                                                    </MDBModalFooter>
-                                                </MDBModalContent>
-                                            </MDBModalDialog>
-                                        </MDBModal>
-                                    </span>
-                                    <span>
-                                    </span>
-                                </>
+                                                    </MDBRow>
+                                                </MDBModalBody>
+                                                <MDBModalFooter>
+                                                    <MDBBtn color='secondary' onClick={toggleOpen}>
+                                                        No
+                                                    </MDBBtn>
+                                                    <MDBBtn
+                                                        color='warning'
+                                                        onClick={() => {
+                                                            Logout()
+                                                        }}>Yes</MDBBtn>
+                                                </MDBModalFooter>
+                                            </MDBModalContent>
+                                        </MDBModalDialog>
+                                    </MDBModal>
+                                </div>
+                                <span>
+                                </span>
                             </>
                         </div>
+
+                        {/* Admin Options */}
                         <div>
                             {user.isAdmin ? (
                                 <div
@@ -152,6 +173,7 @@ const Dashboard = () => {
                                 <></>
                             )}
                         </div>
+                        
                     </div>
                     <Outlet />
                 </div>

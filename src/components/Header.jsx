@@ -53,6 +53,8 @@ const Header = () => {
             <>
                 <div style={{
                     minHeight: "600px",
+                    height:'100%',width:'100%',
+                    position:'absolute',
                     // background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
                     background : 'linear-gradient( 270deg, rgba(0,0,0,0.5)   ,rgba(255,160,0,0.5) )'
                 }}>
@@ -67,16 +69,21 @@ const Header = () => {
                             <Outlet />
                         </div>
                     </div>
+
                     <div
                         style={{
                             background: "rgba(152, 145, 99,0.3)",
-                            width: "95%",
-                            margin: "0 auto",
+                            fontSize:'large',
+                            width: "100%",
+                            position:'absolute',bottom:'0',
+                            display:'flex' ,justifyContent:'center',
+                            padding:'5px',fontSize:'small'
+                            // margin: "0 auto",
                         }}>
-                        <center>
-                            <h2>Created by</h2>
-                            <h2>Kamsong Anderson</h2>
-                        </center>
+                        <div style={{display:'flex' ,columnGap:'10px' ,alignItems:'center'}}>
+                            <span>Created by:</span>
+                            <span  style={{fontWeight:'800'}}>Kamsong Anderson</span>
+                        </div>
                     </div>
                 </div>
             </>

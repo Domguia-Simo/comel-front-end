@@ -88,13 +88,13 @@ export default function Login() {
 
     return (
         <div style={{
-            display:'flex',padding:'50px 0px',
-            // border:'solid 1px grey',
+            display:'flex',
+            
             justifyContent:'space-between',
 
         }}>
 
-            <section className="vh-100" style={{border:'solid 1px transparent' ,width:'100%'}}>
+            <section className="vh-100" style={{border:'solid 1px transparent' ,width:'100%' ,paddingTop:'50px'}}>
                 <div className="container-fluid" style={{border:'solid 1px transparent'}}>
                     <div className="row" 
                     style={{
