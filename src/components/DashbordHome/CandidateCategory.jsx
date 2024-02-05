@@ -6,7 +6,10 @@ export default function CandidateCategory() {
     const election = useLoaderData()
     const navigate = useNavigate()
     const [loading, setLoading] = useState([])
+    const [loader ,setLoader] = useState(false)
     console.log(election);
+
+
     let electionList = election.election.map((item, i) => (
         <MDBRow
             key={item._id}
@@ -30,6 +33,7 @@ export default function CandidateCategory() {
                     load[i] = true;
                     setLoading(load);
                     navigate("/dashboard/home/" + item._id)
+                    // fetchVoter(item._id)
                     // window.location.pathname = "/dashboard/home/" + item._id
                 }}
             >

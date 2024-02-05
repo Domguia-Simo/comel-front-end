@@ -155,6 +155,7 @@ export default function ViewCandidates() {
                                     navigate('/', { replace: true })
                                 }, 1500);
                             }
+                            setLoading(false)
 
                         })
                         .catch(err => {
@@ -246,12 +247,13 @@ export default function ViewCandidates() {
                             <MDBModalFooter>
                                 {loading ? (
                                     <>
-                                        <MDBBtn color='secondary'>
+                                        <MDBBtn color='secondary' disabled={true}>
                                             Close
                                         </MDBBtn>
                                         <MDBBtn aria-readonly
+                                        // disabled={loading ? true:false}
                                          style={{ backgroundColor: 'goldenrod' }}
-                                        >SUBMIT</MDBBtn>
+                                        >SUBMIT { loading ?  <img src={require('../../assets/images/loader.gif')} width={'20px'}/>:'' }</MDBBtn>
                                     </>
                                 ) : (
                                 <>
@@ -299,7 +301,7 @@ export default function ViewCandidates() {
                                     onClick={() => {
                                         setBasicModal(true)
                                     }}
-                                >VOTE</MDBBtn>
+                                >VOTE </MDBBtn>
                             </div>
                         </div>
                         <MDBCardBody style={{ height: "fit-content",  border:'solid 0px green'}}>

@@ -159,13 +159,19 @@ export default function Login() {
 
                                                 <div className="" style={{width:'280px' ,border:'solid 1px transparent' ,textAlign:'center'}}>
                                                     <button
+                                                        disabled={loading ? true:false}
                                                         className=""
                                                         style={{border:'solid 1px grey' ,padding:'5px 10px' ,width:'90%' ,borderRadius:'5px' ,color:'white' ,backgroundColor:'#54b4d3'}}
                                                         type="button"
                                                         onClick={() => {
                                                             submit();
                                                         }}
-                                                    >Login</button>
+                                                    >Login{' '}
+                                                        {
+                                                            loading ?
+                                                            <img src={require('../assets/images/loader.gif')} width={'20px'}/>:''
+                                                        }
+                                                    </button>
                                                 </div>
 
                                                 <p className=""><a className="text-muted" href="#!">Forgot password?</a></p>
@@ -253,12 +259,18 @@ export default function Login() {
 
                                                 <div className="pt-1 mb-4">
                                                     <button
+                                                        disabled={loading ? true:false}
                                                         className="btn btn-info btn-lg btn-block"
                                                         type="button"
                                                         onClick={() => {
                                                             submit();
                                                         }}
-                                                    >Login</button>
+                                                    >Login{' '}
+                                                        {
+                                                            loading ?
+                                                            <img src={require('../assets/images/loader.gif')} width={'20px'}/>:''
+                                                        }
+                                                    </button>
                                                 </div>
 
                                                 <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p>
