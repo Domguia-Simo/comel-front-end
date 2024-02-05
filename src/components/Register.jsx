@@ -37,7 +37,8 @@ export default function Register() {
     const [data, setData] = useState({
         email: '',
         password: '',
-        confirm:''
+        confirm:'',
+        confirmPassword:''
     })
     async function submit() {
         console.log(data);
@@ -158,7 +159,7 @@ export default function Register() {
                                                         type="password"
                                                         // id="form2Example28"
                                                         className="" placeholder='Confirm Password'
-                                                        name="password" onChange={e => handleChange(e)} required
+                                                        name="confirmPassword" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' , outline:'none',width:'280px' ,backgroundColor:'rgb(250,250,250)'}}
                                                     />
                                                 </div>

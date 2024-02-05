@@ -141,8 +141,13 @@ export default function ViewCandidates() {
                             console.log(respond)
                             if (respond.status) {
                                 setSuccess(respond.message)
+                                setTimeout(() => {
+                                    setLoading(false)
+                                    setBasicModal(false)
+                                }, 1500);
+                            } else if (respond.statusTrans) {
+                                setRespond(respond.message)
                                 setLoading(false)
-                                setBasicModal(false)
                             } else if (respond.statusError) {
                                 setRespond(respond.message)
                                 setLoading(false)
@@ -208,12 +213,14 @@ export default function ViewCandidates() {
                                 <MDBRow>
                                     <MDBCol>
                                         <span>
-                                        <i className="fas fa-credit-card"></i>Select a payment method
+                                            <i className="fas fa-credit-card"></i>Select a payment method
                                         </span>
                                         <select
                                             id="design"
                                             name="payment"
-                                            onChange={e => handleChange(e)}
+                                            onChange={e => {
+                                                setData({ ...data, ["payment"]: e.target.value })
+                                            }}
                                             style={{
                                                 border: "solid 1px rgba(0, 0, 0, 0.3)",
                                                 color: "black",
@@ -229,7 +236,7 @@ export default function ViewCandidates() {
                                     </MDBCol>
                                     <MDBCol>
                                         <span>
-                                        <i className="fas fa-volume-control-phone"></i>Phone Number
+                                            <i className="fas fa-volume-control-phone"></i>Phone Number
                                         </span>
                                         <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
                                     </MDBCol>
@@ -251,22 +258,22 @@ export default function ViewCandidates() {
                                             Close
                                         </MDBBtn>
                                         <MDBBtn aria-readonly
-                                        // disabled={loading ? true:false}
-                                         style={{ backgroundColor: 'goldenrod' }}
-                                        >SUBMIT { loading ?  <img src={require('../../assets/images/loader.gif')} width={'20px'}/>:'' }</MDBBtn>
+                                            // disabled={loading ? true:false}
+                                            style={{ backgroundColor: 'goldenrod' }}
+                                        >SUBMIT {loading ? <img src={require('../../assets/images/loader.gif')} width={'20px'} /> : ''}</MDBBtn>
                                     </>
                                 ) : (
-                                <>
-                                    <MDBBtn color='secondary' onClick={toggleOpen}>
-                                        Close
-                                    </MDBBtn>
-                                    <MDBBtn style={{ backgroundColor: 'goldenrod' }}
-                                        onClick={() => {
-                                            votes();
-                                            // console.log(data);
-                                        }}
-                                    >SUBMIT</MDBBtn>
-                                </>
+                                    <>
+                                        <MDBBtn color='secondary' onClick={toggleOpen}>
+                                            Close
+                                        </MDBBtn>
+                                        <MDBBtn style={{ backgroundColor: 'goldenrod' }}
+                                            onClick={() => {
+                                                votes();
+                                                // console.log(data);
+                                            }}
+                                        >SUBMIT</MDBBtn>
+                                    </>
                                 )}
                             </MDBModalFooter>
                         </MDBModalContent>
@@ -304,7 +311,7 @@ export default function ViewCandidates() {
                                 >VOTE </MDBBtn>
                             </div>
                         </div>
-                        <MDBCardBody style={{ height: "fit-content",  border:'solid 0px green'}}>
+                        <MDBCardBody style={{ height: "fit-content", border: 'solid 0px green' }}>
                             <MDBCardTitle>{design.name}</MDBCardTitle>
                             <MDBCardText >
                                 {shortText}
