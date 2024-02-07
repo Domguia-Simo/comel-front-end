@@ -89,7 +89,7 @@ export default function Login() {
     return (
         <div style={{
             display:'flex',
-            
+            height:'100%',
             justifyContent:'space-between',
 
         }}>
@@ -303,6 +303,22 @@ export default function Login() {
                     </div>
                 </div>
             </section>
+            
+            {/* <div
+                        style={{
+                            background: "rgba(152, 145, 99,0.3)",
+                            fontSize:'large',
+                            width: "100%",
+                            position:'absolute',bottom:'0',
+                            display:'flex' ,justifyContent:'center',
+                            padding:'5px',fontSize:'small'
+                            // margin: "0 auto",
+                        }}>
+                        <div style={{display:'flex' ,columnGap:'10px' ,alignItems:'center'}}>
+                            <span>Created by:</span>
+                            <span  style={{fontWeight:'800'}}>Kamsong Anderson & D.S.U.</span>
+                        </div>
+                    </div> */}
 
         </div >
     )

@@ -50,13 +50,14 @@ const Header = () => {
     }
     return (
         <React.Fragment>
-            <div style={{overflow:'hidden'}}>
+            <div >
                 <div style={{
                     minHeight: "600px",
-                    height:'100%',width:'100%',
-                    position:'absolute',overflow:'hidden',
+                    // overflow:'hidden'
+                    // position:'absolute',
+                    // overflow:'hidden',
                     // background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
-                    background : 'linear-gradient( 270deg, rgba(0,0,0,0.5)   ,rgba(255,160,0,0.5) )'
+                    // background : 'linear-gradient( 270deg, rgba(0,0,0,0.5)   ,rgba(255,160,0,0.5) )'
                 }}>
                     <div
                         style={{
@@ -70,7 +71,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div
+                    {/* <div
                         style={{
                             background: "rgba(152, 145, 99,0.3)",
                             fontSize:'large',
@@ -84,7 +85,7 @@ const Header = () => {
                             <span>Created by:</span>
                             <span  style={{fontWeight:'800'}}>Kamsong Anderson & D.S.U.</span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </React.Fragment>
