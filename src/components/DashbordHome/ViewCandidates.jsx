@@ -86,7 +86,7 @@ const item = [
 export default function ViewCandidates() {
     const navigate = useNavigate()
     const candidatesData = useLoaderData()
-    console.log("candidatesData", candidatesData);
+    // console.log("candidatesData", candidatesData);
     function Design({ design, ind }) {
         const [basicModal, setBasicModal] = React.useState(false)
         const [data, setData] = React.useState({
@@ -114,9 +114,9 @@ export default function ViewCandidates() {
             setSuccess('')
             setRespond('')
             setLoading(true)
-            if (data.payment === '' || data.candidate === '' || data.election === '' || data.phone === '' || data.confirm === false) {
-                setRespond("fill all the form")
-                setLoading(false)
+            if (data.confirm === false) {
+                setRespond("Please comfrim you votes");
+                setLoading(false);
                 return
             } else {
                 try {
@@ -129,16 +129,14 @@ export default function ViewCandidates() {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         },
                         body: JSON.stringify({
-                            payment: data.payment,
                             candidate: data.candidate,
                             election: data.election,
-                            phone: data.phone,
                             confirm: data.confirm,
                         })
                     })
                         .then(res => res.json())
                         .then(respond => {
-                            console.log(respond)
+                            // console.log(respond)
                             if (respond.status) {
                                 setSuccess(respond.message)
                                 setTimeout(() => {
@@ -164,12 +162,12 @@ export default function ViewCandidates() {
 
                         })
                         .catch(err => {
-                            console.log(err)
+                            // console.log(err)
                             setLoading(false)
                             setError('internet problem')
                         })
                 } catch (e) {
-                    console.log("err", e)
+                    // console.log("err", e)
                     setError('Verify your internet connection')
                     // setLoading(false)
                 }
@@ -211,38 +209,24 @@ export default function ViewCandidates() {
                                     }
                                 </MDBRow>
                                 <MDBRow>
-                                    <MDBCol>
-                                        <span>
-                                            <i className="fas fa-credit-card"></i>Select a payment method
-                                        </span>
-                                        <select
-                                            id="design"
-                                            name="payment"
-                                            onChange={e => {
-                                                setData({ ...data, ["payment"]: e.target.value })
-                                            }}
-                                            style={{
-                                                border: "solid 1px rgba(0, 0, 0, 0.3)",
-                                                color: "black",
-                                                margin: "5px",
-                                                width: "212px",
-                                                padding: "10px 10px",
-                                                borderRadius: "10px"
-                                            }}
-                                        >
-                                            <option value='MTN'>MTN Momo</option>
-                                            <option value='ORANGE'>Orange Money</option>
-                                        </select>
-                                    </MDBCol>
-                                    <MDBCol>
-                                        <span>
-                                            <i className="fas fa-volume-control-phone"></i>Phone Number
-                                        </span>
-                                        <input type="text" placeholder='Phone' name="phone" onChange={e => handleChange(e)} required />
-                                    </MDBCol>
+                                    <MDBRow>
+                                        <center>
+                                            <img
+                                                className=' pink-circular-fill2'
+                                                src='https://mdbootstrap.com/img/new/standard/city/062.webp'
+                                                // src={design.image[0]}
+                                                alt='...'
+                                                width={"200px"}
+                                                height={"200px"}
+                                            />
+                                        </center>
+                                    </MDBRow>
                                     <MDBRow>
                                         <div>
-                                            <input type="checkbox" value={data.confirm} id="confirm" name='confirm' onChange={e => handleChange(e)} required />
+                                            <input type="checkbox" value={data.confirm}
+                                                id="confirm" name='confirm'
+                                                onChange={e => handleChange(e)} required
+                                            />
                                             <label htmlFor='confirm' style={{ textAlign: 'center' }}>
                                                 <span>I Agree and confirm my vote for</span> <br />
                                                 <center><b> {design.name} </b></center>
@@ -306,6 +290,9 @@ export default function ViewCandidates() {
                             >
                                 <MDBBtn color="warning"
                                     onClick={() => {
+                                        setError('')
+                                        setSuccess('')
+                                        setRespond('')
                                         setBasicModal(true)
                                     }}
                                 >VOTE </MDBBtn>

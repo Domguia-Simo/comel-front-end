@@ -7,7 +7,7 @@ export default function CandidateCategory() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState([])
     const [loader ,setLoader] = useState(false)
-    console.log(election);
+    // console.log(election);
 
 
     let electionList = election.election.map((item, i) => (
@@ -27,7 +27,7 @@ export default function CandidateCategory() {
             <a
                 // href='#detailasjkadjgasdhas'
                 onClick={() => {
-                    console.log(item);
+                    // console.log(item);
                     let load = [];
                     load = loading.map((value) => false);
                     load[i] = true;

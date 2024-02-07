@@ -9,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function Result() {
     const navigate = useNavigate()
     const data = useLoaderData();
-    console.log(data)
+    // console.log(data)
     return (
         <div
             id="detailasjkadjgasdhas"
@@ -105,7 +105,7 @@ export const getElectionResult = async ({ params }) => {
             }
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             let labels = []
             let pieData = []
             return {

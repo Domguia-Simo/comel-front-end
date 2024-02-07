@@ -30,9 +30,9 @@ const Dashboard = () => {
         })
     },[])
 
-console.log(location.pathname.split('/')[2])
+// console.log(location.pathname.split('/')[2])
 
-    console.log("userInfo", user);
+    // console.log("userInfo", user);
     const Logout = async () => {
         await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
             headers: {

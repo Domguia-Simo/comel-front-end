@@ -22,8 +22,8 @@ export default function Candidates() {
         election: election[0]._id
         // confirm: false
     })
-    console.log("candidate", candidate);
-    console.log("election", election);
+    // console.log("candidate", candidate);
+    // console.log("election", election);
     const createCandidate = () => {
         setLoading(true)
         setError('')
@@ -47,7 +47,7 @@ export default function Candidates() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     setEnterTitle(false)
@@ -57,7 +57,7 @@ export default function Candidates() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -79,7 +79,7 @@ export default function Candidates() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     navigate("/dashboard/candidates", { replace: true })
@@ -88,7 +88,7 @@ export default function Candidates() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -116,7 +116,7 @@ export default function Candidates() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log(data)
+                // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
                     setEnterTitle(false)
@@ -126,7 +126,7 @@ export default function Candidates() {
                 setLoading(false)
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 setError('check you connection')
                 setLoading(false)
             })
@@ -405,7 +405,7 @@ export const candidatesLoader = async () => {
         // console.log(data);
         return data;
     })
-    console.log(candidate1);
+    // console.log(candidate1);
     return {
         candidate: candidate1,
         election: election1.election,

@@ -253,17 +253,19 @@ export default function Elections() {
                         {
                             success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
                         }
-                        <table border='1' style={{ borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr>
-                                    <th style={{ padding: '5px' }}>Name</th>
-                                    <th style={{ padding: '5px' }}>status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {lists}
-                            </tbody>
-                        </table>
+                        <div style={{ overflow: "auto" }}>
+                            <table border='1' style={{ borderCollapse: 'collapse' }}>
+                                <thead>
+                                    <tr>
+                                        <th style={{ padding: '5px' }}>Name</th>
+                                        <th style={{ padding: '5px' }}>status</th>
+                                    </tr>
+                                </thead>
+                                <tbody style={{ overflow: "auto" }}>
+                                    {lists}
+                                </tbody>
+                            </table>
+                        </div>
                     </center>
                 </div>
             </>

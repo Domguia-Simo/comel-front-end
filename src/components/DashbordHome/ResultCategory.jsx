@@ -6,7 +6,7 @@ export default function ResultCategory() {
     const election = useLoaderData()
     const navigate = useNavigate()
     const [loading, setLoading] = useState([])
-    console.log(election);
+    // console.log(election);
     let electionList = election.election.map((item, i) => (
         <MDBRow
             key={item._id}
@@ -24,7 +24,7 @@ export default function ResultCategory() {
             <a
                 // href='#detailasjkadjgasdhas'
                 onClick={() => {
-                    console.log(item);
+                    // console.log(item);
                     let load = [];
                     load = loading.map((value) => false);
                     load[i] = true;

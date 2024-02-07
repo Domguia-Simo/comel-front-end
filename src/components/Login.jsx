@@ -37,7 +37,7 @@ export default function Login() {
         password: ''
     })
     async function submit() {
-        console.log(data)
+        // console.log(data)
         if (data.email == '' || data.password == '') {
             setError("Enter all value")
             return
