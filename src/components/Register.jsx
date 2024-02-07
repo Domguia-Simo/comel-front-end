@@ -37,7 +37,7 @@ export default function Register() {
     const [data, setData] = useState({
         email: '',
         password: '',
-        confirm:''
+        confirmPassword:''
     })
     async function submit() {
         console.log(data);
@@ -136,6 +136,7 @@ export default function Register() {
                                                 <div >
                                                     <input type="email"
                                                         id="form2Example18"
+                                                        value={data.email}
                                                         className="" placeholder='Email Address'
                                                         name="email" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' , outline:'none',width:'280px' ,backgroundColor:'rgb(250,250,250)'}}
@@ -147,6 +148,7 @@ export default function Register() {
                                                     <input
                                                         type="password"
                                                         // id="form2Example28"
+                                                        value={data.password}
                                                         className="" placeholder='Password'
                                                         name="password" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' , outline:'none',width:'280px' ,backgroundColor:'rgb(250,250,250)'}}
@@ -158,7 +160,8 @@ export default function Register() {
                                                         type="password"
                                                         // id="form2Example28"
                                                         className="" placeholder='Confirm Password'
-                                                        name="password" onChange={e => handleChange(e)} required
+                                                        value={data.confirmPassword}
+                                                        name="confirmPassword" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' , outline:'none',width:'280px' ,backgroundColor:'rgb(250,250,250)'}}
                                                     />
                                                 </div>
@@ -219,7 +222,7 @@ export default function Register() {
                                                 
                                                 <div>
                                                     {error ?
-                                                        <center style={{ color: 'darkred' }}>
+                                                        <center style={{ color: 'darkred' ,fontSize:'xx-small' }}>
                                                             {error} &nbsp;
                                                             {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
                                                         </center>
@@ -234,6 +237,7 @@ export default function Register() {
                                                 <div className="form-outline mb-4">
                                                     <input type="email"
                                                         id="form2Example18"
+                                                        value={data.email}
                                                         className="form-control form-control-lg"
                                                         name="email" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' ,width:'100%' ,backgroundColor:'rgb(250,250,250)'}}
@@ -249,6 +253,7 @@ export default function Register() {
                                                 <div className="form-outline mb-4">
                                                     <input
                                                         type="password"
+                                                        value={data.password}
                                                         id="form2Example28"
                                                         className="form-control form-control-lg"
                                                         name="password" onChange={e => handleChange(e)} required
@@ -266,6 +271,7 @@ export default function Register() {
                                                     <input
                                                         type="password"
                                                         id="confirm"
+                                                        value={data.confirmPassword}
                                                         className="form-control form-control-lg"
                                                         name="password" onChange={e => handleChange(e)} required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' ,width:'100%' ,backgroundColor:'rgb(250,250,250)'}}

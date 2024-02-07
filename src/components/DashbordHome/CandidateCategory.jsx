@@ -17,6 +17,7 @@ export default function CandidateCategory() {
             style={{
                 minHeight: "50px",
                 // backgroundColor: "pink",
+                border:'solid 1px red',
                 width: "100%",
                 margin: "20px 0",
                 textAlign: "center",
@@ -37,12 +38,14 @@ export default function CandidateCategory() {
                     // window.location.pathname = "/dashboard/home/" + item._id
                 }}
             >
-                <h6>{item.title}</h6>
-                <MDBBtn color="warning"
+                {/* <span style={{display:'flex'}}> */}
+                    <h6>{item.title}</h6>
+                    <MDBBtn color="warning"
 
-                >
-                    More..<i className='fas fa-long-arrow-down'></i>
-                </MDBBtn>
+                    >
+                        More..<i className='fas fa-long-arrow-down'></i>
+                    </MDBBtn>
+                {/* </span> */}
             </a>
             {loading[i] ? (
                 <Outlet />
@@ -51,7 +54,7 @@ export default function CandidateCategory() {
 
     ))
     return (
-        <div>
+        <div style={{border:'solid 1px grey'}}>
             <center>
                 <div>
                     {electionList}

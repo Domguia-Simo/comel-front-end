@@ -1,4 +1,6 @@
 body{
     width: 100%;
     margin: 0;
+    background : linear-gradient( 270deg, rgba(0,0,0,0.5)   ,rgba(255,160,0,0.5) )
+
 }
