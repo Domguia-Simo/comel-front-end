@@ -211,14 +211,17 @@ export default function ViewCandidates() {
                                 <MDBRow>
                                     <MDBRow>
                                         <center>
-                                            <img
+                                            {/* <img
                                                 className=' pink-circular-fill2'
                                                 src='https://mdbootstrap.com/img/new/standard/city/062.webp'
                                                 // src={design.image[0]}
                                                 alt='...'
                                                 width={"200px"}
                                                 height={"200px"}
-                                            />
+                                            /> */}
+                                            <h1>
+                                                {design.name}
+                                            </h1>
                                         </center>
                                     </MDBRow>
                                     <MDBRow>
@@ -265,7 +268,7 @@ export default function ViewCandidates() {
                 </MDBModal>
                 <MDBCard className='h-100' >
                     <center>
-                        <div className='bg-image hover-overlay'
+                        {/* <div className='bg-image hover-overlay'
                             style={{
                                 width: "200px",
                                 height: "200px",
@@ -297,12 +300,12 @@ export default function ViewCandidates() {
                                     }}
                                 >VOTE </MDBBtn>
                             </div>
-                        </div>
+                        </div> */}
                         <MDBCardBody style={{ height: "fit-content", border: 'solid 0px green' }}>
-                            <MDBCardTitle>{design.name}</MDBCardTitle>
-                            <MDBCardText >
+                            <MDBCardTitle style={{fontSize:"50px"}}>{design.name}</MDBCardTitle>
+                            {/* <MDBCardText >
                                 {shortText}
-                            </MDBCardText>
+                            </MDBCardText> */}
                         </MDBCardBody>
                         <MDBCardFooter style={{ color: "goldenrod" }}>
                             <MDBBtn color="warning"

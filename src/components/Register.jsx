@@ -236,7 +236,8 @@ export default function Register() {
                                                     <input type="email"
                                                         id="form2Example18"
                                                         className="form-control form-control-lg"
-                                                        name="email" onChange={e => handleChange(e)} required
+                                                        name="email" onChange={e => handleChange(e)} 
+                                                        required
                                                         style={{border:'solid 1px rgba(0,0,0,0.2)' ,width:'100%' ,backgroundColor:'rgb(250,250,250)'}}
                                                     />
                                                     <label className="form-label" for="form2Example18"  >
