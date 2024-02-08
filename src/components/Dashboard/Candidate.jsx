@@ -19,7 +19,8 @@ export default function Candidates() {
         name: '',
         email: '',
         class: 'B1A',
-        election: election[0]._id
+        election: election[0]._id,
+        sex:"M."
         // confirm: false
     })
     // console.log("candidate", candidate);
@@ -28,6 +29,7 @@ export default function Candidates() {
         setLoading(true)
         setError('')
         setSuccess('')
+        console.log(data)
         fetch(`${process.env.REACT_APP_API_URL}/candidate/addCandidate`, {
             method: "post",
             headers: {
@@ -37,7 +39,7 @@ export default function Candidates() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
-                name: data.name,
+                name: data.sex+" "+data.name,
                 email: data.email,
                 desc: data.desc,
                 phone: data.phone,
@@ -106,7 +108,7 @@ export default function Candidates() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
-                name: data.name,
+                name:data.name,
                 email: data.email,
                 desc: data.desc,
                 phone: data.phone,
@@ -190,7 +192,7 @@ export default function Candidates() {
     }
     function handleChange(e) {
         // return
-        if (e.target.type == 'text' || e.target.type == 'email') {
+        if (e.target.type == 'text' || e.target.type == 'email' ) {
             setData({ ...data, [e.target.name]: e.target.value })
         } else {
             setData({ ...data, [e.target.name]: !data.confirm })
@@ -245,11 +247,22 @@ export default function Candidates() {
                                                     }
                                                 </div>
 
+                                                <select
+                                                    type="select"
+                                                    placeholder='Name'
+                                                    value={data.sex}
+                                                    name="sex"
+                                                    style={{width:"50px",height:"50px"}}
+                                                    onChange={(e) => setData({ ...data, sex: e.target.value })}
+                                                    required >
+                                                        <option value="M.">M.</option>
+                                                        <option value="Mme.">Mme.</option>
+                                                </select>
 
                                                 <input type="text" placeholder='Name' value={data.name} name="name" onChange={e => handleChange(e)} required />
-                                                <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required />
-                                                <input type="text" placeholder='Phone' value={data.phone} name="phone" onChange={e => handleChange(e)} required />
-                                                <input type="text" placeholder='Class' value={data.class} name="class" onChange={e => handleChange(e)} required />
+                                                {/* <input type="email" placeholder='Email' value={data.email} name="email" onChange={e => handleChange(e)} required /> */}
+                                                {/* <input type="text" placeholder='Phone' value={data.phone} name="phone" onChange={e => handleChange(e)} required /> */}
+                                                {/* <input type="text" placeholder='Class' value={data.class} name="class" onChange={e => handleChange(e)} required /> */}
                                                 <input type="text" placeholder='Description' value={data.desc} name="desc" onChange={e => handleChange(e)} required />
 
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '20px' }}>
@@ -314,6 +327,7 @@ export default function Candidates() {
                                                 "phone": "",
                                                 "class": "",
                                                 "election": "",
+                                                "sex":"M."
                                             })
                                             setEnterTitle(true);
                                             setEditing(false)

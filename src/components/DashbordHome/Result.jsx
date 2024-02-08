@@ -26,10 +26,12 @@ export default function Result() {
                     Less..<i className='fas fa-long-arrow-up'></i>
                 </MDBBtn>
             </div>
-            <center style={{border:'solid 1px green' ,width:'300px' ,height:'300px'}}>
-                <div style={{ height: "500px", marginTop: "50px" }}>
-                    <Pie data={data.PieData} />
-                </div>
+            <center>
+                <center style={{ border: 'solid 1px green', width: '500px', height: '400px' }}>
+                    <div style={{ height: "400px", marginTop: "0px" }}>
+                        <Pie data={data.PieData} />
+                    </div>
+                </center>
             </center>
         </div>
     )
