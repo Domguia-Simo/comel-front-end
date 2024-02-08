@@ -170,7 +170,6 @@ const EmailVerification = () => {
                 justifyContent: 'space-between',
 
             }}>
-
                 <section className="vh-100" style={{ border: 'solid 1px transparent', width: '100%', paddingTop: '50px' }}>
                     <div className="container-fluid" style={{ border: 'solid 1px transparent' }}>
                         <div className="row"
@@ -180,252 +179,107 @@ const EmailVerification = () => {
 
                             }}
                         >
+                            <div style={{
+                                display: 'flex', border: 'solid 1px rgba(0,0,0,0.2)', backgroundColor: 'rgba(250,250,250,0.5)',
+                                borderRadius: '10px', flexDirection: 'column', margin: '30px 0px', width: 'fit-content'
+                            }}>
+                                {/* <div style={{}}> */}
+                                <img
+                                    src={logo}
+                                    alt="IAI logo"
+                                    width={75}
+                                    height={75}
+                                    style={{ borderRadius: '10px', boxShadow: '5px 5px 10px grey', marginTop: '-50px' }}
+                                />
+                                {/* </div> */}
+                                <form style={{ width: "fit-content", backgroundColor: "" }}>
+                                    {/* <form style={{ width: "23rem", backgroundColor: "" }}> */}
 
-                            {/* Actual form */}
-                            {
-                                smallScreen ?
-                                    <div style={{
-                                        display: 'flex', border: 'solid 1px rgba(0,0,0,0.2)', backgroundColor: 'rgba(250,250,250,0.5)',
-                                        borderRadius: '10px', flexDirection: 'column', margin: '30px 0px', width: 'fit-content'
-                                    }}>
-                                        {/* <div style={{}}> */}
-                                        <img
-                                            src={logo}
-                                            alt="IAI logo"
-                                            width={75}
-                                            height={75}
-                                            style={{ borderRadius: '10px', boxShadow: '5px 5px 10px grey', marginTop: '-50px' }}
-                                        />
-                                        {/* </div> */}
-                                        <form style={{ width: "fit-content", backgroundColor: "" }}>
-                                            {/* <form style={{ width: "23rem", backgroundColor: "" }}> */}
-
-                                            <div>
-                                                {error ?
-                                                    <center style={{ color: 'darkred' }}>
-                                                        {error} &nbsp;
-                                                        {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                                                    </center>
-                                                    : ''}
-                                                {
-                                                    success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                                                }
-                                            </div>
-
-                                            <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Verify your account</h3>
-                                            <blockquote>
-                                                - A code has been send to your email .<br />-<b> Enter the code to to verify your account </b>
-                                            </blockquote>
-                                            <center>
-                                                <span style={{ color: 'darkred' }}>
-                                                    <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
-                                                        <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
-                                                    </CountDown>
-                                                </span>
+                                    <div>
+                                        {error ?
+                                            <center style={{ color: 'darkred' }}>
+                                                {error} &nbsp;
+                                                {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
                                             </center>
-                                            <div className="form-outline mb-4">
-                                                <input
-                                                    type="text"
-                                                    id="form2Example28"
-                                                    className="form-control form-control-lg"
-                                                    name="code"
-                                                    onChange={(e) => {
-                                                        setData({ ...data, code: e.target.value })
-                                                    }} required
-                                                    style={{ border: 'solid 1px rgba(0,0,0,0.2)', width: '100%', backgroundColor: 'rgb(250,250,250)' }}
-                                                />
-
-                                                <label className="form-label" for="form2Example28">
-                                                    {
-                                                        data.code == '' ?
-                                                            ' Verification code' : ''
-                                                    }
-                                                </label>
-                                            </div>
-
-
-                                            <div className="pt-1 mb-4">
-                                                <button
-                                                    className="btn btn-info btn-lg btn-block"
-                                                    type="button"
-                                                    disabled={loading ? true : false}
-                                                    onClick={() => {
-                                                        sendConfirmation();
-                                                    }}
-                                                >Verify{' '}
-                                                    {
-                                                        loading ?
-                                                            <img src={require('../assets/images/loader.gif')} width={'20px'} /> : ''
-                                                    }
-                                                </button>
-                                            </div>
-
-                                            {/* <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p> */}
-                                            <p>
-                                                {countdownTime < 590 ? (
-                                                    <a
-                                                        onClick={() => {
-                                                            console.log("Send again abled");
-                                                            sendCode();
-                                                        }}
-                                                        style={{ cursor: "pointer" }}
-                                                        className="link-info">
-                                                        Resend code
-                                                    </a>
-                                                ) : (
-                                                    <a
-                                                        disabled
-                                                        style={{ cursor: "pointer" }}
-                                                        className="link-info"
-                                                    >
-                                                        Resend code
-                                                    </a>
-                                                )}
-                                            </p>
-                                            {/* </form> */}
-                                        </form>
+                                            : ''}
+                                        {
+                                            success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
+                                        }
                                     </div>
-                                    :
 
-                                    <div className="col-sm-6 text-black"
-                                        style={{
-                                            border: 'solid 0px red',
-                                            display: 'flex', justifyContent: 'center', alignItems: 'center',
-                                            // width:smallScreen ? '100%':'50%'
-                                        }}
-                                    >
-                                        {/* Form and logo image container */}
-                                        <div>
-
-                                            <div>
-                                                <div className="px-5 ms-xl-3">
-                                                    <img
-                                                        src={logo}
-                                                        width={"100px"}
-                                                        height={"100px"}
-                                                        style={{
-                                                            borderRadius: "10px", boxShadow: '2px 2px 7px grey',
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-9 mt-xl-n5"
-                                                    style={{
-                                                        border: 'solid 1px rgba(0,0,0,0.2)', width: 'fit-content', backgroundColor: 'rgba(255,255,255,0.4)',
-                                                        borderRadius: '10px', boxShadow: '0px 0px 20px grey'
-                                                    }}
-                                                >
-
-                                                    <form style={{ width: "23rem", backgroundColor: "" }}>
-
-                                                        <div>
-                                                            {error ?
-                                                                <center style={{ color: 'darkred' }}>
-                                                                    {error} &nbsp;
-                                                                    {/* <i className='fas fa-wifi' style={{textDecoration:'line-through' ,color:'darkred'}}></i> */}
-                                                                </center>
-                                                                : ''}
-                                                            {
-                                                                success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
-                                                            }
-                                                        </div>
-
-                                                        <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Verify your account</h3>
-                                                        <blockquote>
-                                                            - A code has been send to your email .<br />-<b> Enter the code to to verify your account </b>
-                                                        </blockquote>
-                                                        <center>
-                                                            <span style={{ color: 'darkred' }}>
-                                                                <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
-                                                                    <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
-                                                                </CountDown>
-                                                            </span>
-                                                        </center>
-                                                        <div className="form-outline mb-4">
-                                                            <input
-                                                                type="text"
-                                                                id="form2Example28"
-                                                                className="form-control form-control-lg"
-                                                                name="code"
-                                                                onChange={e => {
-                                                                    setData({ ...data, [code]: e.target.value })
-                                                                }} required
-                                                                style={{ border: 'solid 1px rgba(0,0,0,0.2)', width: '100%', backgroundColor: 'rgb(250,250,250)' }}
-                                                            />
-
-                                                            <label className="form-label" for="form2Example28">
-                                                                {
-                                                                    data.code == '' ?
-                                                                        ' Verification code' : ''
-                                                                }
-                                                            </label>
-                                                        </div>
-
-
-                                                        <div className="pt-1 mb-4">
-                                                            <button
-                                                                className="btn btn-info btn-lg btn-block"
-                                                                type="button"
-                                                                disabled={loading ? true : false}
-                                                                onClick={() => {
-                                                                    sendConfirmation();
-                                                                }}
-                                                            >Verify{' '}
-                                                                {
-                                                                    loading ?
-                                                                        <img src={require('../assets/images/loader.gif')} width={'20px'} /> : ''
-                                                                }
-                                                            </button>
-                                                        </div>
-
-                                                        {/* <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p> */}
-                                                        <p>
-                                                            {countdownTime < 590 ? (
-                                                                <a
-                                                                    // disabled
-                                                                    onClick={() => {
-                                                                        sendCode();
-                                                                    }} className="link-info">
-                                                                    Resend code
-                                                                </a>
-                                                            ) : (
-                                                                <a
-                                                                    disabled
-                                                                    onClick={() => {
-                                                                        // sendCode();
-                                                                        // console.log("Send again");
-                                                                    }}
-                                                                // className="link-info"
-                                                                >
-                                                                    Resend code
-                                                                </a>
-                                                            )}
-                                                        </p>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                            }
-
-                            {/* Side Image */}
-                            {
-                                smallScreen ?
-                                    ''
-                                    :
-                                    <div className="col-sm-6 px-0 d-none d-sm-block" style={{ border: 'solid 0px yellow', display: 'flex', textAlign: 'center' }}>
-                                        <img
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
-                                            alt="Login image"
-                                            width={500}
-                                            height={500}
-                                            style={{ borderRadius: '10px', boxShadow: '5px 5px 10px grey', backgroundColor: 'rgba(0,0,0,0.15)', width: '500px', height: '500px' }}
+                                    <h3 className="fw-normal mb-3 pb-2" style={{ letterSpacing: "2px" }}>Verify your account</h3>
+                                    <blockquote>
+                                        - A code has been send to your email .<br />-<b> Enter the code to to verify your account </b>
+                                    </blockquote>
+                                    <center>
+                                        <span style={{ color: 'darkred' }}>
+                                            <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
+                                                <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
+                                            </CountDown>
+                                        </span>
+                                    </center>
+                                    <div className="form-outline mb-4">
+                                        <input
+                                            type="text"
+                                            id="form2Example28"
+                                            className="form-control form-control-lg"
+                                            name="code"
+                                            onChange={(e) => {
+                                                setData({ ...data, code: e.target.value })
+                                            }} required
+                                            style={{ border: 'solid 1px rgba(0,0,0,0.2)', width: '100%', backgroundColor: 'rgb(250,250,250)' }}
                                         />
+
+                                        <label className="form-label" for="form2Example28">
+                                            {
+                                                data.code == '' ?
+                                                    ' Verification code' : ''
+                                            }
+                                        </label>
                                     </div>
-                            }
+
+
+                                    <div className="pt-1 mb-4">
+                                        <button
+                                            className="btn btn-info btn-lg btn-block"
+                                            type="button"
+                                            disabled={loading ? true : false}
+                                            onClick={() => {
+                                                sendConfirmation();
+                                            }}
+                                        >Verify{' '}
+                                            {
+                                                loading ?
+                                                    <img src={require('../assets/images/loader.gif')} width={'20px'} /> : ''
+                                            }
+                                        </button>
+                                    </div>
+
+                                    {/* <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p> */}
+                                    <p>
+                                        {countdownTime < 590 ? (
+                                            <a
+                                                onClick={() => {
+                                                    console.log("Send again abled");
+                                                    sendCode();
+                                                }}
+                                                style={{ cursor: "pointer" }}
+                                                className="link-info">
+                                                Resend code
+                                            </a>
+                                        ) : (
+                                            <a
+                                                disabled
+                                                style={{ cursor: "pointer" }}
+                                                className="link-info"
+                                            >
+                                                Resend code
+                                            </a>
+                                        )}
+                                    </p>
+                                    {/* </form> */}
+                                </form>
+                            </div>
 
                         </div>
                     </div>
