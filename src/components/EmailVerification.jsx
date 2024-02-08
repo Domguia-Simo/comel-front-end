@@ -53,7 +53,7 @@ const EmailVerification = () => {
 
     const handleOnComplete = () => {
         // Your callback function when the timer reaches zero
-        setRespond('you code has expired')
+        setError('you code has expired')
         // setTimeout(() => {
         //     window.location.pathname = "/"
         // }, 2500)
@@ -65,14 +65,14 @@ const EmailVerification = () => {
     async function sendConfirmation() {
         console.log(data)
         setError('')
-        setRespond('')
+        // setRespond('')
         setSuccess('')
         // console.log(userInfo);
         if (data.code == null) {
             return
         }
         if (!parseInt(data.code)) {
-            setRespond('the verification code is a number')
+            setError('the verification code is a number')
             return
         }
 
@@ -140,8 +140,9 @@ const EmailVerification = () => {
                     if (respond.isLogin) {
                         if (respond.statusAdmin) {
                             setSuccess(respond.message);
+                            setCountdownTime(600);
                         } else {
-                            setRespond(respond.message);
+                            setError(respond.message);
                         }
                         setLoading(false)
                     } else {
@@ -212,10 +213,12 @@ const EmailVerification = () => {
                                         - A code has been send to your email .<br />-<b> Enter the code to to verify your account </b>
                                     </blockquote>
                                     <center>
-                                        <span style={{ color: 'darkred' }}>
-                                            <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
-                                                <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
-                                            </CountDown>
+                                        <span > You code expire in:&nbsp;
+                                            <span style={{ color: 'darkred' }}>
+                                                <CountDown date={Date.now() + countdownTime * 1000} onComplete={handleOnComplete}>
+                                                    <span style={{ color: 'darkred' }}>{minutes}:{seconds.toString().padStart(2, '0')}</span>
+                                                </CountDown>
+                                            </span>
                                         </span>
                                     </center>
                                     <div className="form-outline mb-4">
@@ -257,21 +260,24 @@ const EmailVerification = () => {
 
                                     {/* <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Forgot password?</a></p> */}
                                     <p>
-                                        {countdownTime < 590 ? (
-                                            <a
-                                                onClick={() => {
-                                                    console.log("Send again abled");
-                                                    sendCode();
-                                                }}
-                                                style={{ cursor: "pointer" }}
-                                                className="link-info">
-                                                Resend code
-                                            </a>
+                                        {countdownTime < 540 ? (
+                                            <>
+                                                Click to resend the code &nbsp;
+                                                <a
+                                                    onClick={() => {
+                                                        console.log("Send again abled");
+                                                        sendCode();
+                                                    }}
+                                                    style={{ cursor: "pointer" }}
+                                                    className="link-info">
+                                                    Resend code
+                                                </a>
+                                            </>
                                         ) : (
                                             <a
-                                                disabled
-                                                style={{ cursor: "pointer" }}
-                                                className="link-info"
+                                                // disabled
+                                                style={{ color: "gray" }}
+                                            // className="link-info"
                                             >
                                                 Resend code
                                             </a>

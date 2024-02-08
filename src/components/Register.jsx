@@ -46,7 +46,6 @@ export default function Register() {
             return
         }
         setError('')
-        setRespond('')
         setSuccess('')
         setLoading(true)
 

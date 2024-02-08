@@ -43,7 +43,7 @@ export default function Login() {
             return
         }
         setError('')
-        setRespond('')
+        // setRespond('')
         setSuccess('')
         setLoading(true)
 
@@ -73,7 +73,7 @@ export default function Login() {
                         window.location.pathname = "/email-verification"
                     }
                 } else {
-                    setRespond(data.message)
+                    setError(data.message)
                 }
                 setLoading(false)
             })
