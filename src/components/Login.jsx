@@ -37,8 +37,8 @@ export default function Login() {
         password: ''
     })
     async function submit() {
-        // console.log(data)
-        if (data.email == '' || data.password == '') {
+        console.log(data)
+        if (data.email === '' || data.name === '') {
             setError("Enter all value")
             return
         }
@@ -56,12 +56,12 @@ export default function Login() {
             },
             body: JSON.stringify({
                 email: data.email,
-                password: data.password
+                password: data.name
             })
         })
             .then(res => res.json())
             .then(async (data) => {
-                // console.log("data", data)
+                console.log("data", data)
                 if (data.token) {
                     setSuccess(data.message)
                     // await localStorage.setItem('token', data.token)
@@ -150,10 +150,12 @@ export default function Login() {
 
                                 <div className="form-outline mb-4">
                                     <input
-                                        type="password"
+                                        type="text"
                                         id="form2Example28"
-                                        className="" placeholder='Password'
-                                        name="password" onChange={e => handleChange(e)} required
+                                        className=""
+                                        placeholder='name'
+                                        name="name" onChange={e => handleChange(e)}
+                                        required
                                         style={{ border: 'solid 1px rgba(0,0,0,0.2)', outline: 'none', width: '280px', backgroundColor: 'rgb(250,250,250)' }}
                                     />
 
@@ -176,8 +178,8 @@ export default function Login() {
                                     </button>
                                 </div>
 
-                                <p className=""><a className="text-muted" href="#!">Forgot password?</a></p>
-                                <p>Don't have an account? <Link to="register" className="link-info">Register here</Link></p>
+                                <p className=""><a className="text-muted" href="#!">&nbsp;</a></p>
+                                {/* <p>Don't have an account? <Link to="register" className="link-info">Register here</Link></p> */}
                             </form>
                         </div>
 

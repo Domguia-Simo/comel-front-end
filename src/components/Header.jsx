@@ -103,7 +103,7 @@ const Header = () => {
                         }}>
                         <div style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
                             <span>Created by:</span>
-                            <span style={{ fontWeight: '800' }}>Kamsong Anderson & D.S.U.</span>
+                            <span style={{ fontWeight: '800' }}>K.A & D.S.U.</span>
                         </div>
                     </div>
                 </div>

@@ -41,16 +41,16 @@ const router = createBrowserRouter(
                 element={<Login />}
             // loader={loginLoader}
             />
-            <Route
+            {/* <Route
                 path="email-verification"
                 element={<EmailVerification />}
             // loader={loginLoader}
-            />
-            <Route
+            /> */}
+            {/* <Route
                 path="register"
                 element={<Register />}
             // loader={loginLoader}
-            />
+            /> */}
             <Route
                 path="dashboard"
                 element={<Dashboard />}
