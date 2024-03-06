@@ -8,7 +8,7 @@ export default function Elections() {
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    console.log(election);
+    // console.log(election);
     const createElection = () => {
         setLoading(true)
         setError('')

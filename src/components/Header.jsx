@@ -60,7 +60,7 @@ const Header = () => {
                     // position: 'absolute',
                     // overflow:'hidden',
                     // background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
-                    background: 'linear-gradient( 270deg, rgba(0,0,0,0.5) ,rgba(17, 221, 20, 0.5 )'
+                    background: 'linear-gradient( 270deg, rgba(0,0,0,0.6) ,rgba(17, 221, 20, 0.5 )'
                 }}>
                     <div
                         style={{

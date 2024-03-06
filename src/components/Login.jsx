@@ -37,7 +37,7 @@ export default function Login() {
         password: ''
     })
     async function submit() {
-        console.log(data)
+        // console.log(data)
         if (data.email === '' || data.name === '') {
             setError("Enter all value")
             return
@@ -61,7 +61,7 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(async (data) => {
-                console.log("data", data)
+                // console.log("data", data)
                 if (data.token) {
                     setSuccess(data.message)
                     // await localStorage.setItem('token', data.token)

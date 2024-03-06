@@ -13,7 +13,7 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom"
 export default function ViewCandidates() {
     const navigate = useNavigate()
     const candidatesData = useLoaderData()
-    console.log("candidatesData", candidatesData);
+    // console.log("candidatesData", candidatesData);
     function Design({ design, ind }) {
         const [basicModal, setBasicModal] = React.useState(false)
         const [data, setData] = React.useState({
@@ -152,7 +152,7 @@ export default function ViewCandidates() {
                     })
                         .then(res => res.json())
                         .then(respond => {
-                            console.log(respond)
+                            // console.log(respond)
                             if (respond.statusError) {
                                 setRespond(respond.message);
                                 setLoading(false);
@@ -173,12 +173,12 @@ export default function ViewCandidates() {
                             }
                         })
                         .catch(err => {
-                            console.log(err)
+                            // console.log(err)
                             setLoading(false)
                             setError('internet problem')
                         })
                 } catch (e) {
-                    console.log("err", e)
+                    // console.log("err", e)
                     setError('Verify your internet connection')
                     setLoading(false)
                 }
