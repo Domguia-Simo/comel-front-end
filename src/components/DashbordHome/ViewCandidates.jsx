@@ -302,7 +302,7 @@ export default function ViewCandidates() {
                             <img
                                 className=' pink-circular-fill2'
                                 // src='https://mdbootstrap.com/img/new/standard/city/062.webp'
-                                src={`http://localhost:5000/images/${design.name}`}
+                                src={`${process.env.REACT_APP_API_URL}/../images/${design.name}`}
                                 alt='...'
                                 width={"200px"}
                                 height={"200px"}
