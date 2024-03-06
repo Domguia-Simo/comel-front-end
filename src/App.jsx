@@ -28,6 +28,7 @@ import ViewCandidates, { viewCandidatesLoader } from './components/DashbordHome/
 import Result, { getElectionResult } from './components/DashbordHome/Result'
 import CandidateCategory, { homeLoader } from './components/DashbordHome/CandidateCategory'
 import ResultCategory from './components/DashbordHome/ResultCategory'
+import NotFound from './components/NotFound'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -37,7 +38,7 @@ const router = createBrowserRouter(
             errorElement={<ViewsDetialError />}
         >
             <Route
-                index
+                path='login/dashbroad'
                 element={<Login />}
             // loader={loginLoader}
             />
@@ -52,7 +53,7 @@ const router = createBrowserRouter(
             // loader={loginLoader}
             /> */}
             <Route
-                path="dashboard"
+                path="/"
                 element={<Dashboard />}
                 loader={loginLoader}
             >
@@ -92,7 +93,7 @@ const router = createBrowserRouter(
                 />
             </Route>
 
-            <Route element={<h1>Not Found</h1>} />
+            <Route path='*' element={<NotFound />} />
             {/* <Route
                 path="*"
                 element={<Login />}

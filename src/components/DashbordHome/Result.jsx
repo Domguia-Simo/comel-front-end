@@ -20,7 +20,7 @@ export default function Result() {
             }}>
                 <MDBBtn color="warning"
                     onClick={() => {
-                        navigate("/dashboard/result/")
+                        navigate("/result/")
                     }}
                 >
                     Less..<i className='fas fa-long-arrow-up'></i>

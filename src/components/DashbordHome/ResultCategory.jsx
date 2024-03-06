@@ -29,7 +29,7 @@ export default function ResultCategory() {
                     load = loading.map((value) => false);
                     load[i] = true;
                     setLoading(load);
-                    navigate("/dashboard/result/" + item._id)
+                    navigate("/result/" + item._id)
                     // window.location.pathname = "/dashboard/result/" + item._id
                 }}
             >

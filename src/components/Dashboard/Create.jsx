@@ -32,7 +32,7 @@ export default function Elections() {
                     if (data.status) {
                         setSuccess(data.message)
                         setEnterTitle(false)
-                        navigate("/dashboard/elections", { replace: true })
+                        navigate("/elections", { replace: true })
                     } else
                         setError(data.message)
                     setLoading(false)
@@ -66,7 +66,7 @@ export default function Elections() {
                 // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
-                    navigate("/dashboard/elections", { replace: true })
+                    navigate("/elections", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -94,7 +94,7 @@ export default function Elections() {
                 // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
-                    navigate("/dashboard/elections", { replace: true })
+                    navigate("/elections", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -122,7 +122,7 @@ export default function Elections() {
                 // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
-                    navigate("/dashboard/elections", { replace: true })
+                    navigate("/elections", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -198,7 +198,7 @@ export default function Elections() {
                         <button
                             className='submit2'
                             style={{ background: "green" }}
-                            onClick={() => { navigate(`/dashboard/result/${item._id}`) }}>
+                            onClick={() => { navigate(`/result/${item._id}`) }}>
                             RESULT
                         </button>
                     )}
@@ -271,7 +271,7 @@ export default function Elections() {
             </>
         )
     } else {
-        window.location.pathname = '/dashboard/home';
+        window.location.pathname = '/home';
     }
 
 }

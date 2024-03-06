@@ -1,5 +1,5 @@
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
     MDBBtn, MDBCard,
     MDBCardBody, MDBCardFooter, MDBCardText,
@@ -7,86 +7,13 @@ import {
     MDBModalContent, MDBModalDialog, MDBModalFooter,
     MDBModalHeader, MDBModalTitle, MDBRow
 } from "mdb-react-ui-kit"
-import img1 from "../../assets/image/1.jpg"
-import img2 from "../../assets/image/2.jpg"
-import img3 from "../../assets/image/3.jpg"
-import img4 from "../../assets/image/4.jpg"
-import img5 from "../../assets/image/5.jpg"
-import img6 from "../../assets/image/6.jpg"
-import img7 from "../../assets/image/7.jpg"
-import img8 from "../../assets/image/8.jpg"
-import img9 from "../../assets/image/9.jpg"
 import { Link, useLoaderData, useNavigate } from "react-router-dom"
-const item = [
-    {
-        title: "Install Wigs",
-        description: "This is the DECS title  mjaksjs askjs xnjjan xjsaj jashsjsajsa snjahsja sjadjhjdshalk bjsasjhcjhjas jbjk ahjhja shajk saghasgaks cjaj bsagjasa c ahsajkkjas bkajskasjk bsabkdsa",
-        catagory: 'Men',
-        image: [img1],
-        prix: 320,
-    },
-    {
-        title: "Boho Braids",
-        description: "This is the DECS title 1 mjaksjs askjs xnjjan xjsaj jashsjsajsa snjahsja sjadjhjdshalk bjsasjhcjhjas jbjk ahjhja shajk saghasgaks cjaj bsagjasa c ahsajkkjas bkajskasjk bsabkdsa",
-        catagory: 'Men',
-        image: [img2],
-        prix: 220,
-    },
-    {
-        title: "Knotless Braids",
-        description: "This is the DECS title 2 mjaksjs askjs xnjjan xjsaj jashsjsajsa snjahsja sjadjhjdshalk bjsasjhcjhjas jbjk ahjhja shajk saghasgaks cjaj bsagjasa c ahsajkkjas bkajskasjk bsabkdsa",
-        catagory: 'Men',
-        image: [img3],
-        prix: 200,
-    },
-    {
-        title: "Cornrows",
-        description: "This is the DECS title 3 mjaksjs askjs xnjjan xjsaj jashsjsajsa snjahsja sjadjhjdshalk bjsasjhcjhjas jbjk ahjhja shajk saghasgaks cjaj bsagjasa c ahsajkkjas bkajskasjk bsabkdsa",
-        catagory: 'Men',
-        image: [img4],
-        prix: 120,
-    },
-    {
-        title: "Box Braids",
-        description: "This is the DECS title 4 mjaksjs askjs xnjjan xjsaj jashsjsajsa snjahsja sjadjhjdshalk bjsasjhcjhjas jbjk ahjhja shajk saghasgaks cjaj bsagjasa c ahsajkkjas bkajskasjk bsabkdsa",
-        catagory: 'Men',
-        image: [img5],
-        prix: 180,
-    },
-    {
-        title: "Two Strands twist",
-        description: "This is the DECS title 5",
-        catagory: 'Women',
-        image: [img6],
-        prix: 85,
-    },
-    {
-        title: "Crochet braids",
-        description: "This is the DECS title 6",
-        catagory: 'Women',
-        image: [img7],
-        prix: 160,
-    },
-    {
-        title: "Passion braids",
-        description: "This is the DECS title 6",
-        catagory: 'Women',
-        image: [img8],
-        prix: 160,
-    },
-    {
-        title: "Twist",
-        description: "This is the DECS title 6",
-        catagory: 'Women',
-        image: [img9],
-        prix: 160,
-    }
-]
+
 
 export default function ViewCandidates() {
     const navigate = useNavigate()
     const candidatesData = useLoaderData()
-    // console.log("candidatesData", candidatesData);
+    console.log("candidatesData", candidatesData);
     function Design({ design, ind }) {
         const [basicModal, setBasicModal] = React.useState(false)
         const [data, setData] = React.useState({
@@ -98,6 +25,7 @@ export default function ViewCandidates() {
         })
         const [success, setSuccess] = React.useState('')
         const [respond, setRespond] = React.useState('')
+        const [warning, setWarning] = React.useState('')
         const [error, setError] = React.useState('')
         const [loading, setLoading] = React.useState(false)
 
@@ -109,18 +37,105 @@ export default function ViewCandidates() {
                 setData({ ...data, [e.target.name]: !data.confirm })
             }
         }
+        function checkResponse(id) {
+            const attemptPayment = async (transID) => {
+                try {
+                    let resp = await fetch(`${process.env.REACT_APP_API_URL}/verify/${transID}`, {
+                        method: 'put',
+                        headers: {
+                            'content-type': 'application/json',
+                            'accept': 'application/json',
+                            'access-control-origin': '*',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            payment: data.payment,
+                            candidate: data.candidate,
+                            election: data.election,
+                            phone: data.phone,
+                            confirm: data.confirm,
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(respond => {
+                            return respond
+                        })
+                        .catch(err => {
+                            return false
+                        })
+                    return resp
+                } catch (e) {
+                    setError('Verify your internet connection')
+                    return false
+                }
+            }
+            let attempts = 0; // Initialize attempts counter outside the interval
+            let maxAttempts = 5; // Set maximum attempts
+
+            const intervalId = setInterval(async () => {
+                attempts++;
+                if (attempts > maxAttempts) {
+                    clearInterval(intervalId)
+                    setError('')
+                    setSuccess('')
+                    setRespond('')
+                    setWarning('')
+                    setLoading(false)
+                    setError("timeout")
+                    return {
+                        message: 'Transaction Failed',
+                    };
+                }
+                let payResponse = await attemptPayment(id);
+                if (payResponse) {
+                    let status = payResponse.status
+                    if (status === 'FAILED') {
+                        clearInterval(intervalId)
+                        setError('')
+                        setSuccess('')
+                        setRespond('')
+                        setWarning('')
+                        setRespond(payResponse.reason)
+                        setLoading(false)
+                        return {
+                            message: payResponse.reason,
+                        };
+                    }
+                    if (status === 'SUCCESSFUL') {
+                        clearInterval(intervalId)
+                        setError('')
+                        setSuccess('')
+                        setRespond('')
+                        setWarning('')
+                        setSuccess('Your vote has being accepted')
+                        setTimeout(() => {
+                            setLoading(false);
+                            setBasicModal(false);
+                        }, 2000);
+                        return {
+                            message: "accept successful",
+                        };
+                    }
+                }
+            }, 15000);
+        }
         const votes = async () => {
             setError('')
             setSuccess('')
             setRespond('')
+            setWarning('')
             setLoading(true)
-            if (data.confirm === false) {
-                setRespond("Please comfrim you votes");
-                setLoading(false);
+            if (data.phone === '') {
+                setRespond("Enter a phone number for payment")
+                setLoading(false)
+                return
+            } else if (data.confirm === false) {
+                setRespond("Confirm you candidate")
+                setLoading(false)
                 return
             } else {
                 try {
-                    await fetch(`${process.env.REACT_APP_API_URL}/voter/votes`, {
+                    await fetch(`${process.env.REACT_APP_API_URL}/payment`, {
                         method: 'post',
                         headers: {
                             'content-type': 'application/json',
@@ -129,47 +144,44 @@ export default function ViewCandidates() {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         },
                         body: JSON.stringify({
+                            payment: data.payment,
                             candidate: data.candidate,
                             election: data.election,
+                            phone: "237" + data.phone,
                             confirm: data.confirm,
                         })
                     })
                         .then(res => res.json())
                         .then(respond => {
-                            // console.log(respond)
-                            if (respond.status) {
-                                setSuccess(respond.message)
-                                setTimeout(() => {
+                            console.log(respond)
+                            if (respond.statusError) {
+                                setRespond(respond.message);
+                                setLoading(false);
+                            } else if (respond.error_code) {
+                                setRespond(respond.message);
+                                setLoading(false);
+                            } else if (respond.status) {
+                                if (respond.status === 'PENDING') {
+                                    setWarning("valid transaction on your phone");
+                                    checkResponse(respond.reference)
+                                } else {
+                                    setRespond("Transaction failed please start back")
                                     setLoading(false)
-                                    setBasicModal(false)
-                                }, 1500);
-                            } else if (respond.statusTrans) {
-                                setRespond(respond.message)
-                                setLoading(false)
-                            } else if (respond.statusError) {
-                                setRespond(respond.message)
-                                setLoading(false)
-                            } else if (respond.statusCon) {
-                                setError(respond.message)
-                                setLoading(false)
-                            } else if (respond.login) {
-                                setRespond(respond.message)
-                                setTimeout(() => {
-                                    navigate('/', { replace: true })
-                                }, 1500);
+                                }
+                            } else {
+                                setWarning("operator " + respond.operator + " Press " + respond.ussd_code + " on your phone and valid transaction");
+                                checkResponse(respond.reference)
                             }
-                            setLoading(false)
-
                         })
                         .catch(err => {
-                            // console.log(err)
+                            console.log(err)
                             setLoading(false)
                             setError('internet problem')
                         })
                 } catch (e) {
-                    // console.log("err", e)
+                    console.log("err", e)
                     setError('Verify your internet connection')
-                    // setLoading(false)
+                    setLoading(false)
                 }
             }
         }
@@ -205,31 +217,45 @@ export default function ViewCandidates() {
                                         respond != '' ? <span style={{ color: 'darkred' }}>{respond}</span> : ''
                                     }
                                     {
+                                        warning != '' ? <span style={{ color: 'goldenrod' }}>{warning}</span> : ''
+                                    }
+                                    {
                                         success != '' ? <span style={{ color: 'green' }}>{success}</span> : ''
                                     }
                                 </MDBRow>
                                 <MDBRow>
-                                    <MDBRow>
-                                        <center>
-                                            {/* <img
-                                                className=' pink-circular-fill2'
-                                                src='https://mdbootstrap.com/img/new/standard/city/062.webp'
-                                                // src={design.image[0]}
-                                                alt='...'
-                                                width={"200px"}
-                                                height={"200px"}
-                                            /> */}
-                                            <h1>
-                                                {design.name}
-                                            </h1>
-                                        </center>
-                                    </MDBRow>
+                                    {/* <MDBCol>
+                                        <span>
+                                            <i className="fas fa-credit-card"></i>Select a payment method
+                                        </span>
+                                        <select
+                                            id="design"
+                                            name="payment"
+                                            onChange={e => {
+                                                setData({ ...data, ["payment"]: e.target.value })
+                                            }}
+                                            style={{
+                                                border: "solid 1px rgba(0, 0, 0, 0.3)",
+                                                color: "black",
+                                                margin: "5px",
+                                                width: "212px",
+                                                padding: "10px 10px",
+                                                borderRadius: "10px"
+                                            }}
+                                        >
+                                            <option value='MTN'>MTN Momo</option>
+                                            <option value='ORANGE'>Orange Money</option>
+                                        </select>
+                                    </MDBCol> */}
+                                    <MDBCol>
+                                        <span>
+                                            <i className="fas fa-volume-control-phone"></i>Phone Number
+                                        </span>
+                                        <input type="text" placeholder='Phone E.g 676132726' name="phone" onChange={e => handleChange(e)} required />
+                                    </MDBCol>
                                     <MDBRow>
                                         <div>
-                                            <input type="checkbox" value={data.confirm}
-                                                id="confirm" name='confirm'
-                                                onChange={e => handleChange(e)} required
-                                            />
+                                            <input type="checkbox" value={data.confirm} id="confirm" name='confirm' onChange={e => handleChange(e)} required />
                                             <label htmlFor='confirm' style={{ textAlign: 'center' }}>
                                                 <span>I Agree and confirm my vote for</span> <br />
                                                 <center><b> {design.name} </b></center>
@@ -268,7 +294,7 @@ export default function ViewCandidates() {
                 </MDBModal>
                 <MDBCard className='h-100' >
                     <center>
-                        {/* <div className='bg-image hover-overlay'
+                        <div className='bg-image hover-overlay'
                             style={{
                                 width: "200px",
                                 height: "200px",
@@ -293,19 +319,16 @@ export default function ViewCandidates() {
                             >
                                 <MDBBtn color="warning"
                                     onClick={() => {
-                                        setError('')
-                                        setSuccess('')
-                                        setRespond('')
                                         setBasicModal(true)
                                     }}
                                 >VOTE </MDBBtn>
                             </div>
-                        </div> */}
+                        </div>
                         <MDBCardBody style={{ height: "fit-content", border: 'solid 0px green' }}>
-                            <MDBCardTitle style={{fontSize:"50px"}}>{design.name}</MDBCardTitle>
-                            {/* <MDBCardText >
+                            <MDBCardTitle>{design.name}</MDBCardTitle>
+                            <MDBCardText >
                                 {shortText}
-                            </MDBCardText> */}
+                            </MDBCardText>
                         </MDBCardBody>
                         <MDBCardFooter style={{ color: "goldenrod" }}>
                             <MDBBtn color="warning"
@@ -330,7 +353,7 @@ export default function ViewCandidates() {
             }}>
                 <MDBBtn color="warning"
                     onClick={() => {
-                        navigate("/dashboard/home/")
+                        navigate("/home/")
                     }}
                 >
                     Less..<i className='fas fa-long-arrow-up'></i>
@@ -352,8 +375,7 @@ export const viewCandidatesLoader = async ({ params }) => {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/candidate/getCandidateByElection/${id}`)
 
     if (!res.ok) {
-        throw Error('Could not find that getting voter.')
+        throw Error('An error occur while get resources please check you connection and try again')
     }
-    // console.log("res.json()",res.json());
     return res.json()
 }

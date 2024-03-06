@@ -32,7 +32,7 @@ export default function CandidateCategory() {
                     load = loading.map((value) => false);
                     load[i] = true;
                     setLoading(load);
-                    navigate("/dashboard/home/" + item._id)
+                    navigate("/home/" + item._id)
                     // fetchVoter(item._id)
                     // window.location.pathname = "/dashboard/home/" + item._id
                 }}
@@ -74,8 +74,7 @@ export const homeLoader = async () => {
     })
     // console.log(res);
     if (!res.ok) {
-        throw Error('Access Diened')
+        throw Error('An error occur while get resources please check you connection and try again')
     }
-    // console.log("res.json()",res.json());
     return res.json()
 }

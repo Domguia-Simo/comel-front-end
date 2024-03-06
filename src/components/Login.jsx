@@ -56,7 +56,7 @@ export default function Login() {
             },
             body: JSON.stringify({
                 email: data.email,
-                password: data.name
+                password: data.password
             })
         })
             .then(res => res.json())
@@ -65,13 +65,13 @@ export default function Login() {
                 if (data.token) {
                     setSuccess(data.message)
                     // await localStorage.setItem('token', data.token)
-                    if (data.status) {
-                        await localStorage.setItem('token', data.token)
-                        window.location.pathname = "/dashboard/home"
-                    } else {
-                        await localStorage.setItem('token', data.token)
-                        window.location.pathname = "/email-verification"
-                    }
+                    // if (data.status) {
+                    await localStorage.setItem('token', data.token)
+                    window.location.pathname = "/home"
+                    // } else {
+                    //     await localStorage.setItem('token', data.token)
+                    //     window.location.pathname = "/email-verification"
+                    // }
                 } else {
                     setError(data.message)
                 }
@@ -150,11 +150,11 @@ export default function Login() {
 
                                 <div className="form-outline mb-4">
                                     <input
-                                        type="text"
+                                        type="password"
                                         id="form2Example28"
                                         className=""
-                                        placeholder='name'
-                                        name="name" onChange={e => handleChange(e)}
+                                        placeholder='password'
+                                        name="password" onChange={e => handleChange(e)}
                                         required
                                         style={{ border: 'solid 1px rgba(0,0,0,0.2)', outline: 'none', width: '280px', backgroundColor: 'rgb(250,250,250)' }}
                                     />
@@ -211,19 +211,19 @@ export const loginLoader = async ({ params }) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
+    let data = {}
     if (!res.ok) {
-        throw Error('Could not find that getting voter.')
+        data.isLogin = false;
+    } else {
+        let response = await res.json()
+        data.isLogin = response.isLogin;
+        data.name = response.name;
     }
     if (!res2.ok) {
-        throw Error('Could not find that getting voter.')
-    }
-    // console.log("res.json()",res.json());
-    let response = await res.json()
-    let response2 = await res2.json()
-    let data = {
-        isLogin: response.isLogin,
-        name: response.name,
-        isAdmin: response2.isAdmin,
+        data.isAdmin = false;
+    } else {
+        let response2 = await res2.json()
+        data.isAdmin = response2.isAdmin
     }
     return data
 

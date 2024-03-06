@@ -53,7 +53,7 @@ export default function Candidates() {
                 if (data.status) {
                     setSuccess(data.message)
                     setEnterTitle(false)
-                    navigate("/dashboard/candidates", { replace: true })
+                    navigate("/candidates", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -84,7 +84,7 @@ export default function Candidates() {
                 // console.log(data)
                 if (data.status) {
                     setSuccess(data.message)
-                    navigate("/dashboard/candidates", { replace: true })
+                    navigate("/candidates", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -122,7 +122,7 @@ export default function Candidates() {
                 if (data.status) {
                     setSuccess(data.message)
                     setEnterTitle(false)
-                    navigate("/dashboard/candidates", { replace: true })
+                    navigate("/candidates", { replace: true })
                 } else
                     setError(data.message)
                 setLoading(false)
@@ -368,7 +368,7 @@ export default function Candidates() {
             </>
         )
     } else {
-        window.location.pathname = '/dashboard/home';
+        window.location.pathname = '/home';
     }
 }
 
