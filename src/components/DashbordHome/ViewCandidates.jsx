@@ -71,21 +71,7 @@ export default function ViewCandidates() {
             }
             let attempts = 0; // Initialize attempts counter outside the interval
             let maxAttempts = 5; // Set maximum attempts
-
             const intervalId = setInterval(async () => {
-                attempts++;
-                if (attempts > maxAttempts) {
-                    clearInterval(intervalId)
-                    setError('')
-                    setSuccess('')
-                    setRespond('')
-                    setWarning('')
-                    setLoading(false)
-                    setError("timeout")
-                    return {
-                        message: 'Transaction Failed',
-                    };
-                }
                 let payResponse = await attemptPayment(id);
                 if (payResponse) {
                     let status = payResponse.status
@@ -116,6 +102,19 @@ export default function ViewCandidates() {
                             message: "accept successful",
                         };
                     }
+                }
+                attempts++;
+                if (attempts > maxAttempts) {
+                    clearInterval(intervalId)
+                    setError('')
+                    setSuccess('')
+                    setRespond('')
+                    setWarning('')
+                    setLoading(false)
+                    setError("timeout")
+                    return {
+                        message: 'Transaction Failed',
+                    };
                 }
             }, 15000);
         }
@@ -302,8 +301,8 @@ export default function ViewCandidates() {
                             }}>
                             <img
                                 className=' pink-circular-fill2'
-                                src='https://mdbootstrap.com/img/new/standard/city/062.webp'
-                                // src={design.image[0]}
+                                // src='https://mdbootstrap.com/img/new/standard/city/062.webp'
+                                src={`http://localhost:5000/images/${design.name}`}
                                 alt='...'
                                 width={"200px"}
                                 height={"200px"}
