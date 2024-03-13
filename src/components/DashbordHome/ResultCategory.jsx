@@ -61,7 +61,7 @@ export default function ResultCategory() {
         >
             <NavLink
                 className='headerLinkCategory'
-                to={`/result/${item._id}`}
+                to={`/result/${item._id}#detailasjkadjgasdhas`}
                 onClick={() => {
                     let load = [];
                     load = loading.map((value) => false);

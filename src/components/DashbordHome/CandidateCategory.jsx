@@ -66,7 +66,7 @@ export default function CandidateCategory() {
         >
             <NavLink
                 className='headerLinkCategory'
-                to={`/home/${item._id}`}
+                to={`/home/${item._id}#detailasjkadjgasdhas`}
                 onClick={() => {
                     // console.log(item);
                     let load = [];

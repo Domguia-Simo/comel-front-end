@@ -53,7 +53,7 @@ const Header = () => {
             <div id='appContainer'>
                 <div style={{
                     // minHeight: "600px",
-                    minHeight: "97%",
+                    minHeight: "100%",
                     width: '100%',
                     overflow: "",
                     background: 'linear-gradient( 270deg, rgba(0,0,0,0.6) ,rgba(17, 221, 20, 0.5 )'
@@ -72,14 +72,15 @@ const Header = () => {
                 </div>
                 <div
                     style={{
-                        background: "rgba(152, 145, 99,0.3)",
+                        background: 'linear-gradient( 270deg, rgba(0,0,0,0.6) ,rgba(17, 221, 20, 0.5 )',
                         fontSize: 'large',
                         width: "100%",
                         display: 'flex',
                         justifyContent: 'center',
                         padding: '5px',
-                        fontSize: 'small'
+                        fontSize: 'small',
                     }}>
+                        <br/>
                     <div style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
                         <span>Created by:</span>
                         <span style={{ fontWeight: '800' }}>K.A & D.S.U.</span>
