@@ -13,19 +13,7 @@ export default function Result() {
     return (
         <div
             id="detailasjkadjgasdhas"
-            style={{ marginTop: "20px" }}>
-            <div style={{
-                display: "flex",
-                justifyContent: "flex-end"
-            }}>
-                <MDBBtn color="warning"
-                    onClick={() => {
-                        navigate("/result/")
-                    }}
-                >
-                    Less..<i className='fas fa-long-arrow-up'></i>
-                </MDBBtn>
-            </div>
+            style={{ marginTop: "28%" }}>
             <center>
                 <center style={{ border: 'solid 1px green', width: '100%', height: '400px' }}>
                     <div style={{ height: "400px", marginTop: "0px" }}>

@@ -345,19 +345,7 @@ export default function ViewCandidates() {
     }
     return (
         <div id="detailasjkadjgasdhas"
-            style={{ marginTop: "20px" }}>
-            <div style={{
-                display: "flex",
-                justifyContent: "flex-end"
-            }}>
-                <MDBBtn color="warning"
-                    onClick={() => {
-                        navigate("/home/")
-                    }}
-                >
-                    Less..<i className='fas fa-long-arrow-up'></i>
-                </MDBBtn>
-            </div>
+            style={{ marginTop: "120px" }}>
             <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
 
                 {candidatesData.candidates.map((items, i) => (

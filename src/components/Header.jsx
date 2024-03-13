@@ -50,61 +50,39 @@ const Header = () => {
     }
     return (
         <React.Fragment>
-            <div style={{
-                // overflow:'hidden'
-            }}>
+            <div id='appContainer'>
                 <div style={{
-                    minHeight: "600px",
-                    // height: '100%', 
+                    // minHeight: "600px",
+                    minHeight: "97%",
                     width: '100%',
-                    // position: 'absolute',
-                    // overflow:'hidden',
-                    // background: "repeating-linear-gradient(-214deg,rgba(19, 13, 13, 0.284),rgba(19, 13, 13, 0.284) 1px, transparent 10px, transparent 13px)",
+                    overflow: "",
                     background: 'linear-gradient( 270deg, rgba(0,0,0,0.6) ,rgba(17, 221, 20, 0.5 )'
                 }}>
-                    <div
+                    {/* <div
                         style={{
                             minHeight: "650px",
                             width: "95%",
                             margin: "0 auto",
 
                         }}>
-                        <div>
-                            <Outlet />
-                        </div>
-                    </div>
-
-                    {/* <div
-                        style={{
-                            background: "rgba(152, 145, 99,0.3)",
-                            fontSize: 'large',
-                            width: "100%",
-                            position: 'absolute', bottom: '0',
-                            display: 'flex', justifyContent: 'center',
-                            padding: '5px', fontSize: 'small'
-                            // margin: "0 auto",
-                        }}>
-                        <div style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
-                            <span>Created by:</span>
-                            <span style={{ fontWeight: '800' }}>Kamsong Anderson & D.S.U.</span>
-                        </div>
+                        <div> */}
+                    <Outlet />
+                    {/* </div>
                     </div> */}
-                    <div
-                        style={{
-                            background: "rgba(152, 145, 99,0.3)",
-                            fontSize: 'large',
-                            width: "100%",
-                            // position: 'absolute', bottom: '0',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            padding: '5px',
-                            fontSize: 'small'
-                            // margin: "0 auto",
-                        }}>
-                        <div style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
-                            <span>Created by:</span>
-                            <span style={{ fontWeight: '800' }}>K.A & D.S.U.</span>
-                        </div>
+                </div>
+                <div
+                    style={{
+                        background: "rgba(152, 145, 99,0.3)",
+                        fontSize: 'large',
+                        width: "100%",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        padding: '5px',
+                        fontSize: 'small'
+                    }}>
+                    <div style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
+                        <span>Created by:</span>
+                        <span style={{ fontWeight: '800' }}>K.A & D.S.U.</span>
                     </div>
                 </div>
             </div>

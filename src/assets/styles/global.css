@@ -2,6 +2,22 @@
     --primary: goldenrod;
     --secondary: #2b3452;
 }
+
+html,
+body,
+#appContainer,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    /* auto for header, 1fr for remaining space */
+}
+
 .header nav {
     display: flex;
     gap: 16px;
@@ -25,6 +41,7 @@
 .header span a.active {
     color: grey;
 }
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -35,4 +52,39 @@ input[type="password"] {
     padding: 10px 10px;
     border-radius: 10px;
     color: rgb(152, 145, 99);
+}
+
+.headerLink {
+    color: black;
+    border: solid 1px grey;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.headerLink.pending{
+    animation: header-bg 1s infinite;
+}
+.headerLink.active {
+    color: yellow;
+}
+
+.headerLinkCategory {
+    color: rgb(0, 0, 0);
+}
+.headerLinkCategory.pending{
+    animation: header-bg2 2s infinite;
+}
+.headerLinkCategory.active{
+    color: greenyellow;
+    /* height: fit-content; */
+}
+@keyframes header-bg {
+    0%{color: rgb(45, 43, 30);}
+    75%{color: rgb(161, 151, 75);}
+    100%{color: yellow;}
+}
+@keyframes header-bg2 {
+    0%{color: rgb(32, 45, 30);}
+    75%{color: rgb(79, 161, 75);}
+    100%{color: greenyellow;}
 }

@@ -58,14 +58,21 @@ const Dashboard = () => {
     // if (user.isLogin) {
     return (
         <React.Fragment>
-            <div>
+            <div
+            // className='grid-container'
+            >
                 <div
                     style={{
                         width: "95%",
                         margin: "0 auto",
-
+                        // background: "red",
+                        // height:"fit-content",
+                        height:"100px",
+                        position: "fixed",
+                        left: "2.5%",
+                        zIndex: 5,
+                        background: 'linear-gradient( 270deg, rgba(0,0,0,0.6) ,rgba(17, 221, 20, 0.5 )'
                     }}>
-
                     <div className='header'
                         style={{
                             padding: '5px 30px',
@@ -101,8 +108,12 @@ const Dashboard = () => {
                         </MDBRipple>
                         <>
                             <div style={{ display: 'flex', columnGap: '25px', alignItems: 'center' }}>
-                                <NavLink to="/home" style={{ color: location.pathname.split('/')[2] == 'home' ? 'blue' : 'black', border: 'solid 1px grey', padding: '5px 10px', borderRadius: '10px', backgroundColor: 'rgba(0,0,0,0.2)' }}>HOME</NavLink>
-                                <NavLink to="/result" style={{ color: location.pathname.split('/')[2] == 'result' ? 'blue' : 'black', border: 'solid 1px grey', padding: '5px 10px', borderRadius: '10px', backgroundColor: 'rgba(0,0,0,0.2)' }}>RESULT</NavLink>
+                                <NavLink to="/home"
+                                    className='headerLink'
+                                >HOME</NavLink>
+                                <NavLink to="/result"
+                                    className='headerLink'
+                                >RESULT</NavLink>
                                 {user.isLogin ? (<>
                                     <a
                                         style={{ border: 'solid 1px grey', padding: '5px 10px', borderRadius: '10px', backgroundColor: 'rgba(0,0,0,0.2)' }}
@@ -139,7 +150,6 @@ const Dashboard = () => {
                             </span>
                         </>
                     </div>
-
                     {/* Admin Options */}
                     <div>
                         {user.isAdmin ? (
@@ -174,9 +184,16 @@ const Dashboard = () => {
                             <></>
                         )}
                     </div>
-
                 </div>
-                <Outlet />
+                <div>
+                    <div style={{
+                        width: "95%",
+                        margin: "0 auto",
+                        maxHeight: "90%",
+                    }}>
+                        <Outlet />
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     )
